@@ -36,3 +36,41 @@ B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swa
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\CsvHelper.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\appsettings.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.staticwebassets.endpoints.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.exe
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.deps.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.runtimeconfig.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.pdb
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\CsvHelper.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.csproj.AssemblyReference.cache
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.AssemblyInfoInputs.cache
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.AssemblyInfo.cs
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.csproj.CoreCompileInputs.cache
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.sourcelink.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\scopedcss\bundle\tecbank.styles.css
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets\msbuild.tecbank.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets\msbuild.tecbank.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets\msbuild.build.tecbank.props
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.tecbank.props
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.tecbank.props
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.csproj.Up2Date
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\refint\tecbank.dll
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.pdb
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\tecbank.genruntimeconfig.cache
+C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\ref\tecbank.dll

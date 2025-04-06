@@ -63,5 +63,136 @@ namespace tecbank.services{
             var client = clients.FirstOrDefault(c => c.username == username && c.password == password);
             return client;
         }
+
+        // --------------------------------[ POST Methods ]--------------------------------
+        public void Client_Add(ClientAccount client)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            clients.Add(client);
+        }
+
+        public void Account_Add(BankAccount account)
+        {
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+
+            accounts.Add(account);
+        }
+
+        public void Loan_Add(BankLoan loan)
+        {
+            if (loan == null)
+                throw new ArgumentNullException(nameof(loan));
+
+            // Validar que el cliente y asesor existan
+            if (!clients.Any(c => c.id == loan.client_id))
+                throw new ArgumentException("Cliente no existe.");
+            if (!employees.Any(e => e.id == loan.adviser_id))
+                throw new ArgumentException("Asesor no existe.");
+
+            loans.Add(loan);
+        }
+        
+        // --------------------------------[ PUT Methods ]--------------------------------
+        public void Client_Update(ClientAccount client)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            var existingClient = Client_findByID(client.id);
+            if (existingClient == null)
+                throw new KeyNotFoundException("Cliente no encontrado.");
+
+            // Actualizar propiedades
+            existingClient.name = client.name;
+            existingClient.last_name1 = client.last_name1;
+            existingClient.last_name2 = client.last_name2;
+            existingClient.type = client.type;
+            existingClient.username = client.username;
+            existingClient.password = client.password;
+            existingClient.monthly_income = client.monthly_income;
+            existingClient.phone_number = client.phone_number;
+            existingClient.address = client.address;
+        }
+
+        public void Account_Update(BankAccount account)
+        {
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+
+            var existingAccount = accounts.FirstOrDefault(a => a.id == account.id);
+            if (existingAccount == null)
+                throw new KeyNotFoundException("Cuenta no encontrada.");
+
+            existingAccount.type = account.type;
+            existingAccount.balance = account.balance;
+            existingAccount.description = account.description;
+            existingAccount.currency_id = account.currency_id;
+            existingAccount.client_id = account.client_id;
+        }
+
+        public void Loan_Update(BankLoan loan)
+        {
+            if (loan == null)
+                throw new ArgumentNullException(nameof(loan));
+
+            var existingLoan = loans.FirstOrDefault(l => l.id == loan.id);
+            if (existingLoan == null)
+                throw new KeyNotFoundException("Préstamo no encontrado.");
+
+            // Solo actualiza campos modificables (evita cambiar client_id o adviser_id)
+            existingLoan.lapse = loan.lapse;
+            existingLoan.interest_rate = loan.interest_rate;
+            existingLoan.balance = loan.balance;
+            existingLoan.total = loan.total;
+            existingLoan.state = loan.state;
+        }
+        // --------------------------------[ DELETE Methods ]--------------------------------
+        public void Client_Delete(int id)
+        {
+            var client = Client_findByID(id);
+            if (client == null)
+                throw new KeyNotFoundException("Cliente no encontrado.");
+
+            clients.Remove(client);
+        }
+
+        public void Account_Delete(string id)
+        {
+            var account = accounts.FirstOrDefault(a => a.id == id);
+            if (account == null)
+                throw new KeyNotFoundException("Cuenta no encontrada.");
+
+            accounts.Remove(account);
+        }
+
+        
+        public void Card_Add(BankCard card)
+        {
+            if (card == null) throw new ArgumentNullException(nameof(card));
+            cards.Add(card);
+        }
+
+        
+        public void Card_Delete(int cardNum)
+        {
+            var card = cards.FirstOrDefault(c => c.card_num == cardNum);
+            if (card == null) throw new KeyNotFoundException("Tarjeta no encontrada.");
+            cards.Remove(card);
+        }
+
+        public void Card_Update(BankCard card)
+        {
+            if (card == null) throw new ArgumentNullException(nameof(card));
+            var existingCard = cards.FirstOrDefault(c => c.card_num == card.card_num);
+            if (existingCard == null) throw new KeyNotFoundException("Tarjeta no encontrada.");
+            
+            existingCard.type = card.type;
+            existingCard.cvc = card.cvc;
+            existingCard.balance = card.balance;
+            existingCard.account_id = card.account_id;
+        }
     }
 }
