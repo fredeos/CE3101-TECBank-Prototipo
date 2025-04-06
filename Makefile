@@ -1,5 +1,0 @@
-
-
-
-call:
-	echo "Hello World"
