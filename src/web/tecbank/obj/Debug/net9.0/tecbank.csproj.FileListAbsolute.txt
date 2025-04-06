@@ -35,3 +35,4 @@ B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\obj\Debug\net9.0\ref
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\CsvHelper.dll

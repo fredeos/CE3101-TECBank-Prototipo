@@ -1,0 +1,15 @@
+<properties>
+    <table_id> 1 </table_id>
+    <table_name> "Table" </table_name>
+    <pk_keys>
+        <pk_key>
+            <pk_name> id </pk_name>
+        </pk_key>
+    </pk_keys>
+    <fk_keys>
+        <fk_key>
+            <fk_name> user_id </fk_name>
+            <ref_table_id> 2 </ref_table_id>
+        </fk_key>
+    </fk_keys>
+</properties>
