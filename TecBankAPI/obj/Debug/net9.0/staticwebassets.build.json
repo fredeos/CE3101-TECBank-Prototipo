@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "/v825jdrJFIUWwxaTlIjBTYtzEh2SRjpRwcd4QZN/E0=",
+  "Source": "TecBankAPI",
+  "BasePath": "_content/TecBankAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

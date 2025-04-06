@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCliente xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Cliente>
+    <Id>3ad0794f-1708-41ec-a364-ed350680b30f</Id>
+    <NombreCompleto>Ludwin Ramos</NombreCompleto>
+    <Cedula>30304050607</Cedula>
+    <Direccion>Santa Cruz, Guanacaste</Direccion>
+    <Telefono>6119809</Telefono>
+    <IngresoMensual>10000</IngresoMensual>
+    <TipoCliente>Físico</TipoCliente>
+    <Usuario>ludwinr</Usuario>
+    <Password>12345</Password>
+  </Cliente>
+  <Cliente>
+    <Id>ddaa45a0-5214-452e-9f84-aabb4ff4ca5a</Id>
+    <NombreCompleto>Frederick</NombreCompleto>
+    <Cedula>29303003</Cedula>
+    <Direccion>Cartago</Direccion>
+    <Telefono>71182727</Telefono>
+    <IngresoMensual>0</IngresoMensual>
+    <TipoCliente>Físico</TipoCliente>
+    <Usuario>frederick1234</Usuario>
+    <Password>1234</Password>
+  </Cliente>
+</ArrayOfCliente>

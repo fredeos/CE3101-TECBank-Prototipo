@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCuenta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Cuenta>
+    <Numero>CR6046552246</Numero>
+    <Descripcion>Cuenta principal</Descripcion>
+    <Moneda>Colones</Moneda>
+    <Tipo>Ahorros</Tipo>
+    <ClienteId>43a84a87-1ce9-4883-9ad5-52b5c352f35e</ClienteId>
+    <Saldo>600000</Saldo>
+  </Cuenta>
+</ArrayOfCuenta>

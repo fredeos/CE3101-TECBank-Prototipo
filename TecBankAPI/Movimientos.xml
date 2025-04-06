@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfMovimiento xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Movimiento>
+    <Id>3ef75cdd-6b84-4710-ad5d-a096618279db</Id>
+    <CuentaNumero>CR6046552246</CuentaNumero>
+    <Fecha>2025-04-05T13:47:32.9364804-06:00</Fecha>
+    <Tipo>Depósito</Tipo>
+    <Monto>100000</Monto>
+    <Descripcion>Depósito inicial</Descripcion>
+  </Movimiento>
+</ArrayOfMovimiento>
