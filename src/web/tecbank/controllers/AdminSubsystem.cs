@@ -103,8 +103,7 @@ namespace tecbank.controllers{
         }
 
         [HttpPost("accounts/add")]
-        public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account)
-        {
+        public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account){
             if (account == null)
             {
                 return BadRequest("Datos de la cuenta inválidos.");
@@ -127,8 +126,7 @@ namespace tecbank.controllers{
         }
 
         [HttpPost("loans/add")]
-        public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan)
-        {
+        public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan){
             try
             {
                 if (loan == null)

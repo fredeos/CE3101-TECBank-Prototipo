@@ -503,24 +503,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Carlos CL\\.nuget\\packages\\": {}
+    "C:\\Users\\frede\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Carlos CL\\Desktop\\Prototipo\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\tecbank.csproj",
+      "projectUniqueName": "B:\\workbench\\repos\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\tecbank.csproj",
       "projectName": "tecbank",
-      "projectPath": "C:\\Users\\Carlos CL\\Desktop\\Prototipo\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\tecbank.csproj",
-      "packagesPath": "C:\\Users\\Carlos CL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Carlos CL\\Desktop\\Prototipo\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\obj\\",
+      "projectPath": "B:\\workbench\\repos\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\tecbank.csproj",
+      "packagesPath": "C:\\Users\\frede\\.nuget\\packages\\",
+      "outputPath": "B:\\workbench\\repos\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Carlos CL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\frede\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -577,7 +585,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
