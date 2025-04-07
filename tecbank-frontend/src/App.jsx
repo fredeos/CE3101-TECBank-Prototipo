@@ -3,19 +3,33 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import LoginAdmin from './pages/admin/login_admin'
+import DashBoardAdmin from './pages/admin/dashboard_admin'
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
+import { Button } from "@/components/ui/button"
+ 
+function App() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-svh">
+      <Button>Click me</Button>
+    </div>
+  )
+}
+
+/*
 function App(){
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/loginAdmin" element={<LoginAdmin/>}/>
+        <Route path="/adminDashboard" element={<DashBoardAdmin/>}/>
       </Routes>
     </BrowserRouter>
   );
 }
 
-/*
+
 function App() {
   const [count, setCount] = useState(0)
 
