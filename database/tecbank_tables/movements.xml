@@ -1,0 +1,33 @@
+<table>
+    <name> movements </name>
+    <PKS> 
+        <PK> id </PK>
+    </PKS>
+    <FKs> 
+        <FK> card_id </FK>
+        <FK> account_id </FK>
+        <FK> currency_id </FK>
+    </FKs>
+    <tuples>
+        <value>
+            <id> "EF200"</id>
+            <total_transfer> -7000.00 </total_transfer>
+            <date> 2025-02-21T10:36:00 </date>
+            <description> "Compra en Servicios"</description>
+            <type> 2 </type>
+            <card_id> 40025 </card_id>
+            <account_id> "152CR54126bt67" </account_id>
+            <currency_id> 3 </currency_id>
+        </value>
+        <value>
+            <id> "EF200"</id>
+            <total_transfer> -100.00 </total_transfer>
+            <date> 2025-02-21T10:36:00 </date>
+            <description> "Transferencia" </description>
+            <type> 1 </type>
+            <card_id> -1 </card_id>
+            <account_id> "152CR54126bt67" </account_id>
+            <currency_id> 1 </currency_id>
+        </value>
+    </tuples>
+</table>

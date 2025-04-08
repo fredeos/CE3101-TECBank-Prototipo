@@ -1,3 +1,5 @@
 {
-    "key": "value" 
+    "name": "tecbank",
+    "ext":"xml",
+    "tables": ["clients","accounts", "cards"]
 }

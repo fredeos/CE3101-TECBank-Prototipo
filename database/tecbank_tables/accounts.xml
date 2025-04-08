@@ -1,0 +1,37 @@
+<table>
+    <name> accounts </name>
+    <id> 2 </id>
+    <PKs> 
+        <PK> id </PK>
+    </PKs>
+    <FKs> 
+        <FK> currency_id </FK>
+        <FK> client_id </FK>
+    </FKs>
+    <tuples> 
+        <value>
+            <id> 152CR54126bt67 </id>
+            <type> 2 </type>
+            <balance> 80000.00 </balance>
+            <description> Cuenta Personal </description>
+            <currency_id> 3 </currency_id>
+            <client_id> 301 </client_id>
+        </value>
+        <value>
+            <id> 897CR54134bt01 </id>
+            <type> 1 </type>
+            <balance> 7000.00 </balance>
+            <description> Cuenta de Trabajo </description>
+            <currency_id> 1 </currency_id>
+            <client_id> 301 </client_id>
+        </value>
+        <value>
+            <id> 646CR54186bt11 </id>
+            <type> 1 </type>
+            <balance> 40000.00 </balance>
+            <description> Cuenta Personal </description>
+            <currency_id> 1 </currency_id>
+            <client_id> 302 </client_id>
+        </value>
+    </tuples>
+</table>

@@ -1,0 +1,36 @@
+<table>
+    <name>clients</name>
+    <id>1</id>
+    <PKs> 
+        <PK>id</PK>
+    </PKs>
+    <FKs> 
+        
+    </FKs>
+    <tuples> 
+        <value>
+            <id>301</id>
+            <name>Isaac</name>
+            <last_name1>Ramirez</last_name1>
+            <last_name2>Herrera</last_name2>
+            <type>1</type>
+            <username>snk100</username>
+            <password>1234</password>
+            <monthly_income>3000000.00</monthly_income>
+            <phone_number>+506 3162 7168</phone_number>
+            <address>Cartago</address>
+        </value>
+        <value>
+            <id>302</id>
+            <name>Marco</name>
+            <last_name1>Rivera</last_name1>
+            <last_name2>Meneses</last_name2>
+            <type>1</type>
+            <username>marc300</username>
+            <password>1234</password>
+            <monthly_income>4500650.00</monthly_income>
+            <phone_number>+506 8163 7268</phone_number>
+            <address>Cartago</address>
+        </value>
+    </tuples>
+</table>

@@ -1,0 +1,22 @@
+<table>
+    <name> goals </name>
+    <PKS> 
+        <PK> adviser_id </PK>
+        <PK> target_profit </PK>
+        <PK> currency_id </PK>
+    </PKS>
+    <FKs> 
+        <FK> adviser_id </FK>
+        <FK> currency_id </FK>
+    </FKs>
+    <tuples>
+        <value> 
+            <adviser_id> 109 </adviser_id>
+            <target_profit> 100.00 </target_profit>
+            <start_date> 2025-04-25T23:59:00 </start_date>
+            <limit_date> 2025-05-26T23:59:00</limit_date>
+            <state> 0 </state>
+            <currency_id> 1 </currency_id>
+        </value>
+    </tuples>
+</table>
