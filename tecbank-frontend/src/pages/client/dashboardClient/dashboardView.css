@@ -1,0 +1,277 @@
+/* Base Styles */
+.dashboard-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+  }
+  
+  /* Navbar Styles */
+  .dashboard-nav {
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .nav-content {
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+  }
+  
+  .nav-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    height: 2rem;
+    width: 2rem;
+    color: #2563eb;
+  }
+  
+  .logo-text {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-button {
+    border-radius: 9999px;
+    height: 2rem;
+    width: 2rem;
+    background-color: #f3f4f6;
+  }
+  
+  .user-icon {
+    height: 1rem;
+    width: 1rem;
+  }
+  
+  .dropdown-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .dropdown-icon {
+    height: 1rem;
+    width: 1rem;
+  }
+  
+  .mobile-menu-button {
+    margin-left: 0.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-menu-button {
+      display: none;
+    }
+  }
+  
+  .mobile-menu-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  
+  .mobile-menu-content {
+    width: 300px;
+  }
+  
+  @media (min-width: 640px) {
+    .mobile-menu-content {
+      width: 400px;
+    }
+  }
+  
+  .mobile-menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .mobile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .mobile-user-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+  
+  .mobile-user-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .mobile-menu-divider {
+    border-color: #e5e7eb;
+    margin: 0.5rem 0;
+  }
+  
+  .mobile-logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    color: #dc2626;
+  }
+  
+  .mobile-logout-button:hover {
+    background-color: #fef2f2;
+    border-radius: 0.375rem;
+  }
+  
+  .mobile-logout-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.5rem;
+  }
+  
+  .welcome-section {
+    margin-top: 2rem;
+    margin-bottom: 10rem;
+  }
+  
+  .welcome-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-subtitle {
+    color: #4b5563;
+  }
+  
+  /* Cards Grid */
+  .cards-grid {
+    display: grid;
+    gap: 4.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Card Styles */
+  .account-card .card-header.bg-blue {
+    background-color: #eff6ff;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .card-card .card-header.bg-purple {
+    background-color: #f5f3ff;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .loan-card .card-header.bg-green {
+    background-color: #f0fdf4;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .card-header {
+    padding: 1.5rem;
+  }
+  
+  .card-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .card-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  
+  .account-card .card-icon {
+    color: #2563eb;
+  }
+  
+  .card-card .card-icon {
+    color: #7c3aed;
+  }
+  
+  .loan-card .card-icon {
+    color: #16a34a;
+  }
+  
+  .card-options {
+    padding-top: 0.5rem;
+    padding-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .card-button {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    text-align: left;
+    border-radius: 0.375rem;
+  }
+  
+  .card-button:hover {
+    background-color: #f9fafb;
+  }
+  
+  .option-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-top: 0.125rem;
+  }
+  
+  .account-card .option-icon.text-blue {
+    color: #2563eb;
+  }
+  
+  .card-card .option-icon.text-purple {
+    color: #7c3aed;
+  }
+  
+  .loan-card .option-icon.text-green {
+    color: #16a34a;
+  }
+  
+  .option-text {
+    flex: 1;
+  }
+  
+  .option-title {
+    font-weight: 500;
+  }
+  
+  .option-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }

@@ -33,7 +33,7 @@ const LoginAdmin = () => {
             if (response.success) {
                 // Guardar token y redirigir
                 localStorage.setItem('tecbank_admin_token', response.token);
-                navigate('/admin/dashboard');
+                navigate('/adminDashboard');
             } else {
                 setError('Credenciales inválidas');
             }

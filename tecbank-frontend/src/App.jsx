@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
 import LoginAdmin from './pages/admin/login_admin'
 import DashBoardAdmin from './pages/admin/dashboard_admin'
+import LoginClient from './pages/client/loginClient/loginView'
+import DashBoardClient from './pages/client/dashboardClient/dashboardView'
+
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
-import { Button } from "@/components/ui/button"
- 
-function App() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      <Button>Click me</Button>
-    </div>
-  )
-}
-
-/*
 function App(){
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/loginAdmin" element={<LoginAdmin/>}/>
         <Route path="/adminDashboard" element={<DashBoardAdmin/>}/>
+        <Route path='/loginClient' element={<LoginClient/>}/>
+        <Route path='/dashboardClient' element={<DashBoardClient/>}/>
+
+        
       </Routes>
     </BrowserRouter>
   );
 }
 
-
+/*
+<Route path="/" element={<Home/>}/>
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -59,6 +56,15 @@ function App() {
   )
 }
 
+import { Button } from "@/components/ui/button"
+ 
+function App() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-svh">
+      <Button>Click me</Button>
+    </div>
+  )
+}
 */
 
 export default App
