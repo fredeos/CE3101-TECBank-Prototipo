@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tecbank")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+176e3a97ac884684768036c52276fc7fbe6d8f12")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9664bd8b5f70a2a7d36c61f5d05798ca5a67b3fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("tecbank")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tecbank")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

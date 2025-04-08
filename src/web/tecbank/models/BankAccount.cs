@@ -8,7 +8,7 @@ namespace tecbank.models{
     public class BankAccount{
         public String id {get; set;}
         public int type {get; set;}
-        public int balance {get; set;}
+        public float balance {get; set;}
         public String description {get; set;}
         public int currency_id {get; set;}
         public int client_id {get; set;}

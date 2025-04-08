@@ -4,11 +4,11 @@ namespace tecbank.models {
     /// </summary>
     /// loan_id, movement_id, type, date, total, card_id
     public class LoanPayment {
+        public String id {get; set;}
         public int loan_id {get; set;}
         public String movement_id {get; set;}
         public int type {get; set;}
         public DateTime date {get; set;}
-        public int total {get; set;}
-        public int card_id {get; set;}
+        public float total {get; set;}
     }
 }

@@ -61,11 +61,17 @@ namespace tecbank.controllers{
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
         [HttpGet("clients/{id}")]
         public ActionResult<ClientAccount> GetClient(int id){
-            var client = tecbankService.Client_findByID(id);
-            if (client == null){
+            try{
+                var client = tecbankService.Client_findByID(id);
+                if (client == null){
+                    return NotFound();
+                }
+                return Ok(client);
+            } catch (System.Exception e1){
+                Console.WriteLine(e1);
                 return NotFound();
             }
-            return Ok(client);
+            
         }
 
         [HttpGet("accounts/{id}")]

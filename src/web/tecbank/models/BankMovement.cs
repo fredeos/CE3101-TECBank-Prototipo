@@ -5,7 +5,7 @@ namespace tecbank.models {
     /// id, total_transfer, date, description, type, card_id, account_id, currency_id
     public class BankMovement {
         public String id {get; set;}
-        public int total_transfer {get; set;}
+        public float total_transfer {get; set;}
         public DateTime date {get; set;}
         public String description {get; set;}
         public int type {get; set;}

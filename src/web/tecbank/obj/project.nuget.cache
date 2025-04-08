@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "TYv5ZWy2F5k=",
+  "dgSpecHash": "fR6tdMGwCQs=",
   "success": true,
   "projectFilePath": "B:\\workbench\\repos\\CE3101-TECBank-Prototipo\\src\\web\\tecbank\\tecbank.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\frede\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.2\\microsoft.aspnetcore.openapi.9.0.2.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.openapi\\1.6.23\\microsoft.openapi.1.6.23.nupkg.sha512",

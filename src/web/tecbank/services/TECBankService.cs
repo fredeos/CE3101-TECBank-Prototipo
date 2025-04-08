@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System;
 
 using tecbank.services.DBMS;
 using tecbank.models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace tecbank.services{
     /// <summary>
@@ -29,8 +31,7 @@ namespace tecbank.services{
             new BankCard { card_num = 10307, type = 2, cvc = 501, balance = 60000, account_id = "646CR54186bt11"}
         };
 
-        private static List<BankMovement> movements = new List<BankMovement>
-        {
+        private static List<BankMovement> movements = new List<BankMovement>{
             new BankMovement { id = "EF200", total_transfer = 7000 , date = DateTime.Parse("2025-02-21T10:36:00"), description = "Compra en servicios" , type = 1, card_id=40025, account_id ="152CR54126bt67", currency_id = 3}
         };
 
@@ -44,15 +45,19 @@ namespace tecbank.services{
         };
         // --------------------------------[ Service atributes and properties]--------------------------------
         private static readonly String db_file = "tecbank";
-        private static readonly DBConnect tecbank_db = new DBConnect(db_file);
+        private static DBConnect tecbank_db = new DBConnect(db_file);
         // --------------------------------[ Service functions and methods ]--------------------------------
 
         // ::. CLIENT METHODS
         public List<ClientAccount> GetAllClients() => clients;
 
         public ClientAccount Client_findByID(int id) {
-            var client = clients.FirstOrDefault(c => c.id == id);
-            return client;
+            try {
+                var clients = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == id);
+                return clients.FirstOrDefault(c => c.id == id);
+            } catch (System.Exception e1){
+                throw new SystemException($"TABLE.SELECT failed: {e1}");
+            }   
         }
 
         public ClientAccount Client_find(String username, String password){
@@ -183,10 +188,32 @@ namespace tecbank.services{
         // ::. LOAN PAYMENT METHODS
         public List<LoanPayment> GetAllPayments() => payments;
 
+        public List<LoanPayment> Payments_FromClient(int user_id) {
+            List<LoanPayment> client_payments = [];
+            var client_loans = loans.FindAll(ln => ln.client_id == user_id);
+            for (int i=0; i < client_loans.Count; i++){
+                client_payments.InsertRange(0,payments.FindAll(p => p.loan_id == client_loans[i].id));
+            }
+            return client_payments;
+        }
+
+        public void Payment_MakeAPayment(int user_id, String account_id, LoanPayment payment){
+            var target_loan = loans.FirstOrDefault(ln => ln.id == payment.loan_id);
+            BankMovement related_movement = new BankMovement{ id = Guid.NewGuid().ToString(), description = "Pago de prestamo", date = payment.date, card_id = -1, total_transfer = payment.total, currency_id = target_loan.currency_id, account_id = account_id, type = 3};
+            payment.movement_id = related_movement.id;
+            target_loan.balance -= payment.total;
+            if (target_loan.total <= 0){
+                target_loan.state = 1;
+            }
+
+            payments.Add(payment);
+            movements.Add(related_movement);
+        }
+
         // ::. BANK LOAN METHODS
         public List<BankLoan> GetAllLoans() => loans;
 
-        public List<BankLoan> LoansFromClient(int user_id){
+        public List<BankLoan> Loans_FromClient(int user_id){
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);
             return client_loans;
         }
@@ -222,6 +249,37 @@ namespace tecbank.services{
 
         // ::. BANK MOVEMENT METHODS
         public List<BankMovement> GetAllMovements() => movements;
+
+        public void Movement_New(int user_id, BankMovement movement) {
+            // >> COMPROBACION 1: Integridad del objeto <<
+            if (movement == null) throw new ArgumentNullException(nameof(movement));
+            var user_accounts = accounts.FindAll(acc => acc.client_id == user_id);
+
+            // >> COMPROBACION 2: Existencia de cuentas <<
+            if (user_accounts.Count == 0) throw new KeyNotFoundException("El usuario tramitante no tiene ninguna cuenta a su nombre");
+            bool acc_exists = false;
+            for (int i = 0; i < user_accounts.Count; i++){
+                if (user_accounts[i].id == movement.account_id){
+                    acc_exists = true;
+                    break;
+                }
+            }
+            // >> COMPROBACION 3: Movimiento.Cuenta corresponde Usuario.Cuenta <<
+            if (!acc_exists) throw new KeyNotFoundException("La cuenta asignada al movimiento no corresponde a ninguna cuenta del cliente");
+            movement.id = Guid.NewGuid().ToString();
+            movements.Add(movement);
+        }
+
+        public List<BankMovement> Movements_FromAccount(String account_id, int client_id){
+            var client = clients.FirstOrDefault(cli => cli.id == client_id);
+            // >> COMPROBACION 1: Existencia del usuario <<
+            if (client == null) throw new KeyNotFoundException($"El usuario({client_id}) no existe");
+            var client_account = accounts.FirstOrDefault(acc => acc.id == account_id && acc.client_id == client_id);
+            // >> COMPROBACION 2: Existencia de la cuenta <<
+            if (client_account == null) throw new KeyNotFoundException($"El usuario({client_id}) no tiene la cuenta({account_id}) a su nombre");
+            var account_movements = movements.FindAll(mov => mov.account_id == account_id);
+            return account_movements;
+        }
         
     }
 }
