@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './dashboard_admin.css'; // Archivo CSS para estilos
+import '../CSS/dashboard_admin.css'; // Archivo CSS para estilos
 
 export default function AdminDashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(true);

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login_admin.css'; // Archivo CSS para estilos
+import '../CSS/login_admin.css'; // Archivo CSS para estilos
 
 const LoginAdmin = () => {
     const [credentials, setCredentials] = useState({username: '',password: ''});
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -48,7 +49,7 @@ const LoginAdmin = () => {
     const fakeAuthApi = async ({ username, password }) => {
         return new Promise(resolve => {
             setTimeout(() => {
-                if (username === 'admin' && password === 'TecBank2023') {
+                if (username === 'admin' && password === 'TecBank2025') {
                     resolve({ success: true, token: 'fake-jwt-token' });
                 } 
                 else {
