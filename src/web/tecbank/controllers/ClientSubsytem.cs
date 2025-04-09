@@ -7,8 +7,10 @@ namespace tecbank.controllers{
     [ApiController]
     public class Client : ControllerBase {
         private readonly TECBankService tecbankService;
-        public Client(TECBankService service){
+        private readonly LogService logService;
+        public Client(TECBankService service, LogService log){
             this.tecbankService = service;
+            this.logService = log;
         }
 
         [HttpGet]

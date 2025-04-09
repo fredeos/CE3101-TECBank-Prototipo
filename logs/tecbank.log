@@ -1,0 +1,6 @@
+
+[2025-04-08 19:23:42][INFO]: ============= Log file initialized
+[2025-04-08 19:23:42][INFO]: ============= Log Console started
+[2025-04-08 19:23:42][INFO]: (HTTP)(GET) Database was accessed successfully
+[2025-04-08 19:23:46][INFO]: (HTTP)(GET) Database was accessed successfully
+[2025-04-08 19:23:51][INFO]: (HTTP)(GET) No matching data was found in the database for client(ID=5)
