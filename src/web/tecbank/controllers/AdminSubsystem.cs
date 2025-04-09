@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using tecbank.models;
 using tecbank.services;
+using tecbank.services.logger;
 
 namespace tecbank.controllers{
     [Route("services/admin")]
     [ApiController]
     public class Admin : ControllerBase {
         private readonly TECBankService tecbankService;
-        public Admin(TECBankService service){
+        private readonly LogService logService;
+        public Admin(TECBankService service, LogService log){
             this.tecbankService = service;
+            this.logService = log;
         }
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
@@ -64,12 +67,14 @@ namespace tecbank.controllers{
             try{
                 var client = tecbankService.Client_findByID(id);
                 if (client == null){
+                    logService.Log_New(LogTypes.INFO, $"(HTTP)(GET) No matching data was found in the database for client(ID={id})");
                     return NotFound();
                 }
+                logService.Log_New(LogTypes.INFO, "(HTTP)(GET) Database was accessed successfully");
                 return Ok(client);
             } catch (System.Exception e1){
-                Console.WriteLine(e1);
-                return NotFound();
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET){e1.ToString()}");
+                return BadRequest();
             }
             
         }

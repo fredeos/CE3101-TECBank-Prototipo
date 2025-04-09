@@ -21,7 +21,6 @@ namespace tecbank.services.DBMS{
         // --------------------------------[ Class methods ]--------------------------------
         public DBConnect(String db_name){
             this.__db_file = Path.Combine(database_dir,$"{db_name}_db.json");
-            Console.WriteLine($"Ruta de la DB: {__db_file}");
             // >> Cargar propiedades de la base de datos
             JsonDocument json = JsonDocument.Parse(File.ReadAllText(__db_file));
             if (json != null){
@@ -29,10 +28,14 @@ namespace tecbank.services.DBMS{
                 String ext = json.RootElement.GetProperty("ext").ToString();
                 JsonElement tables = json.RootElement.GetProperty("tables");
                 foreach (JsonElement table in tables.EnumerateArray()){
-                    __db_tables.Add(new(Path.Combine(database_dir, $"{__db_name}_tables", $"{table.ToString()}.{ext}")));
+                    try{
+                        __db_tables.Add(new(Path.Combine(database_dir, $"{__db_name}_tables", $"{table.ToString()}.{ext}")));
+                    } catch (System.Exception e){
+                        throw new SystemException($"(DBConnect){e.ToString}");
+                    }
                 }
             } else {
-                throw new SystemException($"El archivo de JSON de la base de datos({db_name}) no existe");
+                throw new SystemException($"(DBConnect) The database({db_name}) file doesnt exist: {__db_file}");
             }
         }
 

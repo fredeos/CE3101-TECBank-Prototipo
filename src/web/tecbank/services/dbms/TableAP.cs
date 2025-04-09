@@ -17,11 +17,9 @@ namespace tecbank.DBMS{
         // --------------------------------[ Class methods ]--------------------------------
         public TableAP(String table){
             this.__table_file = table;
-            Console.WriteLine($"Leyendo tabla: {__table_file}");
-
             // >> Cargar las propiedades de la tabla
             var xml_doc = XDocument.Load(__table_file);
-            if (xml_doc == null) throw new SystemException($"El archivo de tabla {__table_file} no existe");
+            if (xml_doc == null) throw new SystemException($"(TableAP) The XML table file doesn't exist: {__table_file}");
 
             this.__table_name = xml_doc.Element("table").Element("name")?.Value;
             this.__table_id = int.Parse(xml_doc.Element("table").Element("id")?.Value);
@@ -40,7 +38,6 @@ namespace tecbank.DBMS{
             if (values != null){
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 foreach (var value in values){
-                    Console.WriteLine(value.ToString());
                     StringReader reader = new StringReader(value.ToString());
                     T tup = (T) serializer.Deserialize(reader);
                     reader.Close();
