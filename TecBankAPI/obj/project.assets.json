@@ -693,19 +693,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Carlos CL\\.nuget\\packages\\": {}
+    "C:\\Users\\jessj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Carlos CL\\Desktop\\PruebasP\\TecBankAPI\\TecBankAPI.csproj",
+      "projectUniqueName": "C:\\Users\\jessj\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code\\PROYECTOS\\CE3101-TECBank-Prototipo\\TecBankAPI\\TecBankAPI.csproj",
       "projectName": "TecBankAPI",
-      "projectPath": "C:\\Users\\Carlos CL\\Desktop\\PruebasP\\TecBankAPI\\TecBankAPI.csproj",
-      "packagesPath": "C:\\Users\\Carlos CL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Carlos CL\\Desktop\\PruebasP\\TecBankAPI\\obj\\",
+      "projectPath": "C:\\Users\\jessj\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code\\PROYECTOS\\CE3101-TECBank-Prototipo\\TecBankAPI\\TecBankAPI.csproj",
+      "packagesPath": "C:\\Users\\jessj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jessj\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code\\PROYECTOS\\CE3101-TECBank-Prototipo\\TecBankAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Carlos CL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\jessj\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"

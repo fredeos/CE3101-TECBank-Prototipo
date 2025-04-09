@@ -38,3 +38,44 @@ C:\Users\Carlos CL\Desktop\PruebasP\TecBankAPI\obj\Debug\net9.0\refint\TecBankAP
 C:\Users\Carlos CL\Desktop\PruebasP\TecBankAPI\obj\Debug\net9.0\TecBankAPI.pdb
 C:\Users\Carlos CL\Desktop\PruebasP\TecBankAPI\obj\Debug\net9.0\TecBankAPI.genruntimeconfig.cache
 C:\Users\Carlos CL\Desktop\PruebasP\TecBankAPI\obj\Debug\net9.0\ref\TecBankAPI.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\appsettings.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.staticwebassets.endpoints.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.exe
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.deps.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.runtimeconfig.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\TecBankAPI.pdb
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.csproj.AssemblyReference.cache
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.AssemblyInfoInputs.cache
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.AssemblyInfo.cs
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.csproj.CoreCompileInputs.cache
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.sourcelink.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\scopedcss\bundle\TecBankAPI.styles.css
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets\msbuild.TecBankAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets\msbuild.TecBankAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets\msbuild.build.TecBankAPI.props
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.TecBankAPI.props
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.TecBankAPI.props
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.csproj.Up2Date
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\refint\TecBankAPI.dll
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.pdb
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\TecBankAPI.genruntimeconfig.cache
+C:\Users\jessj\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\PROYECTOS\CE3101-TECBank-Prototipo\TecBankAPI\obj\Debug\net9.0\ref\TecBankAPI.dll
