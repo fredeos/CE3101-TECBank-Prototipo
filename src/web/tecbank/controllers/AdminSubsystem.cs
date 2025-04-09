@@ -12,10 +12,10 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<IEnumerable<ClientAccount>> Get(){
             return Ok(tecbankService.GetAllEmployes());
-        }
+        }*/
 
         // Listo con XML
         [HttpGet("clients/all")]
@@ -23,18 +23,21 @@ namespace tecbank.controllers{
             return Ok(tecbankService.GetAllClients());
         }
 
+        // Listo con XML
         [HttpGet("accounts/all")]
         public ActionResult<IEnumerable<BankAccount>> GetAccounts(){
             return Ok(tecbankService.GetAllAccounts());
         }
 
+        // Listo con XML
         [HttpGet("cards/all")]
         public ActionResult<IEnumerable<BankCard>> GetCards(){
             return Ok(tecbankService.GetAllCards());
         }
 
+
         [HttpGet("employees/all")]
-        public ActionResult<IEnumerable<Employee>> GetAllEmployees(){
+        public ActionResult<IEnumerable<BankEmployee>> GetAllEmployees(){
             return Ok(tecbankService.GetAllEmployes());
         }
 

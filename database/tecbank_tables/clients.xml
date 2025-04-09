@@ -43,5 +43,17 @@
       <phone_number>61119600</phone_number>
       <address>Paraíso</address>
     </value>
+    <value>
+      <id>304</id>
+      <name>Ludwin</name>
+      <last_name1>Ramos</last_name1>
+      <last_name2>Briceño</last_name2>
+      <type>1</type>
+      <username>lujorabri</username>
+      <password>ludwin1234</password>
+      <monthly_income>0</monthly_income>
+      <phone_number>85675900</phone_number>
+      <address>Guanacaste</address>
+    </value>
   </tuples>
 </table>

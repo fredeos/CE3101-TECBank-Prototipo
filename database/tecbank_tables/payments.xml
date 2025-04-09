@@ -1,44 +1,44 @@
 <table>
-    <name> payments </name>
+    <name>payments</name>
     <PKS> 
-        <PK> id </PK>
+        <PK>id</PK>
     </PKS>
     <FKs>
-        <FK> loan_id </FK>
-        <FK> movement_id </FK>
+        <FK>loan_id</FK>
+        <FK>movement_id</FK>
     </FKs>
     <tuples>
         <value>
-            <id> "t1fe712y78" </id>
-            <loan_id> 1 </loan_id>
-            <movement_id> "" </movement_id>
-            <type> 1 </type>
-            <date> 2025-05-01T23:59:00 </date>
-            <total> 37.5 </total>
+            <id>"t1fe712y78"</id>
+            <loan_id>1</loan_id>
+            <movement_id>""</movement_id>
+            <type>1</type>
+            <date>2025-05-01T23:59:00</date>
+            <total>37.5</total>
         </value>
         <value>
-            <id> "a1fe712y78" </id>
-            <loan_id> 1 </loan_id>
-            <movement_id> "" </movement_id>
-            <type> 1 </type>
-            <date> 2025-06-01T23:59:00 </date>
-            <total> 37.5 </total>
+            <id>"a1fe712y78"</id>
+            <loan_id>1</loan_id>
+            <movement_id>""</movement_id>
+            <type>1</type>
+            <date>2025-06-01T23:59:00</date>
+            <total>37.5</total>
         </value>
         <value>
-            <id> "t1pe552y78" </id>
-            <loan_id> 1 </loan_id>
-            <movement_id> "" </movement_id>
-            <type> 1 </type>
-            <date> 2025-07-01T23:59:00 </date>
-            <total> 37.5 </total>
+            <id>"t1pe552y78"</id>
+            <loan_id>1</loan_id>
+            <movement_id>""</movement_id>
+            <type>1</type>
+            <date>2025-07-01T23:59:00</date>
+            <total>37.5</total>
         </value>
         <value>
-            <id> "k1li905y78" </id>
-            <loan_id> 1 </loan_id>
-            <movement_id> "" </movement_id>
-            <type> 1 </type>
-            <date> 2025-08-01T23:59:00 </date>
-            <total> 37.5 </total>
+            <id>"k1li905y78"</id>
+            <loan_id>1</loan_id>
+            <movement_id>""</movement_id>
+            <type>1</type>
+            <date>2025-08-01T23:59:00</date>
+            <total>37.5</total>
         </value>
     </tuples>
 </table>

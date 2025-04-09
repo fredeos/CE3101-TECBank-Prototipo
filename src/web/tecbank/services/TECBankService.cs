@@ -38,10 +38,10 @@ namespace tecbank.services{
         private static List<BankLoan> loans = new List<BankLoan>{};
         private static List<LoanPayment> payments = new List<LoanPayment>{};
 
-        private static List<Employee> employees = new List<Employee>{
-            new Employee { id=7, name="Juan", last_name1="Miranda", last_name2="Solis", role_id=1},
-            new Employee { id=9, name="Adolfo", last_name1="Vargas", last_name2="Paniagua", role_id=2},
-            new Employee { id=7, name="Daniel", last_name1="Cabrera", last_name2="Ortiz", role_id=2}
+        private static List<BankEmployee> employees = new List<BankEmployee>{
+            new BankEmployee { id=7, name="Juan", last_name1="Miranda", last_name2="Solis", role_id=1},
+            new BankEmployee { id=9, name="Adolfo", last_name1="Vargas", last_name2="Paniagua", role_id=2},
+            new BankEmployee { id=7, name="Daniel", last_name1="Cabrera", last_name2="Ortiz", role_id=2}
         };
         // --------------------------------[ Service atributes and properties]--------------------------------
         private static readonly String db_file = "tecbank";
@@ -103,9 +103,6 @@ namespace tecbank.services{
 
                 // 2. Insertar el nuevo cliente en la base de datos XML
                 tecbank_db.INSERT("clients", client);
-
-                // 3. (Opcional) Actualizar la lista en memoria si estás usando caché
-                // _cachedClients?.Add(client);
             }
             catch (Exception ex)
             {
@@ -144,7 +141,20 @@ namespace tecbank.services{
         }
 
         // ::. BANK ACCOUNT METHODS
-        public List<BankAccount> GetAllAccounts() => accounts;
+        //public List<BankAccount> GetAllAccounts() => accounts;
+
+        public List<BankAccount> GetAllAccounts() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<BankAccount>("accounts");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
+                return new List<BankAccount>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public List<BankAccount> AccountsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
@@ -181,7 +191,20 @@ namespace tecbank.services{
         }
 
         // ::. BANK CARD METHODS
-        public List<BankCard> GetAllCards() => cards;
+        //public List<BankCard> GetAllCards() => cards;
+
+        public List<BankCard> GetAllCards() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<BankCard>("cards");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
+                return new List<BankCard>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public List<BankCard> CardsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
@@ -226,7 +249,7 @@ namespace tecbank.services{
         }
 
         // ::. EMPLOYEE METHODS
-        public List<Employee> GetAllEmployes() => employees;
+        public List<BankEmployee> GetAllEmployes() => employees;
 
         // ::. LOAN PAYMENT METHODS
         public List<LoanPayment> GetAllPayments() => payments;
@@ -291,7 +314,20 @@ namespace tecbank.services{
         }
 
         // ::. BANK MOVEMENT METHODS
-        public List<BankMovement> GetAllMovements() => movements;
+        //public List<BankMovement> GetAllMovements() => movements;
+
+        public List<BankMovement> GetAllMovements() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<BankMovement>("movements");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
+                return new List<BankMovement>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public void Movement_New(int user_id, BankMovement movement) {
             // >> COMPROBACION 1: Integridad del objeto <<
