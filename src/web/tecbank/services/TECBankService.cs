@@ -49,7 +49,21 @@ namespace tecbank.services{
         // --------------------------------[ Service functions and methods ]--------------------------------
 
         // ::. CLIENT METHODS
-        public List<ClientAccount> GetAllClients() => clients;
+        // public List<ClientAccount> GetAllClients() => clients;
+
+        // Gets all clients listed in the XML
+        public List<ClientAccount> GetAllClients() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<ClientAccount>("clients");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener clientes: {ex.Message}");
+                return new List<ClientAccount>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public ClientAccount Client_findByID(int id) {
             try {
@@ -65,11 +79,40 @@ namespace tecbank.services{
             return client;
         }
 
+        /*
         public void Client_Add(ClientAccount client) {
             if (client == null)
                 throw new ArgumentNullException(nameof(client));
 
             clients.Add(client);
+        }*/
+
+        public void Client_Add(ClientAccount client) 
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            try
+            {
+                // 1. Validar que el cliente no exista ya (por ID u otro campo único)
+                var existingClient = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == client.id).FirstOrDefault();
+                if (existingClient != null)
+                {
+                    throw new InvalidOperationException($"Ya existe un cliente con el ID {client.id}");
+                }
+
+                // 2. Insertar el nuevo cliente en la base de datos XML
+                tecbank_db.INSERT("clients", client);
+
+                // 3. (Opcional) Actualizar la lista en memoria si estás usando caché
+                // _cachedClients?.Add(client);
+            }
+            catch (Exception ex)
+            {
+                // Loggear el error
+                Console.WriteLine($"Error al agregar cliente: {ex.Message}");
+                throw; // Re-lanzar la excepción para que el controlador la maneje
+            }
         }
 
         public void Client_Update(ClientAccount client){

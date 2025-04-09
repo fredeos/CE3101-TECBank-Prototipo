@@ -17,36 +17,39 @@ namespace tecbank.controllers{
             return Ok(tecbankService.GetAllEmployes());
         }
 
+        // Listo con XML
         [HttpGet("clients/all")]
         public ActionResult<IEnumerable<ClientAccount>> GetClients(){
             return Ok(tecbankService.GetAllClients());
         }
 
         [HttpGet("accounts/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetAccounts(){
+        public ActionResult<IEnumerable<BankAccount>> GetAccounts(){
             return Ok(tecbankService.GetAllAccounts());
         }
 
         [HttpGet("cards/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetCards(){
+        public ActionResult<IEnumerable<BankCard>> GetCards(){
             return Ok(tecbankService.GetAllCards());
         }
 
         [HttpGet("employees/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetAllEmployees(){
+        public ActionResult<IEnumerable<Employee>> GetAllEmployees(){
             return Ok(tecbankService.GetAllEmployes());
         }
+
+
         [HttpGet("movements/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetAllMovements(){
+        public ActionResult<IEnumerable<BankMovement>> GetAllMovements(){
             return Ok(tecbankService.GetAllMovements());
         }
 
         [HttpGet("loans/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetAllLoans(){
+        public ActionResult<IEnumerable<BankLoan>> GetAllLoans(){
             return Ok(tecbankService.GetAllLoans());
         }
         [HttpGet("loans/payments/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetAllLoanPayments(){
+        public ActionResult<IEnumerable<LoanPayment>> GetAllLoanPayments(){
             return Ok(tecbankService.GetAllPayments());
         }
 
@@ -59,6 +62,7 @@ namespace tecbank.controllers{
             return Ok(loan);
         }
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
+        // Listo con XML
         [HttpGet("clients/{id}")]
         public ActionResult<ClientAccount> GetClient(int id){
             try{
@@ -96,7 +100,7 @@ namespace tecbank.controllers{
             return Ok(card);
         }
         // ------------------------------------------------- [ POST ] -------------------------------------------------
-        [HttpPost("clients/add")]
+        /*[HttpPost("clients/add")]
         public ActionResult<ClientAccount> AddClient([FromBody] ClientAccount client)
         {
             if (client == null)
@@ -106,6 +110,38 @@ namespace tecbank.controllers{
 
             tecbankService.Client_Add(client);
             return CreatedAtAction(nameof(GetClient), new { id = client.id }, client);
+        }*/
+
+        // Listo con XML
+        [HttpPost("clients/add")]
+        public ActionResult<ClientAccount> AddClient([FromBody] ClientAccount client)
+        {
+            if (client == null)
+            {
+                return BadRequest("Datos del cliente inválidos.");
+            }
+
+            try
+            {
+                // Validación adicional si es necesaria
+                if (client.id <= 0)
+                {
+                    return BadRequest("El ID del cliente debe ser un número positivo.");
+                }
+
+                tecbankService.Client_Add(client);
+                return CreatedAtAction(nameof(GetClient), new { id = client.id }, client);
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Cliente ya existe
+                return Conflict(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Otros errores
+                return StatusCode(500, $"Error interno al agregar cliente: {ex.Message}");
+            }
         }
 
         [HttpPost("accounts/add")]

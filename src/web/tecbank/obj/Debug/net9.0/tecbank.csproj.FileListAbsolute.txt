@@ -43,7 +43,6 @@ C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bi
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.runtimeconfig.json
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.dll
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\tecbank.pdb
-C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\CsvHelper.dll
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Microsoft.OpenApi.dll
 C:\Users\Carlos CL\Desktop\Prototipo\CE3101-TECBank-Prototipo\src\web\tecbank\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll

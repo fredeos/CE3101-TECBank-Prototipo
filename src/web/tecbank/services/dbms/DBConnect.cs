@@ -50,13 +50,47 @@ namespace tecbank.services.DBMS{
             }
         }
 
-        public void INSERT<T> (String table,T obj){
-            try{
+        // This method extracts all data from a table
+        public List<T> extract_all<T>(String table)
+        {
+            try
+            {
                 __db_traffic.Wait();
-            } catch (System.Exception){
-                // TODO: Catch exceptions and log
-                throw;
-            } finally {
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"La tabla {table} no existe en la base de datos {__db_name}");
+                
+                return db_tab.extract_all<T>();
+            }
+            catch (System.Exception e)
+            {
+                // TODO: Implementar logging aquí
+                throw new SystemException($"DBConnect.extract_all failed: {e.Message}");
+            }
+            finally
+            {
+                __db_traffic.Release();
+            }
+        }
+
+        public void INSERT<T>(String table, T obj)
+        {
+            try
+            {
+                __db_traffic.Wait();
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"La tabla {table} no existe en la base de datos {__db_name}");
+                
+                db_tab.create<T>(obj);
+            }
+            catch (System.Exception e)
+            {
+                // TODO: Implementar logging aquí
+                throw new SystemException($"DBConnect.INSERT failed: {e.Message}");
+            }
+            finally
+            {
                 __db_traffic.Release();
             }
         }
