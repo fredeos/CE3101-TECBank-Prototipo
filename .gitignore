@@ -1,2 +1,4 @@
 .vs
 .vscode
+database/tecbank_tables/*.xml
+logs/*.log

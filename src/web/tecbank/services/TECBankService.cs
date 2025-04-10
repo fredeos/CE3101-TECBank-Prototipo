@@ -49,14 +49,21 @@ namespace tecbank.services{
         // --------------------------------[ Service functions and methods ]--------------------------------
 
         // ::. CLIENT METHODS
-        public List<ClientAccount> GetAllClients() => clients;
+        public List<ClientAccount> GetAllClients(){
+            try {
+                var clients = tecbank_db.SELECT<ClientAccount>("clients", null);
+                return clients;
+            } catch (System.Exception e1){
+                throw new SystemException($"(TECBANKSERVICE){e1}");
+            } 
+        }
 
         public ClientAccount Client_findByID(int id) {
             try {
                 var clients = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == id);
-                return clients.FirstOrDefault(c => c.id == id);
+                return clients.First();
             } catch (System.Exception e1){
-                throw new SystemException($"TABLE.SELECT failed: {e1}");
+                throw new SystemException($"(TECBANKSERVICE){e1}");
             }   
         }
 
@@ -66,38 +73,39 @@ namespace tecbank.services{
         }
 
         public void Client_Add(ClientAccount client) {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
-
-            clients.Add(client);
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            try{
+                tecbank_db.INSERT<ClientAccount>("clients", client);
+            } catch (System.Exception e){
+                throw new SystemException($"(TECBANKSERVICE){e.ToString()}");
+            }
+            
         }
 
         public void Client_Update(ClientAccount client){
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
+            try{
+                if (client == null)
+                    throw new ArgumentNullException($"(TECBANKSERVICE) Client({nameof(client)}) object is null");
+                
+                var existingClient = Client_findByID(client.id);
+                if (existingClient == null)
+                    throw new KeyNotFoundException($"(TECBANKSERVICE) Client(ID={client.id}) not found");
 
-            var existingClient = Client_findByID(client.id);
-            if (existingClient == null)
-                throw new KeyNotFoundException("Cliente no encontrado.");
-
-            // Actualizar propiedades
-            existingClient.name = client.name;
-            existingClient.last_name1 = client.last_name1;
-            existingClient.last_name2 = client.last_name2;
-            existingClient.type = client.type;
-            existingClient.username = client.username;
-            existingClient.password = client.password;
-            existingClient.monthly_income = client.monthly_income;
-            existingClient.phone_number = client.phone_number;
-            existingClient.address = client.address;
+                tecbank_db.MODIFY<ClientAccount>("clients", client, (a,b) => a.id == b.id);
+            } catch (System.Exception e1){
+                throw new SystemException($"(TECBANKSERVICE){e1}");
+            }
         }
 
         public void Client_Delete(int id){
             var client = Client_findByID(id);
             if (client == null)
-                throw new KeyNotFoundException("Cliente no encontrado.");
-
-            clients.Remove(client);
+                throw new KeyNotFoundException($"(TECBANKSERVICE) Client(ID={id}) not found in the database");
+            try{
+                tecbank_db.REMOVE<ClientAccount>("clients", c => c.id == id);
+            } catch (System.Exception e){
+                throw new SystemException($"(TECBANKSERVICE){e.ToString()}");
+            }
         }
 
         // ::. BANK ACCOUNT METHODS

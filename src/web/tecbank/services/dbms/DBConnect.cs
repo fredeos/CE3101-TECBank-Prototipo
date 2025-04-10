@@ -39,15 +39,19 @@ namespace tecbank.services.DBMS{
             }
         }
 
-        public List<T> SELECT<T>(String table, Func<T, bool> criteria){
+        public List<T> SELECT<T>(String table, Func<T, bool>? criteria){
             try{
                 __db_traffic.Wait();
                 var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
-                if (db_tab == null) throw new KeyNotFoundException($"La tabla {table} no existe en la base de datos {__db_name}");
-                return db_tab.find<T>(criteria);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
+                if (criteria == null){
+                    return db_tab.extract_all<T>();
+                } else {
+                    return db_tab.find<T>(criteria);
+                }
             } catch (System.Exception e){
-                // TODO: Catch exceptions and log
-                throw new SystemException($"TABLEAP.FIND failed: {e}");
+                throw new SystemException($"(DBConnect){e.ToString()}");
             } finally {
                 __db_traffic.Release();
             }
@@ -56,20 +60,26 @@ namespace tecbank.services.DBMS{
         public void INSERT<T> (String table,T obj){
             try{
                 __db_traffic.Wait();
-            } catch (System.Exception){
-                // TODO: Catch exceptions and log
-                throw;
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
+                db_tab.create<T>(obj);
+            } catch (System.Exception e){
+                throw new SystemException($"(DBConnect){e.ToString()}");
             } finally {
                 __db_traffic.Release();
             }
         }
 
-        public void MODIFY<T> (String table,T obj, Func<T,bool> criteria){
+        public void MODIFY<T> (String table,T obj, Func<T,T,bool> criteria){
             try{
                 __db_traffic.Wait();
-            } catch (System.Exception){
-                // TODO: Catch exceptions and log
-                throw;
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
+                db_tab.modify<T>(obj, criteria);
+            } catch (System.Exception e){
+                throw new SystemException($"(DBConnect){e.ToString()}");
             } finally {
                 __db_traffic.Release();
             }
@@ -78,9 +88,12 @@ namespace tecbank.services.DBMS{
         public void REMOVE<T> (String table, Func<T, bool> criteria){
             try{
                 __db_traffic.Wait();
-            } catch (System.Exception){
-                // TODO: Catch exceptions and log
-                throw;
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
+                db_tab.delete<T>(criteria);
+            } catch (System.Exception e1){
+                throw new SystemException($"(DBConnect){e1.ToString()}");
             } finally {
                 __db_traffic.Release();
             }

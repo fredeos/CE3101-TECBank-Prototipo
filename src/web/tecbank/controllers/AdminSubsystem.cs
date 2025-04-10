@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using tecbank.models;
 using tecbank.services;
@@ -70,7 +71,7 @@ namespace tecbank.controllers{
                     logService.Log_New(LogTypes.INFO, $"(HTTP)(GET) No matching data was found in the database for client(ID={id})");
                     return NotFound();
                 }
-                logService.Log_New(LogTypes.INFO, "(HTTP)(GET) Database was accessed successfully");
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET) Client(ID={id}) was found successfully");
                 return Ok(client);
             } catch (System.Exception e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET){e1.ToString()}");
@@ -102,15 +103,18 @@ namespace tecbank.controllers{
         }
         // ------------------------------------------------- [ POST ] -------------------------------------------------
         [HttpPost("clients/add")]
-        public ActionResult<ClientAccount> AddClient([FromBody] ClientAccount client)
-        {
-            if (client == null)
-            {
+        public ActionResult AddClient([FromBody] ClientAccount client){
+            if (client == null){
                 return BadRequest("Datos del cliente inválidos.");
             }
-
-            tecbankService.Client_Add(client);
-            return CreatedAtAction(nameof(GetClient), new { id = client.id }, client);
+            try{
+                tecbankService.Client_Add(client);
+                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST) Client(ID={client.id}) was added successfully");
+                return Ok();
+            } catch (System.Exception e){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST){e.ToString()}");
+                return StatusCode(500,"Internal server error");
+            }
         }
 
         [HttpPost("accounts/add")]
@@ -161,21 +165,25 @@ namespace tecbank.controllers{
 
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
         [HttpPut("clients/update/{id}")]
-        public ActionResult UpdateClient(int id, [FromBody] ClientAccount client)
-        {
-            if (id != client.id)
-            {
-                return BadRequest("ID del cliente no coincide.");
+        public ActionResult UpdateClient(int id, [FromBody] ClientAccount client){
+            if (id != client.id){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST) Client ID({id}) doesnt match body ID({client.id})");
+                return BadRequest($"Client ID({id}) doesnt match body ID({client.id})");
             }
 
             var existingClient = tecbankService.Client_findByID(id);
-            if (existingClient == null)
-            {
+            if (existingClient == null){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST) Client ID({id}) doesnt exist in the database");
                 return NotFound();
             }
 
-            tecbankService.Client_Update(client);
-            return NoContent();
+            try{
+                tecbankService.Client_Update(client);
+                return Ok();
+            } catch (System.Exception e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST){e1}");
+                return StatusCode(500,"Something went wrong");
+            }
         }
 
         [HttpPut("accounts/update/{id}")]
