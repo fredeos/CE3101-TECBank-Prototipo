@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace tecbank.DBMS{
     /// <summary>
-    /// Accesspoint (AP) for a table in a database
+    /// Accesspoint (AP) for a table in a database. <T> objects used in class methods must have valid Xml format attributes for correct mapping
     /// </summary>
     public class TableAP{
         // --------------------------------[ Class atributes ]--------------------------------
@@ -17,12 +17,30 @@ namespace tecbank.DBMS{
         // --------------------------------[ Class methods ]--------------------------------
         public TableAP(String table){
             this.__table_file = table;
+            if (string.IsNullOrWhiteSpace(table))
+                throw new ArgumentException("(TableAP) The name of the table is invalid");
+
             // >> Cargar las propiedades de la tabla
             var xml_doc = XDocument.Load(__table_file);
-            if (xml_doc == null) throw new SystemException($"(TableAP) The XML table file doesn't exist: {__table_file}");
+            if (xml_doc == null) 
+                throw new XmlException($"(TableAP) The XML table file doesn't exist: {__table_file}");
 
-            this.__table_name = xml_doc.Element("table").Element("name")?.Value;
-            this.__table_id = int.Parse(xml_doc.Element("table").Element("id")?.Value);
+            // >> Cargar propiedades de la tabla
+            var table_xml = xml_doc.Element("table") ?? 
+                throw new SystemException($"(TableAP) The database table file {__table_file} doesn't have a valid 'table' element");
+
+            // Manejo seguro del nombre de tabla
+            this.__table_name = table_xml.Element("name")?.Value?.Trim();
+            if (string.IsNullOrWhiteSpace(__table_name))
+                throw new SystemException($"(TableAP) The table doesn't have a valid name property: {__table_file}");
+
+            // Manejo seguro del ID de tabla
+            var idElement = table_xml.Element("id");
+            if (idElement == null || !int.TryParse(idElement.Value, out var tableId))
+                throw new SystemException($"(TableAP) The table doesn't have a valid ID property: {__table_file}");
+            this.__table_id = tableId;
+
+            // >> Cargar llaves de la tabala
             foreach (var pk in xml_doc.Descendants("PK")){
                 primary_keys.Add(pk.Value);
             }
@@ -32,11 +50,10 @@ namespace tecbank.DBMS{
         }
 
         /// <summary>
-        /// Finds all the tuples in a table with the matching criteria
+        /// Finds all ocurrences of tuples that match the given criteria
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="criteria"></param>
-        /// <returns></returns>
+        /// <returns>List of matching T tuples</returns>
+        /// <exception cref="XmlException"></exception>
         public List<T> find<T> (Func<T,bool> criteria){
             XDocument xml_doc = XDocument.Load(__table_file);
             var values = xml_doc.Descendants("value");
@@ -44,22 +61,28 @@ namespace tecbank.DBMS{
             if (values != null){
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 foreach (var value in values){
-                    using (StringReader reader = new StringReader(value.ToString())){
-                        T tup = (T) serializer.Deserialize(reader);
-                        if (criteria.Invoke(tup)){
-                            tuples.Add(tup);
-                        }
+                    try{
+                        using (StringReader reader = new StringReader(value.ToString())){
+                            T? tup = (T)serializer.Deserialize(reader);
+                            if (tup!=null && criteria.Invoke(tup)){
+                                tuples.Add(tup);
+                            }
+                        }   
+                    } catch (System.Exception e1){
+                        throw new XmlException($"(TableAP) Serialization of table value failed:{value.ToString()}\n{e1.ToString()}");
                     }
                 }
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <value> elements");
             }
             return tuples;
         }
 
         /// <summary>
-        /// Extracts all elements from the table
+        /// Extracts all tuples from the table
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <returns>List of T elements</returns>
+        /// <exception cref="XmlException"></exception>
         public List<T> extract_all<T>(){
             XDocument xml_doc = XDocument.Load(__table_file);
             var values = xml_doc.Descendants("value");
@@ -67,11 +90,18 @@ namespace tecbank.DBMS{
             if (values != null){
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 foreach (var value in values){
-                    using (StringReader reader = new StringReader(value.ToString())){
-                        T tup = (T) serializer.Deserialize(reader);
-                        tuples.Add(tup);
+                    try{
+                        using (StringReader reader = new StringReader(value.ToString())){
+                            T tup = (T) serializer.Deserialize(reader);
+                            if (tup != null)
+                                tuples.Add(tup);
+                        }   
+                    } catch (System.Exception e1){
+                        throw new XmlException($"(TableAP) Serialization of table value failed:{value.ToString()}\n{e1.ToString()}");
                     }
                 }
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <value> elements");
             }
             return tuples;
         }
@@ -79,9 +109,6 @@ namespace tecbank.DBMS{
         /// <summary>
         /// Serializes a model object to XElement, it must have the proper XML tags for its attributes
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         private static XElement? SerializeToXElement<T>(T obj){
             var mem_stream = new MemoryStream();
             XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -94,9 +121,7 @@ namespace tecbank.DBMS{
         /// <summary>
         /// Verifies two tuples are not the same to prevent data integrity problems in the table
         /// </summary>
-        /// <param name="target1">XElement object</param>
-        /// <param name="target2">XElement object</param>
-        /// <returns>true if target1 is different from target2, otherwise false</returns>
+        /// <returns>"true" if target1 is different from target2, otherwise "false"</returns>
         private bool TableIntegrityCheck(XElement target1, XElement target2){
             foreach(var PK in primary_keys){
                 if(target1.Element(PK).Value == target2.Element(PK).Value){
@@ -107,11 +132,8 @@ namespace tecbank.DBMS{
         }
 
         /// <summary>
-        /// Modifies all objects that match with the criteria with the content of the given object
+        /// Modifies all objects that match the criteria with the content of the given object
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <param name="criteria"></param>
         public void modify<T>(T obj, Func<T,T,bool> criteria){
             XDocument xml_doc = XDocument.Load(__table_file);
             var values = xml_doc.Descendants("value");
@@ -120,62 +142,75 @@ namespace tecbank.DBMS{
                 foreach(var value in values.ToList()){
                     using (StringReader reader = new StringReader(value.ToString())){
                         T tuple = (T) serializer.Deserialize(reader);
-                        if (criteria.Invoke(tuple,obj)){
+                        if (tuple != null && criteria.Invoke(tuple,obj)){
                             value.ReplaceWith(SerializeToXElement<T>(obj));
                         }
                     }
                 }
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <value> elements");
             }
             xml_doc.Save(__table_file);
         }
 
         /// <summary>
-        /// Create a new tuple for the table
+        /// Creates a new entity tuple in the table
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
+        /// <exception cref="XmlException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public void create<T>(T obj){
             XDocument xml_doc = XDocument.Load(__table_file);
             var tuples = xml_doc.Descendants("tuples").FirstOrDefault();
             var values = xml_doc.Descendants("value");
             if (tuples != null && values != null){
+                // >> Serializacion del objeto a T a un elemento xml
+                var XObj = SerializeToXElement<T>(obj) ??
+                    throw new XmlException($"(TableAP) {nameof(obj)} couldn't be serialized to a valid XElement object");
+
+                // >> Verificacion de duplicidad de valores
                 bool exists = false;
                 foreach(var val in values.ToList()){
-                    if (!this.TableIntegrityCheck(val,SerializeToXElement<T>(obj))){
+                    if (!this.TableIntegrityCheck(val,XObj)){
                         exists = true;
                         break;
                     }
                 }
                 
                 if (!exists){
-                    tuples.Add(SerializeToXElement<T>(obj));
+                    tuples.Add(XObj);
                 } else {
-                    throw new ArgumentException($"(TableAP) {typeof(T)} obj already exists in the table {__table_name}:{__table_id}");
+                    throw new ArgumentException($"(TableAP) {nameof(obj)} object already exists in the table {__table_name}:{__table_id}");
                 }
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <tuples> and/or <value> elements");
             }
-            
             xml_doc.Save(__table_file);
         }
 
         /// <summary>
-        /// Remove all tuples of the table that match the given criteria
+        /// Deletes all ocurrences that match the criteria
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="criteria"></param>
+        /// <exception cref="XmlException"></exception>
         public void delete<T>(Func<T,bool> criteria){
             XDocument xml_doc = XDocument.Load(__table_file);
             var tuples = xml_doc.Descendants("tuples").FirstOrDefault();
             if (tuples != null){
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 foreach (var value in tuples.Elements().ToList()){
-                    using (StringReader reader = new StringReader(value.ToString())){
-                        T tuple = (T) serializer.Deserialize(reader);
-                        if (criteria.Invoke(tuple)){
-                            value.Remove();
-                        }
+                    try{
+                        using (StringReader reader = new StringReader(value.ToString())){
+                            T tuple = (T) serializer.Deserialize(reader);
+                            if (tuple!=null && criteria.Invoke(tuple)){
+                                value.Remove();
+                            }
+                        }   
+                    } catch (System.Exception e1){
+                        throw new XmlException($"(TableAp) Serialization of table value failed: {value.ToString()}\n{e1.ToString()}");
                     }
                 }
-            } 
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <tuples> element");
+            }
             xml_doc.Save(__table_file);
         }
     }

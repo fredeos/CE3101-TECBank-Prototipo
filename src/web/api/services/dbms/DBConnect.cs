@@ -9,7 +9,7 @@ using tecbank.DBMS;
 namespace tecbank.services.DBMS{
     /// <summary>
     /// This class allows connecting to a project database and its tables
-    /// Project database consists of a relation between .csv tables and .json database properties
+    /// Project database consists of a relation between .xml files as tables and .json database properties
     /// </summary>
     public class DBConnect{
         // --------------------------------[ Class atributes ]--------------------------------
@@ -39,6 +39,12 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        /// <summary>
+        /// Executes a SELECT query on the specified table with the given criteria(if null, selects all)
+        /// </summary>
+        /// <returns>List of T elements from query</returns>
+        /// <exception cref="SystemException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public List<T> SELECT<T>(String table, Func<T, bool>? criteria){
             try{
                 __db_traffic.Wait();
@@ -57,6 +63,11 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        /// <summary>
+        /// Performs an INSERT query in a specified database table
+        /// </summary>
+        /// <exception cref="SystemException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public void INSERT<T> (String table,T obj){
             try{
                 __db_traffic.Wait();
@@ -71,6 +82,11 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        /// <summary>
+        /// Performs a MODIFY query for a table in the database for all entities that match the criteria
+        /// </summary>
+        /// <exception cref="SystemException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public void MODIFY<T> (String table,T obj, Func<T,T,bool> criteria){
             try{
                 __db_traffic.Wait();
@@ -85,6 +101,11 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        /// <summary>
+        /// Executes a REMOVE query in a table of the database for all entities that match the given criteria
+        /// </summary>
+        /// <exception cref="SystemException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public void REMOVE<T> (String table, Func<T, bool> criteria){
             try{
                 __db_traffic.Wait();
