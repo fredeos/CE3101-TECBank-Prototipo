@@ -1,33 +1,33 @@
 <table>
-    <name> cards </name>
-    <id> 3 </id>
+    <name>cards</name>
+    <id>3</id>
     <PKs> 
-        <PK> card_num </PK>
+        <PK>card_num</PK>
     </PKs>
     <FKs> 
-        <FK> account_id </FK>
+        <FK>account_id</FK>
     </FKs>
     <tuples>
         <value> 
-            <card_num> 40030 </card_num>
-            <type> 1 </type>
-            <cvc> 376 </cvc>
-            <balance> -10000.00 </balance>
-            <account_id> "152CR54126bt67" </account_id>
+            <card_num>40030</card_num>
+            <type>1</type>
+            <cvc>376</cvc>
+            <balance>-10000.00</balance>
+            <account_id>152CR54126bt67</account_id>
         </value>
         <value> 
-            <card_num> 40025 </card_num>
-            <type> 2 </type>
-            <cvc> 680 </cvc>
-            <balance> 100000.00 </balance>
-            <account_id> "152CR54126bt67" </account_id>
+            <card_num>40025</card_num>
+            <type>2</type>
+            <cvc>680</cvc>
+            <balance>100000.00</balance>
+            <account_id>152CR54126bt67</account_id>
         </value> 
         <value> 
-            <card_num> 10307 </card_num>
-            <type> 2 </type>
-            <cvc> 501 </cvc>
-            <balance> -500.00 </balance>
-            <account_id> "646CR54186bt11" </account_id>
+            <card_num>10307</card_num>
+            <type>2</type>
+            <cvc>501</cvc>
+            <balance>-500.00</balance>
+            <account_id>646CR54186bt11</account_id>
         </value>  
     </tuples>
 </table>

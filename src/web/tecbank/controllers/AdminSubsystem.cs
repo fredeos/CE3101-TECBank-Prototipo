@@ -95,7 +95,7 @@ namespace tecbank.controllers{
         public ActionResult<BankCard> GetCard(int id)
         {
             var card = tecbankService.GetAllCards().FirstOrDefault(c => c.card_num == id);
-            if (card == null)
+            if (card == null) 
             {
                 return NotFound();
             }

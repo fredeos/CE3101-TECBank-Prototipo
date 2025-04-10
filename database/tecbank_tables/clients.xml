@@ -31,29 +31,41 @@
       <phone_number>+506 8163 7268</phone_number>
       <address>Cartago</address>
     </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>307</id>
-  <name>Frederick</name>
-  <last_name1>Obando</last_name1>
-  <last_name2>Solano</last_name2>
-  <type>2</type>
-  <username>fredeos14</username>
-  <password>1234</password>
-  <monthly_income>75000</monthly_income>
-  <phone_number>+506 8800 9673</phone_number>
-  <address>Cartago,Paraiso,Paraiso</address>
-</value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <value>
+      <id>303</id>
+      <name>Carlos</name>
+      <last_name1>Contreras</last_name1>
+      <last_name2>Luna</last_name2>
+      <type>1</type>
+      <username>carloscl</username>
+      <password>carlos2003</password>
+      <monthly_income>75000</monthly_income>
+      <phone_number>61119600</phone_number>
+      <address>Paraíso</address>
+    </value>
+    <value>
+      <id>304</id>
+      <name>Ludwin</name>
+      <last_name1>Ramos</last_name1>
+      <last_name2>Briceño</last_name2>
+      <type>1</type>
+      <username>lujorabri</username>
+      <password>ludwin1234</password>
+      <monthly_income>0</monthly_income>
+      <phone_number>85675900</phone_number>
+      <address>Guanacaste</address>
+    </value>
+    <value>
       <id>305</id>
-      <name>Fernanda</name>
-      <last_name1>Monge</last_name1>
-      <last_name2>Solano</last_name2>
-      <type>2</type>
-      <username>fer87</username>
-      <password>1234</password>
-      <monthly_income>10000.5</monthly_income>
-      <phone_number>+506 7771 1010</phone_number>
-      <address>San Jose</address>
+      <name>Byron</name>
+      <last_name1>Mata</last_name1>
+      <last_name2>Fuentes</last_name2>
+      <type>1</type>
+      <username>kammatta</username>
+      <password>kammatta12</password>
+      <monthly_income>68000</monthly_income>
+      <phone_number>85674499</phone_number>
+      <address>Guadalupe</address>
     </value>
   </tuples>
 </table>
