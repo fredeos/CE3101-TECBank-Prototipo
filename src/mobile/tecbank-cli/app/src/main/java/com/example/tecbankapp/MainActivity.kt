@@ -43,7 +43,7 @@ fun ApiTestScreen() {
         Button(onClick = {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val url = URL("http://10.0.2.2:5041/api/clientes") // Cambia a tu IP si usás celular real
+                    val url = URL("http://192.168.0.2:5055/services/admin/clients/all") // Cambia a tu IP si usás celular real
                     val connection = url.openConnection() as HttpURLConnection
                     connection.requestMethod = "GET"
                     connection.connectTimeout = 5000

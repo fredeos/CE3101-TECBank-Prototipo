@@ -99,7 +99,6 @@ namespace tecbank.DBMS{
         /// <returns>true if target1 is different from target2, otherwise false</returns>
         private bool TableIntegrityCheck(XElement target1, XElement target2){
             foreach(var PK in primary_keys){
-                Console.WriteLine($"{target1.Element(PK).Value}:{target2.Element(PK).Value}");
                 if(target1.Element(PK).Value == target2.Element(PK).Value){
                     return false;
                 }
