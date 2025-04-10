@@ -1,15 +1,16 @@
 <table>
     <name>payments</name>
-    <PKS> 
+    <id>9</id>
+    <PKs> 
         <PK>id</PK>
-    </PKS>
+    </PKs>
     <FKs>
         <FK>loan_id</FK>
         <FK>movement_id</FK>
     </FKs>
     <tuples>
         <value>
-            <id>"t1fe712y78"</id>
+            <id>t1fe712y78</id>
             <loan_id>1</loan_id>
             <movement_id>""</movement_id>
             <type>1</type>
@@ -17,7 +18,7 @@
             <total>37.5</total>
         </value>
         <value>
-            <id>"a1fe712y78"</id>
+            <id>a1fe712y78</id>
             <loan_id>1</loan_id>
             <movement_id>""</movement_id>
             <type>1</type>
@@ -25,7 +26,7 @@
             <total>37.5</total>
         </value>
         <value>
-            <id>"t1pe552y78"</id>
+            <id>t1pe552y78</id>
             <loan_id>1</loan_id>
             <movement_id>""</movement_id>
             <type>1</type>
@@ -33,7 +34,7 @@
             <total>37.5</total>
         </value>
         <value>
-            <id>"k1li905y78"</id>
+            <id>k1li905y78</id>
             <loan_id>1</loan_id>
             <movement_id>""</movement_id>
             <type>1</type>

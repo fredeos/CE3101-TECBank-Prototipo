@@ -55,5 +55,77 @@
       <phone_number>85675900</phone_number>
       <address>Guanacaste</address>
     </value>
+    <value>
+      <id>305</id>
+      <name>Byron</name>
+      <last_name1>Mata</last_name1>
+      <last_name2>Fuentes</last_name2>
+      <type>1</type>
+      <username>kammatta</username>
+      <password>kammatta12</password>
+      <monthly_income>68000</monthly_income>
+      <phone_number>85674499</phone_number>
+      <address>Guadalupe</address>
+    </value>
+    <value>
+      <id>306</id>
+      <name>Meibel</name>
+      <last_name1>Ceciliano</last_name1>
+      <last_name2>Picado</last_name2>
+      <type>1</type>
+      <username>meibelc</username>
+      <password>meibelc123</password>
+      <monthly_income>0</monthly_income>
+      <phone_number>89796544</phone_number>
+      <address>Quebradilla</address>
+    </value>
+    <value>
+      <id>307</id>
+      <name>José</name>
+      <last_name1>Pereira</last_name1>
+      <last_name2>Machado</last_name2>
+      <type>1</type>
+      <username>jose99</username>
+      <password>jose123</password>
+      <monthly_income>100000</monthly_income>
+      <phone_number>65789955</phone_number>
+      <address>San José</address>
+    </value>
+    <value>
+      <id>308</id>
+      <name>Olga</name>
+      <last_name1>Brenes</last_name1>
+      <last_name2>Rodríguez</last_name2>
+      <type>1</type>
+      <username>olgaBR</username>
+      <password>BR1256</password>
+      <monthly_income>80000</monthly_income>
+      <phone_number>67881234</phone_number>
+      <address>Limon</address>
+    </value>
+    <value>
+      <id>309</id>
+      <name>Fabricio</name>
+      <last_name1>Vargas</last_name1>
+      <last_name2>Picado</last_name2>
+      <type>0</type>
+      <username>fabVP12</username>
+      <password>fab12V</password>
+      <monthly_income>65000</monthly_income>
+      <phone_number>65778892</phone_number>
+      <address>Heredia</address>
+    </value>
+    <value>
+      <id>310</id>
+      <name>Juan</name>
+      <last_name1>García</last_name1>
+      <last_name2>Alvarado</last_name2>
+      <type>1</type>
+      <username>juanillo123</username>
+      <password>juan1G2A</password>
+      <monthly_income>350000</monthly_income>
+      <phone_number>78906544</phone_number>
+      <address>Alajuela</address>
+    </value>
   </tuples>
 </table>

@@ -10,26 +10,16 @@ namespace tecbank.models{
         [XmlElement("card_num")]
         public int card_num {get; set;}
 
-        //public int card_num {get; set;}
-
         [XmlElement("type")]
         public int type {get; set;}
-
-        //public int type {get; set;}
 
         [XmlElement("cvc")]
         public int cvc {get; set;}
 
-        //public int cvc {get; set;}
-
         [XmlElement("balance")]
         public float balance {get; set;}
 
-        //public float balance {get; set;}
-
         [XmlElement("account_id")]
-        public string account_id {get; set;}
-
-        //public String account_id {get; set;}
+        public string account_id {get; set;} = string.Empty; // Warning solution
     }
 }

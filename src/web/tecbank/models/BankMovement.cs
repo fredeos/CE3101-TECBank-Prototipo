@@ -7,43 +7,27 @@ namespace tecbank.models {
     [XmlRoot("value")]
     public class BankMovement {
         [XmlElement("id")]
-        public String id {get; set;}
-
-        //public String id {get; set;}
+        public String id {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("total_transfer")]
         public float total_transfer {get; set;}
-
-        //public float total_transfer {get; set;}
         
         [XmlElement("date")]
         public DateTime date {get; set;}
 
-        //public DateTime date {get; set;}
-
         [XmlElement("description")]
-        public String description {get; set;}
-
-        //public String description {get; set;}
+        public String description {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("type")]
         public int type {get; set;}
 
-        //public int type {get; set;}
-
         [XmlElement("card_id")]
         public int card_id {get; set;}
 
-        //public int card_id {get; set;}
-
         [XmlElement("account_id")]
-        public String account_id {get; set;}
-
-        //public String account_id {get; set;}
+        public String account_id {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("currency_id")]
         public int currency_id {get; set;}
-
-        //public int currency_id {get; set;}
     }
 }

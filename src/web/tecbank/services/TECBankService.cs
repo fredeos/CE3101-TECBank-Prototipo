@@ -49,66 +49,107 @@ namespace tecbank.services{
         // --------------------------------[ Service functions and methods ]--------------------------------
 
         // ::. CLIENT METHODS
-        // public List<ClientAccount> GetAllClients() => clients;
 
-        // Gets all clients listed in the XML
+        /// <summary>
+        /// Retrieves all client accounts from the database.
+        /// </summary>
+        /// <returns>
+        /// A list of ClientAccount objects containing all client records.
+        /// Returns an empty list if an error occurs during retrieval.
+        /// </returns>
+        /// <remarks>
+        /// This method attempts to extract all client records from the "clients" table.
+        /// If any error occurs during the process, it logs the error to console
+        /// and returns an empty list to prevent null reference exceptions in calling code.
+        /// </remarks>
         public List<ClientAccount> GetAllClients() 
         {
             try
             {
+                // Attempt to extract all client records from the "clients" table
                 return tecbank_db.extract_all<ClientAccount>("clients");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener clientes: {ex.Message}");
-                return new List<ClientAccount>(); // Retorna lista vacía en caso de error
+                // Log any errors that occur during the extraction process
+                Console.WriteLine($"Error retrieving clients: {ex.Message}");
+                // Return an empty list as a safe default value
+                return new List<ClientAccount>();
             }
         }
 
-        public ClientAccount Client_findByID(int id) {
-            try {
+        /// <summary>
+        /// Finds a client account by their unique ID.
+        /// </summary>
+        /// <param name="id">The ID of the client to search for</param>
+        /// <returns>The found ClientAccount object</returns>
+        /// <exception cref="KeyNotFoundException">Thrown when no client with the specified ID exists</exception>
+        /// <exception cref="SystemException">Thrown when there's an error accessing the database</exception>
+        /// <remarks>
+        /// This method:
+        /// 1. Queries the "clients" table for records matching the provided ID
+        /// 2. Returns the first matching client if found
+        /// 3. Throws a KeyNotFoundException if no client exists with that ID
+        /// 4. Wraps any database errors in a SystemException with context
+        /// </remarks>
+        public ClientAccount Client_findByID(int id)
+        {
+            try 
+            {
+                // Query the database for clients matching the specified ID
                 var clients = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == id);
-                return clients.FirstOrDefault(c => c.id == id);
-            } catch (System.Exception e1){
-                throw new SystemException($"TABLE.SELECT failed: {e1}");
+                // Return the first match or throw exception if not found
+                return clients.FirstOrDefault() ?? 
+                    throw new KeyNotFoundException($"Client with ID {id} not found");
+            }
+            catch (Exception ex)
+            {
+                // Wrap any database errors in a SystemException with context
+                throw new SystemException($"Client lookup failed:: {ex.Message}");
             }   
         }
 
-        public ClientAccount Client_find(String username, String password){
-            var client = clients.FirstOrDefault(c => c.username == username && c.password == password);
-            return client;
+        public ClientAccount Client_find(string username, string password)
+        {
+            return clients.FirstOrDefault(c => c.username == username && c.password == password) 
+                ?? throw new InvalidOperationException("Credenciales inválidas");
         }
 
-        /*
-        public void Client_Add(ClientAccount client) {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
-
-            clients.Add(client);
-        }*/
-
+        /// <summary>
+        /// Adds a new client account to the system
+        /// </summary>
+        /// <param name="client">The client account to add</param>
+        /// <exception cref="ArgumentNullException">Thrown when client is null</exception>
+        /// <exception cref="InvalidOperationException">Thrown when client ID already exists</exception>
+        /// <exception cref="Exception">Thrown for any database operation failures</exception>
+        /// <remarks>
+        /// Performs two main operations:
+        /// 1. Validates the client doesn't already exist
+        /// 2. Inserts the new client record into the XML database
+        /// </remarks>
         public void Client_Add(ClientAccount client) 
         {
+            // Validate input parameter
             if (client == null)
                 throw new ArgumentNullException(nameof(client));
 
             try
             {
-                // 1. Validar que el cliente no exista ya (por ID u otro campo único)
+                // 1. Check for existing client with same ID
                 var existingClient = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == client.id).FirstOrDefault();
                 if (existingClient != null)
                 {
                     throw new InvalidOperationException($"Ya existe un cliente con el ID {client.id}");
                 }
 
-                // 2. Insertar el nuevo cliente en la base de datos XML
+                // 2. Insert new client into XML database
                 tecbank_db.INSERT("clients", client);
             }
             catch (Exception ex)
             {
-                // Loggear el error
+               // Log error details to console (consider using ILogger in production)
                 Console.WriteLine($"Error al agregar cliente: {ex.Message}");
-                throw; // Re-lanzar la excepción para que el controlador la maneje
+                throw; // Re-throw to allow controller to handle
             }
         }
 
@@ -249,10 +290,36 @@ namespace tecbank.services{
         }
 
         // ::. EMPLOYEE METHODS
-        public List<BankEmployee> GetAllEmployes() => employees;
+        //public List<BankEmployee> GetAllEmployes() => employees;
+
+        public List<BankEmployee> GetAllEmployes() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<BankEmployee>("employees");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los empleados: {ex.Message}");
+                return new List<BankEmployee>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         // ::. LOAN PAYMENT METHODS
-        public List<LoanPayment> GetAllPayments() => payments;
+        //public List<LoanPayment> GetAllPayments() => payments;
+
+        public List<LoanPayment> GetAllPayments() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<LoanPayment>("payments");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los prestamos: {ex.Message}");
+                return new List<LoanPayment>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public List<LoanPayment> Payments_FromClient(int user_id) {
             List<LoanPayment> client_payments = [];
@@ -277,7 +344,20 @@ namespace tecbank.services{
         }
 
         // ::. BANK LOAN METHODS
-        public List<BankLoan> GetAllLoans() => loans;
+        //public List<BankLoan> GetAllLoans() => loans;
+        
+        public List<BankLoan> GetAllLoans() 
+        {
+            try
+            {
+                return tecbank_db.extract_all<BankLoan>("loans");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener los prestamos: {ex.Message}");
+                return new List<BankLoan>(); // Retorna lista vacía en caso de error
+            }
+        }
 
         public List<BankLoan> Loans_FromClient(int user_id){
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);

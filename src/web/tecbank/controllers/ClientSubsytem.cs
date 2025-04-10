@@ -42,7 +42,7 @@ namespace tecbank.controllers{
                     return NotFound();
                 }
                 return Ok(cards);
-            } catch (System.Exception e1){
+            } catch {
                 return BadRequest("Datos del cliente o cuenta bancaria incorrectos");
             }
         }

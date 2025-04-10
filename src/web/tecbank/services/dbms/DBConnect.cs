@@ -36,16 +36,36 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        /// <summary>
+        /// Executes a SELECT query on the specified table with the given criteria
+        /// </summary>
+        /// <typeparam name="T">The type of objects to return</typeparam>
+        /// <param name="table">Name of the table to query</param>
+        /// <param name="criteria">Filter condition for the records</param>
+        /// <returns>List of matching records of type T</returns>
+        /// <exception cref="KeyNotFoundException">Thrown when the specified table doesn't exist</exception>
+        /// <exception cref="SystemException">Thrown when any database operation fails</exception>
+        /// <remarks>
+        /// This method:
+        /// 1. Acquires a lock using the semaphore to ensure thread-safe access
+        /// 2. Locates the requested table in the database
+        /// 3. Executes the find operation with the provided criteria
+        /// 4. Releases the lock in a finally block to prevent deadlocks
+        /// 5. Wraps all database errors in a SystemException
         public List<T> SELECT<T>(String table, Func<T, bool> criteria){
             try{
+                // Acquire lock for thread-safe database access
                 __db_traffic.Wait();
+                // Find the requested table
                 var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
-                if (db_tab == null) throw new KeyNotFoundException($"La tabla {table} no existe en la base de datos {__db_name}");
+                if (db_tab == null) throw new KeyNotFoundException($"Table {table} doesn't exist in database {__db_name}");
+                // Execute the query with criteria
                 return db_tab.find<T>(criteria);
             } catch (System.Exception e){
                 // TODO: Catch exceptions and log
                 throw new SystemException($"TABLEAP.FIND failed: {e}");
             } finally {
+                // Ensure lock is always released
                 __db_traffic.Release();
             }
         }

@@ -35,22 +35,25 @@ namespace tecbank.controllers{
             return Ok(tecbankService.GetAllCards());
         }
 
-
+        // Listo con XML
         [HttpGet("employees/all")]
         public ActionResult<IEnumerable<BankEmployee>> GetAllEmployees(){
             return Ok(tecbankService.GetAllEmployes());
         }
 
-
+        // Listo con XML
         [HttpGet("movements/all")]
         public ActionResult<IEnumerable<BankMovement>> GetAllMovements(){
             return Ok(tecbankService.GetAllMovements());
         }
 
+        // Listo con XML
         [HttpGet("loans/all")]
         public ActionResult<IEnumerable<BankLoan>> GetAllLoans(){
             return Ok(tecbankService.GetAllLoans());
         }
+        
+        // Listo con XML
         [HttpGet("loans/payments/all")]
         public ActionResult<IEnumerable<LoanPayment>> GetAllLoanPayments(){
             return Ok(tecbankService.GetAllPayments());

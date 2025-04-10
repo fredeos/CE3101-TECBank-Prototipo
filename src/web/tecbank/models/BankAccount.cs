@@ -8,36 +8,21 @@ namespace tecbank.models{
     [XmlRoot("value")]
     public class BankAccount{
         [XmlElement("id")]
-        public string id {get; set;}
-        
-        //public String id {get; set;}
+        public string id {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("type")]
         public int type {get; set;}
 
-        //public int type {get; set;}
-
         [XmlElement("balance")]
         public float balance {get; set;}
 
-        //public float balance {get; set;}
-
         [XmlElement("description")]
-        public String description {get; set;}
-
-
-        //public String description {get; set;}
+        public String description {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("currency_id")]
         public int currency_id {get; set;}
 
-
-        //public int currency_id {get; set;}
-
         [XmlElement("client_id")]
         public int client_id {get; set;}
-
-
-        //public int client_id {get; set;}
     }
 }

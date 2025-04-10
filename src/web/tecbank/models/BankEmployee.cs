@@ -11,27 +11,17 @@ namespace tecbank.models{
         [XmlElement("id")]
         public int id {get; set;}
 
-        //public int id {get; set;}
-
         [XmlElement("name")]
-        public String name {get; set;}
-
-        //public String name {get; set;}
+        public String name {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("last_name1")]
-        public String last_name1 {get; set;}
-
-        //public String last_name1 {get; set;}
+        public String last_name1 {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("last_name2")]
-        public String last_name2 {get; set;}
-
-        //public String last_name2 {get; set;}
+        public String last_name2 {get; set;} = string.Empty; // Warning solution
 
         [XmlElement("role_id")]
         public int role_id {get; set;}
-
-        //public int role_id {get; set;}
     }
     /// <summary>
     /// Class for subtype of employee that works as a loan adviser

@@ -1,5 +1,6 @@
 <table>
     <name>roles</name>
+    <id>10</id>
     <PKS> 
         <PK>id</PK>
     </PKS>

@@ -10,23 +10,23 @@
     <tuples>
         <value> 
             <id>107</id>
-            <name>"Juan"</name>
-            <last_name1>"Miranda"</last_name1>
-            <last_name2>"Solis"</last_name2>
+            <name>Juan</name>
+            <last_name1>Miranda</last_name1>
+            <last_name2>Solis</last_name2>
             <role_id>1</role_id>
         </value>
         <value> 
             <id>109</id>
-            <name>"Adolfo"</name>
-            <last_name1>"Vargas"</last_name1>
-            <last_name2>"Paniagua"</last_name2>
+            <name>Adolfo</name>
+            <last_name1>Vargas</last_name1>
+            <last_name2>Paniagua</last_name2>
             <role_id>2</role_id>
         </value>
         <value> 
             <id>103</id>
-            <name>"Daniel"</name>
-            <last_name1>"Cabrera"</last_name1>
-            <last_name2>"Ortiz"</last_name2>
+            <name>Daniel</name>
+            <last_name1>Cabrera</last_name1>
+            <last_name2>Ortiz</last_name2>
             <role_id>2</role_id>
         </value>
     </tuples>
