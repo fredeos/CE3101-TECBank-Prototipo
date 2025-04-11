@@ -109,6 +109,7 @@ namespace tecbank.services{
             }   
         }
 
+        // Falta
         public ClientAccount Client_find(string username, string password)
         {
             return clients.FirstOrDefault(c => c.username == username && c.password == password) 
@@ -153,6 +154,7 @@ namespace tecbank.services{
             }
         }
 
+        // Falta
         public void Client_Update(ClientAccount client){
             if (client == null)
                 throw new ArgumentNullException(nameof(client));
@@ -172,7 +174,8 @@ namespace tecbank.services{
             existingClient.phone_number = client.phone_number;
             existingClient.address = client.address;
         }
-
+        
+        //Falta
         public void Client_Delete(int id){
             var client = Client_findByID(id);
             if (client == null)
@@ -182,8 +185,11 @@ namespace tecbank.services{
         }
 
         // ::. BANK ACCOUNT METHODS
-        //public List<BankAccount> GetAllAccounts() => accounts;
 
+        /// <summary>
+        /// Retrieves all bank accounts from the database
+        /// </summary>
+        /// <returns>List of all accounts or empty list if error occurs</returns>
         public List<BankAccount> GetAllAccounts() 
         {
             try
@@ -192,22 +198,114 @@ namespace tecbank.services{
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
+                Console.WriteLine($"Error retrieving accounts: {ex.Message}");
                 return new List<BankAccount>(); // Retorna lista vacía en caso de error
             }
         }
 
+        /// <summary>
+        /// Retrieves a bank account by its unique ID
+        /// </summary>
+        /// <param name="id">Account ID to search for</param>
+        /// <returns>Matching BankAccount object</returns>
+        /// <exception cref="KeyNotFoundException">Account not found</exception>
+        /// <exception cref="SystemException">Database operation failed</exception>
+        public BankAccount GetAccountById(string id)
+        {
+            try
+            {
+                var account = tecbank_db.SELECT<BankAccount>("accounts", a => a.id == id).FirstOrDefault();
+                return account ?? throw new KeyNotFoundException($"Account with ID {id} not found");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving account {id}: {ex.Message}");
+                throw new SystemException("Failed to retrieve account", ex);
+            }
+        }
+
+        // Falta
         public List<BankAccount> AccountsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
             return client_accounts;
         }
 
-        public void Account_Add(BankAccount account){
+        /// <summary>
+        /// Adds a new bank account with validation checks
+        /// </summary>
+        /// <param name="account">Account to add</param>
+        /// <exception cref="ArgumentNullException">Null account provided</exception>
+        /// <exception cref="ArgumentException">Validation failure</exception>
+        /// <exception cref="SystemException">Database operation failed</exception>
+        public void Account_Add(BankAccount account)
+        {
             if (account == null)
                 throw new ArgumentNullException(nameof(account));
-            accounts.Add(account);
+
+            try
+            {
+                // 1. Set default description if empty
+                if (string.IsNullOrWhiteSpace(account.description))
+                    account.description = "Personal account"; // Valor por defecto
+
+                // 2. Validate client exists
+                var clientExists = tecbank_db.SELECT<ClientAccount>("clients", 
+                                c => c.id == account.client_id).Any();
+                if (!clientExists)
+                    throw new ArgumentException($"Client with ID {account.client_id} not found");
+
+                // 3. Validate currency exists
+                var currencyExists = tecbank_db.SELECT<Currency>("currency", 
+                                    c => c.id == account.currency_id).Any();
+                if (!currencyExists)
+                    throw new ArgumentException($"Currency with ID {account.currency_id} not found");
+
+                // 4. Validate account ID is unique
+                var accountExists = tecbank_db.SELECT<BankAccount>("accounts", 
+                                a => a.id == account.id).Any();
+                if (accountExists)
+                    throw new ArgumentException($"Account {account.id} already exists");
+
+                // 5. Set default balance if negative
+                if (account.balance < 0)
+                    account.balance = 0;
+
+                // 6. Insert into database
+                tecbank_db.INSERT("accounts", account);
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SystemException($"Error adding account: {ex.Message}", ex);
+            }
+        }
+        /// <summary>
+        /// Generates a Costa Rican-style bank account ID
+        /// Format: 3-digit bank code + 9-digit account number + 1 check digit
+        /// </summary>
+        /// <returns>Generated account ID string</returns>
+        public string GenerateCostaRicanAccountId()
+        {
+            // Standard CR account format:
+            // 3-digit bank code + 9-digit account + 1 check digit
+            
+            const string bankCode = "151"; // Example bank code
+            var random = new Random();
+            
+            // Generate 9-digit account number
+            var accountNumber = random.Next(0, 999999999).ToString("D9"); 
+            
+            // Simple check digit
+            var checkDigit = random.Next(0, 9); 
+
+            return $"{bankCode}{accountNumber}{checkDigit}";
         }
 
+        
+        // Falta
         public void Account_Update(BankAccount account){
             if (account == null)
                 throw new ArgumentNullException(nameof(account));
@@ -223,6 +321,7 @@ namespace tecbank.services{
             existingAccount.client_id = account.client_id;
         }
 
+        // Falta
         public void Account_Delete(string id){
             var account = accounts.FirstOrDefault(a => a.id == id);
             if (account == null)
@@ -232,8 +331,11 @@ namespace tecbank.services{
         }
 
         // ::. BANK CARD METHODS
-        //public List<BankCard> GetAllCards() => cards;
 
+        /// <summary>
+        /// Retrieves all bank cards from the database
+        /// </summary>
+        /// <returns>List of bank cards or empty list on error</returns>
         public List<BankCard> GetAllCards() 
         {
             try
@@ -242,11 +344,33 @@ namespace tecbank.services{
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
-                return new List<BankCard>(); // Retorna lista vacía en caso de error
+                Console.WriteLine($"Error retrieving cards: {ex.Message}");
+                return new List<BankCard>(); // Returns empty list if error occurs
             }
         }
 
+        /// <summary>
+        /// Retrieves a bank card by its card number
+        /// </summary>
+        /// <param name="cardNumber">The card number to search for</param>
+        /// <returns>The matching BankCard object</returns>
+        /// <exception cref="KeyNotFoundException">Card not found</exception>
+        /// <exception cref="SystemException">Database operation failed</exception>
+        public BankCard GetCardByNumber(int cardNumber)
+        {
+            try
+            {
+                var card = tecbank_db.SELECT<BankCard>("cards", c => c.card_num == cardNumber).FirstOrDefault();
+                return card ?? throw new KeyNotFoundException($"Card with number {cardNumber} not found");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving card {cardNumber}: {ex.Message}");
+                throw new SystemException("Failed to retrieve card", ex);
+            }
+        }
+
+        // Falta
         public List<BankCard> CardsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
             List<BankCard> client_cards = [];
@@ -260,24 +384,118 @@ namespace tecbank.services{
             return client_cards;
         }
 
+        // Falta
         public List<BankCard> CardsFromAccount(int user_id, String account_id){
             var account = accounts.FirstOrDefault(acc => acc.id == account_id && acc.client_id == user_id) ?? throw new NullReferenceException();
             var account_cards = cards.FindAll(cc => cc.account_id == account.id);
             return account_cards;
         }
 
-        public void Card_Add(BankCard card){
-            if (card == null) throw new ArgumentNullException(nameof(card));
-            cards.Add(card);
+
+        /// <summary>
+        /// Adds a new bank card with validation and auto-generation of missing fields
+        /// </summary>
+        /// <param name="card">Card to add</param>
+        /// <exception cref="ArgumentNullException">Null card provided</exception>
+        /// <exception cref="ArgumentException">Validation failure</exception>
+        /// <exception cref="SystemException">Database operation failed</exception>
+        public void Card_Add(BankCard card)
+        {
+            if (card == null)
+                throw new ArgumentNullException(nameof(card));
+
+            try
+            {
+                // Validate linked account exists
+                if (!tecbank_db.SELECT<BankAccount>("accounts", a => a.id == card.account_id).Any())
+                    throw new ArgumentException($"Account {card.account_id} not found");
+
+                // Auto-generate card number if not provided
+                if (card.card_num == 0)
+                {
+                    card.card_num = GenerateCardNumber();
+                }
+                else
+                {
+                    // Validate card number format (8-9 digits)
+                    if (card.card_num < 10000000 || card.card_num > 999999999)
+                        throw new ArgumentException("Card number must be 8-9 digits");
+                }
+
+                // Auto-generate CVC if not provided
+                if (card.cvc == 0)
+                    card.cvc = GenerateCVC();
+                else if (card.cvc < 100 || card.cvc > 999)
+                    throw new ArgumentException("CVC must be 3 digits");
+
+                // Validate card type (1: Debit, 2: Credit)
+                if (card.type < 1 || card.type > 2)
+                    throw new ArgumentException("Invalid card type (1: Debit, 2: Credit)");
+
+                // Ensure non-negative balance
+                if (card.balance < 0)
+                    card.balance = 0;
+
+                tecbank_db.INSERT("cards", card);
+            }
+            catch (Exception ex)
+            {
+                throw new SystemException($"Error adding card: {ex.Message}", ex);
+            }
         }
 
-        
+        /// <summary>
+        /// Generates a valid card number (8 digits starting with 4)
+        /// </summary>
+        /// <returns>Generated card number with check digit</returns>
+        public int GenerateCardNumber()
+        {
+            Random random = new Random();
+            
+            // Generate 8-digit number (safe Int32 range)
+            int cardNumber = random.Next(40000000, 49999999); // Starts with 4 (Visa-style)
+            
+            // Append simple check digit
+            return cardNumber * 10 + CalculateSimpleCheckDigit(cardNumber);
+        }
+
+        /// <summary>
+        /// Calculates a simple check digit for card numbers
+        /// </summary>
+        /// <param name="number">Card number base</param>
+        /// <returns>Single check digit (0-9)</returns>
+        public int CalculateSimpleCheckDigit(int number)
+        {
+            int sum = 0;
+            int temp = number;
+            
+            // Sum all digits
+            while (temp > 0)
+            {
+                sum += temp % 10;
+                temp /= 10;
+            }
+            
+            return sum % 10; // Modulo 10 check digit
+        }
+
+        /// <summary>
+        /// Generates a random 3-digit CVC code
+        /// </summary>
+        /// <returns>CVC between 100-999</returns>
+        public int GenerateCVC()
+        {
+            return new Random().Next(100, 999);
+        }
+
+        // Falta
         public void Card_Delete(int cardNum){
             var card = cards.FirstOrDefault(c => c.card_num == cardNum);
             if (card == null) throw new KeyNotFoundException("Tarjeta no encontrada.");
             cards.Remove(card);
         }
 
+        // Falta
         public void Card_Update(BankCard card){
             if (card == null) throw new ArgumentNullException(nameof(card));
             var existingCard = cards.FirstOrDefault(c => c.card_num == card.card_num);
@@ -290,8 +508,11 @@ namespace tecbank.services{
         }
 
         // ::. EMPLOYEE METHODS
-        //public List<BankEmployee> GetAllEmployes() => employees;
 
+        /// <summary>
+        /// Retrieves all bank employees from the database
+        /// </summary>
+        /// <returns>List of employees or empty list on error</returns>
         public List<BankEmployee> GetAllEmployes() 
         {
             try
@@ -300,14 +521,17 @@ namespace tecbank.services{
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener los empleados: {ex.Message}");
+                Console.WriteLine($"Error retrieving employees: {ex.Message}");
                 return new List<BankEmployee>(); // Retorna lista vacía en caso de error
             }
         }
 
         // ::. LOAN PAYMENT METHODS
-        //public List<LoanPayment> GetAllPayments() => payments;
 
+        /// <summary>
+        /// Retrieves all loan payments from the database
+        /// </summary>
+        /// <returns>List of payments or empty list on error</returns>
         public List<LoanPayment> GetAllPayments() 
         {
             try
@@ -316,11 +540,12 @@ namespace tecbank.services{
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener los prestamos: {ex.Message}");
-                return new List<LoanPayment>(); // Retorna lista vacía en caso de error
+                Console.WriteLine($"Error retrieving payments: {ex.Message}");
+                return new List<LoanPayment>(); // Returns empty list if error occurs
             }
         }
 
+        // Falta
         public List<LoanPayment> Payments_FromClient(int user_id) {
             List<LoanPayment> client_payments = [];
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);
@@ -330,6 +555,7 @@ namespace tecbank.services{
             return client_payments;
         }
 
+        // Falta
         public void Payment_MakeAPayment(int user_id, String account_id, LoanPayment payment){
             var target_loan = loans.FirstOrDefault(ln => ln.id == payment.loan_id);
             BankMovement related_movement = new BankMovement{ id = Guid.NewGuid().ToString(), description = "Pago de prestamo", date = payment.date, card_id = -1, total_transfer = payment.total, currency_id = target_loan.currency_id, account_id = account_id, type = 3};
@@ -344,8 +570,11 @@ namespace tecbank.services{
         }
 
         // ::. BANK LOAN METHODS
-        //public List<BankLoan> GetAllLoans() => loans;
-        
+
+        /// <summary>
+        /// Retrieves all loan payments from the database
+        /// </summary>
+        /// <returns>List of payments or empty list on error</returns>
         public List<BankLoan> GetAllLoans() 
         {
             try
@@ -354,29 +583,99 @@ namespace tecbank.services{
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al obtener los prestamos: {ex.Message}");
-                return new List<BankLoan>(); // Retorna lista vacía en caso de error
+                Console.WriteLine($"Error retrieving payments: {ex.Message}");
+                return new List<BankLoan>(); // Returns empty list if error occurs
             }
         }
 
+        // Falta
         public List<BankLoan> Loans_FromClient(int user_id){
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);
             return client_loans;
         }
 
-        public void Loan_Add(BankLoan loan){
+        /// <summary>
+        /// Retrieves a loan by its unique ID
+        /// </summary>
+        /// <param name="id">The ID of the loan to retrieve</param>
+        /// <returns>The found BankLoan object</returns>
+        /// <exception cref="KeyNotFoundException">Thrown when loan is not found</exception>
+        /// <exception cref="SystemException">Thrown when database operation fails</exception>
+        public BankLoan GetLoanById(int id)
+        {
+            try
+            {
+                // Execute SELECT query directly with ID criteria
+                // FirstOrDefault returns null if no match is found
+
+                var loan = tecbank_db.SELECT<BankLoan>("loans", l => l.id == id).FirstOrDefault();
+
+                // Return the loan if found, otherwise throw KeyNotFoundException
+                return loan ?? throw new KeyNotFoundException($"Loan with ID {id} not found");
+            }
+            catch (KeyNotFoundException)
+            {
+                throw; // Re-throw specific exceptions without modification to preserve stack trace
+            }
+            catch (Exception ex)
+            {   
+                // Wrap general exceptions in a SystemException with context information
+                throw new SystemException($"Failed to retrieve loan {id}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new loan to the system with validation
+        /// </summary>
+        /// <param name="loan">The loan to add</param>
+        /// <exception cref="ArgumentNullException">Thrown when loan is null</exception>
+        /// <exception cref="ArgumentException">Thrown when validation fails</exception>
+        /// <exception cref="SystemException">Thrown when database operation fails</exception>
+        public void Loan_Add(BankLoan loan)
+        {
+            // Validate input parameter
             if (loan == null)
                 throw new ArgumentNullException(nameof(loan));
 
-            // Validar que el cliente y asesor existan
-            if (!clients.Any(c => c.id == loan.client_id))
-                throw new ArgumentException("Cliente no existe.");
-            if (!employees.Any(e => e.id == loan.adviser_id))
-                throw new ArgumentException("Asesor no existe.");
+            try
+            {
+                // 1. Validate that the client exists
+                var clientExists = tecbank_db.SELECT<ClientAccount>("clients", 
+                                c => c.id == loan.client_id).Any();
+                
+                if (!clientExists)
+                    throw new ArgumentException($"Client with ID {loan.client_id} doesn't exist");
 
-            loans.Add(loan);
+                // 2. Validate that the adviser exists and has the LoanAdviser role (role_id = 2)
+                var adviser = tecbank_db.SELECT<BankEmployee>("employees", 
+                            e => e.id == loan.adviser_id && e.role_id == 2).FirstOrDefault();
+                
+                if (adviser == null)
+                    throw new ArgumentException($"Loan adviser with ID {loan.adviser_id} not found or not authorized");
+
+                // 3. Validate loan data
+                if (loan.total <= 0)
+                    throw new ArgumentException("Loan amount must be positive");
+
+                // 4. Set default values
+                loan.request_date = DateTime.Now;
+                loan.balance = loan.total;
+
+                // 5. Insert into database
+                tecbank_db.INSERT("loans", loan);
+            }
+            catch (ArgumentException)
+            {
+                throw; // Re-throw validation exceptions to the caller
+            }
+            catch (Exception ex)
+            {
+                // Wrap other exceptions with context information
+                throw new SystemException("Failed to add loan", ex);
+            }
         }
 
+        // Falta
         public void Loan_Update(BankLoan loan){
             if (loan == null)
                 throw new ArgumentNullException(nameof(loan));
@@ -394,21 +693,39 @@ namespace tecbank.services{
         }
 
         // ::. BANK MOVEMENT METHODS
-        //public List<BankMovement> GetAllMovements() => movements;
 
+        /// <summary>
+        /// Retrieves all bank movements from the database.
+        /// </summary>
+        /// <returns>
+        /// A list of BankMovement objects if successful; 
+        /// an empty list if an error occurs.
+        /// </returns>
+        /// <remarks>
+        /// This method handles exceptions internally by returning an empty list
+        /// and logging the error to the console. Consider using a proper logging
+        /// framework in production code.
+        /// </remarks>
         public List<BankMovement> GetAllMovements() 
         {
             try
             {
+                // Extract all movement records from the database
+                // using the generic extract_all method
                 return tecbank_db.extract_all<BankMovement>("movements");
             }
             catch (Exception ex)
             {
+                // Log error details to console (for debugging)
                 Console.WriteLine($"Error al obtener las cuentas: {ex.Message}");
+
+                // Return empty list as fallback value
+                // This ensures calling code always gets a valid List object
                 return new List<BankMovement>(); // Retorna lista vacía en caso de error
             }
         }
 
+        // Falta
         public void Movement_New(int user_id, BankMovement movement) {
             // >> COMPROBACION 1: Integridad del objeto <<
             if (movement == null) throw new ArgumentNullException(nameof(movement));
@@ -429,6 +746,7 @@ namespace tecbank.services{
             movements.Add(movement);
         }
 
+        // Falta
         public List<BankMovement> Movements_FromAccount(String account_id, int client_id){
             var client = clients.FirstOrDefault(cli => cli.id == client_id);
             // >> COMPROBACION 1: Existencia del usuario <<

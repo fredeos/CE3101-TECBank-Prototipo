@@ -127,5 +127,29 @@
       <phone_number>78906544</phone_number>
       <address>Alajuela</address>
     </value>
+    <value>
+      <id>311</id>
+      <name>Carmen</name>
+      <last_name1>Villalobos</last_name1>
+      <last_name2>Hernandez</last_name2>
+      <type>1</type>
+      <username>Carmen123</username>
+      <password>123456</password>
+      <monthly_income>120000</monthly_income>
+      <phone_number>87659900</phone_number>
+      <address>Cartago</address>
+    </value>
+    <value>
+      <id>312</id>
+      <name>Julia</name>
+      <last_name1>Matamoros</last_name1>
+      <last_name2>Valverde</last_name2>
+      <type>1</type>
+      <username>juli123</username>
+      <password>MV1345</password>
+      <monthly_income>40000</monthly_income>
+      <phone_number>68995544</phone_number>
+      <address>Cervantes</address>
+    </value>
   </tuples>
 </table>

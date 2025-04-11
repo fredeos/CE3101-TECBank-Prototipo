@@ -46,12 +46,6 @@ namespace tecbank.services.DBMS{
         /// <exception cref="KeyNotFoundException">Thrown when the specified table doesn't exist</exception>
         /// <exception cref="SystemException">Thrown when any database operation fails</exception>
         /// <remarks>
-        /// This method:
-        /// 1. Acquires a lock using the semaphore to ensure thread-safe access
-        /// 2. Locates the requested table in the database
-        /// 3. Executes the find operation with the provided criteria
-        /// 4. Releases the lock in a finally block to prevent deadlocks
-        /// 5. Wraps all database errors in a SystemException
         public List<T> SELECT<T>(String table, Func<T, bool> criteria){
             try{
                 // Acquire lock for thread-safe database access
@@ -70,7 +64,13 @@ namespace tecbank.services.DBMS{
             }
         }
 
-        // This method extracts all data from a table
+        /// <summary>
+        /// Retrieves all records from specified table
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="table">Source table name</param>
+        /// <exception cref="KeyNotFoundException">Table doesn't exist</exception>
+        /// <exception cref="SystemException">Extraction failed</exception>
         public List<T> extract_all<T>(String table)
         {
             try
@@ -92,7 +92,15 @@ namespace tecbank.services.DBMS{
                 __db_traffic.Release();
             }
         }
-
+        
+        /// <summary>
+        /// Inserts an object into the specified database table.
+        /// </summary>
+        /// <typeparam name="T">Object type</typeparam>
+        /// <param name="table">Target table name</param>
+        /// <param name="obj">Object to insert</param>
+        /// <exception cref="KeyNotFoundException">Table doesn't exist</exception>
+        /// <exception cref="SystemException">Insert operation failed</exception>
         public void INSERT<T>(String table, T obj)
         {
             try
@@ -115,6 +123,7 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        // Falta
         public void MODIFY<T> (String table,T obj, Func<T,bool> criteria){
             try{
                 __db_traffic.Wait();
@@ -126,6 +135,7 @@ namespace tecbank.services.DBMS{
             }
         }
 
+        // Falta
         public void REMOVE<T> (String table, Func<T, bool> criteria){
             try{
                 __db_traffic.Wait();

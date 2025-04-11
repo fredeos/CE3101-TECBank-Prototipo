@@ -1,38 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <table>
-    <name>accounts</name>
-    <id>2</id>
-    <PKs> 
-        <PK>id</PK>
-    </PKs>
-    <FKs> 
-        <FK>currency_id</FK>
-        <FK>client_id</FK>
-    </FKs>
-    <tuples> 
-        <value>
-            <id>152CR54126bt67</id>
-            <type>2</type>
-            <balance>80000.00</balance>
-            <description>Cuenta Personal</description>
-            <currency_id>3</currency_id>
-            <client_id>301</client_id>
-        </value>
-        <value>
-            <id>897CR54134bt01</id>
-            <type>1</type>
-            <balance>7000.00</balance>
-            <description>Cuenta de Trabajo</description>
-            <currency_id>1</currency_id>
-            <client_id>301</client_id>
-        </value>
-        <value>
-            <id>646CR54186bt11</id>
-            <type>1</type>
-            <balance>40000.00</balance>
-            <description>Cuenta Personal</description>
-            <currency_id>1</currency_id>
-            <client_id>302</client_id>
-        </value>
-    </tuples>
+  <name>accounts</name>
+  <id>2</id>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <FKs>
+    <FK>currency_id</FK>
+    <FK>client_id</FK>
+  </FKs>
+  <tuples>
+    <value>
+      <id>152CR54126bt67</id>
+      <type>2</type>
+      <balance>80000.00</balance>
+      <description>Cuenta Personal</description>
+      <currency_id>3</currency_id>
+      <client_id>301</client_id>
+    </value>
+    <value>
+      <id>897CR54134bt01</id>
+      <type>1</type>
+      <balance>7000.00</balance>
+      <description>Cuenta de Trabajo</description>
+      <currency_id>1</currency_id>
+      <client_id>301</client_id>
+    </value>
+    <value>
+      <id>646CR54186bt11</id>
+      <type>1</type>
+      <balance>40000.00</balance>
+      <description>Cuenta Personal</description>
+      <currency_id>1</currency_id>
+      <client_id>302</client_id>
+    </value>
+    <value>
+      <id>1510183322893</id>
+      <type>1</type>
+      <balance>800000</balance>
+      <description>Cuenta Personal</description>
+      <currency_id>3</currency_id>
+      <client_id>303</client_id>
+    </value>
+    <value>
+      <id>1514226712491</id>
+      <type>1</type>
+      <balance>400000</balance>
+      <description>Personal account</description>
+      <currency_id>3</currency_id>
+      <client_id>312</client_id>
+    </value>
+  </tuples>
 </table>

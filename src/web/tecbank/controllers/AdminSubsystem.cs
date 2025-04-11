@@ -12,10 +12,6 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
-        /*[HttpGet]
-        public ActionResult<IEnumerable<ClientAccount>> Get(){
-            return Ok(tecbankService.GetAllEmployes());
-        }*/
 
         // Listo con XML
         [HttpGet("clients/all")]
@@ -59,14 +55,7 @@ namespace tecbank.controllers{
             return Ok(tecbankService.GetAllPayments());
         }
 
-        [HttpGet("loans/{id}")]
-        public ActionResult<BankLoan> GetLoan(int id)
-        {
-            var loan = tecbankService.GetAllLoans().FirstOrDefault(l => l.id == id);
-            if (loan == null)
-                return NotFound();
-            return Ok(loan);
-        }
+    
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
         // Listo con XML
         [HttpGet("clients/{id}")]
@@ -84,39 +73,68 @@ namespace tecbank.controllers{
             
         }
 
+
+        // Listo con XML
+        [HttpGet("loans/{id}")]
+        public ActionResult<BankLoan> GetLoan(int id)
+        {
+            try
+            {
+                var loan = tecbankService.GetLoanById(id);
+                return Ok(loan);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (SystemException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        // Listo con XML
         [HttpGet("accounts/{id}")]
         public ActionResult<BankAccount> GetAccount(string id)
         {
-            var account = tecbankService.GetAllAccounts().FirstOrDefault(a => a.id == id);
-            if (account == null)
+            try
             {
-                return NotFound();
+                var account = tecbankService.GetAccountById(id);
+                return Ok(account);
             }
-            return Ok(account);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (SystemException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
+
+        // Listo con XML
         [HttpGet("cards/{id}")]
         public ActionResult<BankCard> GetCard(int id)
         {
-            var card = tecbankService.GetAllCards().FirstOrDefault(c => c.card_num == id);
-            if (card == null)
+            try
             {
-                return NotFound();
+                var card = tecbankService.GetCardByNumber(id);
+                return Ok(card);
             }
-            return Ok(card);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (SystemException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
-        // ------------------------------------------------- [ POST ] -------------------------------------------------
-        /*[HttpPost("clients/add")]
-        public ActionResult<ClientAccount> AddClient([FromBody] ClientAccount client)
-        {
-            if (client == null)
-            {
-                return BadRequest("Datos del cliente inválidos.");
-            }
 
-            tecbankService.Client_Add(client);
-            return CreatedAtAction(nameof(GetClient), new { id = client.id }, client);
-        }*/
+
+        // ------------------------------------------------- [ POST ] -------------------------------------------------
 
         // Listo con XML
         [HttpPost("clients/add")]
@@ -150,42 +168,79 @@ namespace tecbank.controllers{
             }
         }
 
+        // Listo con XML
         [HttpPost("accounts/add")]
-        public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account){
-            if (account == null)
+        public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account)
+        {
+            try
             {
-                return BadRequest("Datos de la cuenta inválidos.");
-            }
+                if (account == null)
+                    return BadRequest("Datos de la cuenta inválidos");
 
-            tecbankService.Account_Add(account);
-            return CreatedAtAction(nameof(GetAccount), new { id = account.id }, account);
+                // Validación básica de campos requeridos
+                if (account.client_id <= 0 || account.currency_id <= 0)
+                    return BadRequest("ID de cliente y moneda son requeridos");
+
+                // Generar ID costarricense si no viene especificado
+                if (string.IsNullOrEmpty(account.id))
+                {
+                    account.id = tecbankService.GenerateCostaRicanAccountId();
+                }
+
+                tecbankService.Account_Add(account);
+                return CreatedAtAction(nameof(GetAccount), new { id = account.id }, account);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno al crear cuenta: {ex.Message}");
+            }
         }
 
+        // Listo con XML
         [HttpPost("cards/add")]
         public ActionResult<BankCard> AddCard([FromBody] BankCard card)
         {
-            if (card == null)
+            try
             {
-                return BadRequest("Datos de la tarjeta inválidos.");
-            }
+                if (card == null)
+                    return BadRequest("Datos de la tarjeta inválidos");
 
-            tecbankService.Card_Add(card);
-            return CreatedAtAction(nameof(GetCard), new { id = card.card_num }, card);
+                // Validar que se proporcione account_id
+                if (string.IsNullOrEmpty(card.account_id))
+                    return BadRequest("El número de cuenta es requerido");
+
+                // Generar valores automáticos si no están establecidos
+                if (card.card_num == 0)
+                    card.card_num = tecbankService.GenerateCardNumber();
+                
+                if (card.cvc == 0)
+                    card.cvc = tecbankService.GenerateCVC();
+
+                tecbankService.Card_Add(card);
+                return CreatedAtAction(nameof(GetCard), new { id = card.card_num }, card);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno al crear tarjeta: {ex.Message}");
+            }
         }
 
+        // Listo con XML
         [HttpPost("loans/add")]
-        public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan){
+        public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan)
+        {
             try
             {
                 if (loan == null)
-                    return BadRequest("Datos del préstamo inválidos.");
-
-                // Validar que el monto total sea positivo
-                if (loan.total <= 0)
-                    return BadRequest("El monto total debe ser positivo.");
-
-                loan.request_date = DateTime.Now; // Fecha automática
-                loan.balance = loan.total; // Saldo inicial = monto total
+                    return BadRequest("Invalid loan data");
 
                 tecbankService.Loan_Add(loan);
                 return CreatedAtAction(nameof(GetLoan), new { id = loan.id }, loan);
@@ -193,6 +248,10 @@ namespace tecbank.controllers{
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (SystemException ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
 
