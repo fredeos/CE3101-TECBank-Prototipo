@@ -4,9 +4,23 @@ using System.Text.Json;
 using System.IO;
 
 using tecbank.DBMS;
+using System.Xml;
 
 
 namespace tecbank.services.DBMS{
+    /// <summary>
+    /// Exception class for webapi Database Management System service
+    /// </summary>
+    public class DBMSException : Exception{
+        public DBMSException() { }
+
+        public DBMSException(string message) 
+            : base(message) { }
+
+        public DBMSException(string message, Exception inner) 
+            : base(message, inner) { }
+    }
+
     /// <summary>
     /// This class allows connecting to a project database and its tables
     /// Project database consists of a relation between .xml files as tables and .json database properties
@@ -31,33 +45,51 @@ namespace tecbank.services.DBMS{
                     try{
                         __db_tables.Add(new(Path.Combine(database_dir, $"{__db_name}_tables", $"{table.ToString()}.{ext}")));
                     } catch (System.Exception e){
-                        throw new SystemException($"(DBConnect){e.ToString}");
+                        throw new DBMSException($"(DBConnect){e.ToString}");
                     }
                 }
             } else {
-                throw new SystemException($"(DBConnect) The database({db_name}) file doesnt exist: {__db_file}");
+                throw new DBMSException($"(DBConnect) The database({db_name}) file doesnt exist: {__db_file}");
             }
         }
 
         /// <summary>
-        /// Executes a SELECT query on the specified table with the given criteria(if null, selects all)
+        /// Executes a SELECT query on the specified table with the given criteria
         /// </summary>
         /// <returns>List of T elements from query</returns>
-        /// <exception cref="SystemException"></exception>
+        /// <exception cref="DBMSException"></exception>
         /// <exception cref="KeyNotFoundException"></exception>
-        public List<T> SELECT<T>(String table, Func<T, bool>? criteria){
+        public List<T> SELECT<T>(String table, Func<T, bool> criteria){
             try{
                 __db_traffic.Wait();
                 var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
                 if (db_tab == null) 
                     throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
-                if (criteria == null){
-                    return db_tab.extract_all<T>();
-                } else {
-                    return db_tab.find<T>(criteria);
-                }
-            } catch (System.Exception e){
-                throw new SystemException($"(DBConnect){e.ToString()}");
+                return db_tab.find<T>(criteria);
+            } catch (XmlException e){
+                throw new DBMSException($"(DBConnect){e.ToString()}");
+            } finally {
+                __db_traffic.Release();
+            }
+        }
+
+        /// <summary>
+        /// Executes a SELECT query on the specified table for all elements in it
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="table"></param>
+        /// <returns>List of all table elements</returns>
+        /// <exception cref="KeyNotFoundException"></exception>
+        /// <exception cref="DBMSException"></exception>
+        public List<T> SELECT<T>(String table){
+            try{
+                __db_traffic.Wait();
+                var db_tab = __db_tables.FirstOrDefault(tab => tab.__table_name == table);
+                if (db_tab == null) 
+                    throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
+                return db_tab.extract_all<T>();
+            } catch (XmlException e1){
+                throw new DBMSException($"(DBConnect){e1.ToString()}");
             } finally {
                 __db_traffic.Release();
             }
@@ -66,7 +98,7 @@ namespace tecbank.services.DBMS{
         /// <summary>
         /// Performs an INSERT query in a specified database table
         /// </summary>
-        /// <exception cref="SystemException"></exception>
+        /// <exception cref="DBMSException"></exception>
         /// <exception cref="KeyNotFoundException"></exception>
         public void INSERT<T> (String table,T obj){
             try{
@@ -75,9 +107,11 @@ namespace tecbank.services.DBMS{
                 if (db_tab == null) 
                     throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
                 db_tab.create<T>(obj);
-            } catch (System.Exception e){
-                throw new SystemException($"(DBConnect){e.ToString()}");
-            } finally {
+            } catch (XmlException e1){
+                throw new DBMSException($"(DBConnect){e1.ToString()}");
+            } catch (ArgumentException e2) {
+                throw new ArgumentException($"(DBConnect){e2.ToString()}");
+            }finally {
                 __db_traffic.Release();
             }
         }
@@ -94,8 +128,8 @@ namespace tecbank.services.DBMS{
                 if (db_tab == null) 
                     throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
                 db_tab.modify<T>(obj, criteria);
-            } catch (System.Exception e){
-                throw new SystemException($"(DBConnect){e.ToString()}");
+            } catch (XmlException e1){
+                throw new DBMSException($"(DBConnect){e1.ToString()}");
             } finally {
                 __db_traffic.Release();
             }
@@ -113,8 +147,8 @@ namespace tecbank.services.DBMS{
                 if (db_tab == null) 
                     throw new KeyNotFoundException($"(DBConnect) The table \"{table}\" does not exist in the database {__db_name}: {__db_file}");
                 db_tab.delete<T>(criteria);
-            } catch (System.Exception e1){
-                throw new SystemException($"(DBConnect){e1.ToString()}");
+            } catch (XmlException e1){
+                throw new DBMSException($"(DBConnect){e1.ToString()}");
             } finally {
                 __db_traffic.Release();
             }

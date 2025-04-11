@@ -10,7 +10,7 @@ namespace tecbank.models {
         [XmlElement("id")]
         public String id {get; set;}
         
-        [XmlElement("loan_Id")]
+        [XmlElement("loan_id")]
         public int loan_id {get; set;}
         
         [XmlElement("movement_id")]
@@ -24,5 +24,8 @@ namespace tecbank.models {
         
         [XmlElement("total")]
         public float total {get; set;}
+        
+        [XmlElement("state")]
+        public int state {get; set;}
     }
 }

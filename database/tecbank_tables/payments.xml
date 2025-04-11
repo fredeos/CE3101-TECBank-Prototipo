@@ -16,6 +16,7 @@
             <type>1</type>
             <date>2025-05-01T23:59:00</date>
             <total>37.5</total>
+            <state>0</state>
         </value>
         <value>
             <id>a1fe712y78</id>
@@ -24,6 +25,7 @@
             <type>1</type>
             <date>2025-06-01T23:59:00</date>
             <total>37.5</total>
+            <state>0</state>
         </value>
         <value>
             <id>t1pe552y78</id>
@@ -32,6 +34,7 @@
             <type>1</type>
             <date>2025-07-01T23:59:00</date>
             <total>37.5</total>
+            <state>0</state>
         </value>
         <value>
             <id>k1li905y78</id>
@@ -40,6 +43,7 @@
             <type>1</type>
             <date>2025-08-01T23:59:00</date>
             <total>37.5</total>
+            <state>0</state>
         </value>
     </tuples>
 </table>

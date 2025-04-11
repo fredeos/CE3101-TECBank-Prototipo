@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using tecbank.models;
 using tecbank.services;
+using tecbank.services.logger;
 
 namespace tecbank.controllers{
     [Route("services/client")]
@@ -13,33 +14,41 @@ namespace tecbank.controllers{
             this.logService = log;
         }
 
-        [HttpGet]
-        public ActionResult<ClientAccount> Home(){
-            return NotFound();
-        }
         // ------------------------------------------------- [ GET ] -------------------------------------------------
         [HttpGet("login")]
-        public ActionResult<ClientAccount> Login([FromBody] String user,[FromForm] String pass){
-            var client = tecbankService.Client_find(user, pass);
-            if (client == null){
-                return NotFound();
+        public ActionResult<ClientAccount> Login(String user,String pass){
+            try{
+                var client = tecbankService.Client_find(user, pass);
+                if (client == null){
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(Login)}) Client login failed, no such client exists");
+                    return NotFound("Client login failed, no such client exists");
+                }
+                return Ok(client);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(Login)}){e1.ToString()}");
+                return StatusCode(500,"Internal server error");
             }
-            return Ok(client);
         }
 
         [HttpGet("{user_id}/accounts")]
         public ActionResult<IEnumerable<BankAccount>> GetAccounts(int user_id){
-            var accounts = tecbankService.AccountsFromClient(user_id);
-            if (accounts.Count==0){
-                return NotFound();
+            try{
+                var accounts = tecbankService.Accounts_FromClient(user_id);
+                if (accounts.Count==0){
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetAccounts)}) No banck accounts are bound to client(ID={user_id})");
+                    return NotFound();
+                }
+                return Ok(accounts); 
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAccounts)}){e1.ToString()}");
+                return StatusCode(500, "Something went wrong");
             }
-            return Ok(accounts);
         }
 
         [HttpGet("{user_id}/{account_id}/cards")]
         public ActionResult<IEnumerable<BankAccount>> GetCardsPerAccount(int user_id, String account_id){
             try {
-                var cards = tecbankService.CardsFromAccount(user_id, account_id);
+                var cards = tecbankService.Cards_FromAccount(user_id, account_id);
                 if (cards.Count == 0){
                     return NotFound();
                 }
@@ -51,7 +60,7 @@ namespace tecbank.controllers{
 
         [HttpGet("{user_id}/cards")]
         public ActionResult<IEnumerable<BankAccount>> GetCardsPerAccount(int user_id){
-            var cards = tecbankService.CardsFromClient(user_id);
+            var cards = tecbankService.Cards_FromClient(user_id);
             if (cards.Count==0){
                 return NotFound();
             }
@@ -90,6 +99,26 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ POST ] -------------------------------------------------
+        [HttpPost("login/new")]
+        public ActionResult<ClientAccount> Register([FromBody] ClientAccount client){
+            if (client == null){
+                return BadRequest("Datos del cliente inválidos.");
+            }
+            try{
+                tecbankService.Client_Add(client);
+                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(Register)}) Client(ID={client.id}) was added successfully");
+                return Ok();
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(Register)}){e1.ToString()}");
+                return StatusCode(500,"Internal server error");
+            } catch (ArgumentNullException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(Register)}){e2.ToString()}");
+                return BadRequest("Client object doesn't have valid format");
+            } catch (ArgumentException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(Register)}){e3.ToString()}");
+                return BadRequest("Failed to add client to database");
+            }
+        }
 
         [HttpPost("{user_id}/movements/new")]
         public ActionResult makeMovement(int user_id, [FromBody] BankMovement movement){

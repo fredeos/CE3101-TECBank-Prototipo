@@ -4,6 +4,7 @@
   <id>1</id>
   <PKs>
     <PK>id</PK>
+    <PK>username</PK>
   </PKs>
   <FKs></FKs>
   <tuples>
@@ -68,14 +69,14 @@
       <address>Guadalupe</address>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>310</id>
+  <id>306</id>
   <name>Frederick</name>
   <last_name1>Obando</last_name1>
   <last_name2>Solano</last_name2>
   <type>2</type>
   <username>frede12</username>
   <password>1234</password>
-  <monthly_income>60500.6</monthly_income>
+  <monthly_income>60499.99</monthly_income>
   <phone_number>+506 8800 9673</phone_number>
   <address>Cartago,Paraiso,Paraiso</address>
 </value>

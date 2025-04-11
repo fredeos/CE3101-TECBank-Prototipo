@@ -2,3 +2,58 @@
 [2025-04-09 21:27:50][INFO]: ============= Log Console started
 [2025-04-09 21:27:50][INFO]: (HTTP)(GET) Client(ID=303) was found successfully
 [2025-04-09 21:29:59][INFO]: (HTTP)(POST) Client(ID=310) was added successfully
+[2025-04-10 14:04:40][INFO]: ============= Log Console started
+[2025-04-10 14:04:40][WARNING]: (HTTP)(POST=DeleteClient)System.SystemException: (TECBANKSERVICE)System.Collections.Generic.KeyNotFoundException: (TECBANKSERVICE) Client(ID=301) not found in the database
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 101
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 113
+   at tecbank.controllers.Admin.DeleteClient(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 227
+[2025-04-10 14:04:45][WARNING]: (HTTP)(POST=DeleteClient)System.SystemException: (TECBANKSERVICE)System.InvalidOperationException: (TECBANKSERVICE) Client(ID=302) cannot be removed until all loans are paid
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 104
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 113
+   at tecbank.controllers.Admin.DeleteClient(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 227
+[2025-04-10 14:08:23][INFO]: ============= Log Console started
+[2025-04-10 14:08:23][WARNING]: (HTTP)(POST=DeleteClient)System.SystemException: (TECBANKSERVICE)System.InvalidOperationException: (TECBANKSERVICE) Client(ID=302) cannot be removed until all loans are paid
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 104
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 113
+   at tecbank.controllers.Admin.DeleteClient(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 227
+[2025-04-10 16:31:52][INFO]: ============= Log Console started
+[2025-04-10 16:31:52][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-10 16:32:05][INFO]: (HTTP)(GET=GetClient) Client(ID=304) was found successfully
+[2025-04-10 16:37:30][INFO]: ============= Log Console started
+[2025-04-10 16:37:30][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-10 16:38:31][INFO]: (HTTP)(POST=AddClient) Client(ID=306) was added successfully
+[2025-04-10 16:38:38][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-10 16:38:47][WARNING]: (HTTP)(POST=AddClient)System.ArgumentException: (TECBANKSERVICE)System.ArgumentException: (DBConnect)System.ArgumentException: (TableAP) obj object already exists in the table clients:1
+   at tecbank.DBMS.TableAP.create[T](T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 182
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 109
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 113
+   at tecbank.services.TECBankService.Client_Add(ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 96
+   at tecbank.services.TECBankService.Client_Add(ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 102
+   at tecbank.controllers.Admin.AddClient(ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 110
+[2025-04-10 17:28:11][INFO]: ============= Log Console started
+[2025-04-10 17:28:11][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-10 23:33:25][INFO]: ============= Log Console started
+[2025-04-10 23:33:25][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-11 14:36:22][INFO]: ============= Log Console started
+[2025-04-11 14:36:22][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-11 14:36:31][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-11 14:36:54][INFO]: (HTTP)(GET=GetCards) Bank cards retrieved succesfully
+[2025-04-11 14:37:01][INFO]: (HTTP)(GET=GetEmployees) Employees retrieved succesfully
+[2025-04-11 14:37:52][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
+[2025-04-11 14:38:13][INFO]: (HTTP)(GET=GetEmployees) Loans retrieved succesfully
+[2025-04-11 14:40:22][INFO]: (HTTP)(GET=GetLoanPayments) Loan payments retrieved succesfully
+[2025-04-11 14:40:47][INFO]: (HTTP)(GET=GetClient) Client(ID=301) was found successfully
+[2025-04-11 14:41:12][WARNING]: (HTTP)(GET=GetAccount) No matching data was found in the database for account(ID=897CR54134bt01)
+[2025-04-11 14:43:25][INFO]: ============= Log Console started
+[2025-04-11 14:43:25][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-11 14:43:33][INFO]: (HTTP)(GET=GetAccount) Bank account(ID=897CR54134bt01) was found successfully
+[2025-04-11 14:43:40][INFO]: (HTTP)(GET=GetCards) Bank cards retrieved succesfully
+[2025-04-11 14:44:06][INFO]: (HTTP)(GET=GetCard) Bank card(ID=10307) was found successfully
+[2025-04-11 14:44:20][INFO]: (HTTP)(GET=GetEmployees) Loans retrieved succesfully
+[2025-04-11 14:44:26][WARNING]: (HTTP)(GET=GetLoan)tecbank.services.ServiceException: (TECBANKSERVICE)System.Collections.Generic.KeyNotFoundException: (DBConnect) The table "loan" does not exist in the database tecbank: .\..\..\..\database\tecbank_db.json
+   at tecbank.services.DBMS.DBConnect.SELECT[T](String table, Func`2 criteria) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 67
+   at tecbank.services.TECBankService.Loan_Get(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 448
+   at tecbank.services.TECBankService.Loan_Get(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 453
+   at tecbank.controllers.Admin.GetLoan(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 148
+[2025-04-11 14:48:00][INFO]: ============= Log Console started
+[2025-04-11 14:48:00][INFO]: (HTTP)(GET=GetLoan) Bank loan(ID=1) was found successfully

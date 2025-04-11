@@ -165,7 +165,7 @@ namespace tecbank.DBMS{
             if (tuples != null && values != null){
                 // >> Serializacion del objeto a T a un elemento xml
                 var XObj = SerializeToXElement<T>(obj) ??
-                    throw new XmlException($"(TableAP) {nameof(obj)} couldn't be serialized to a valid XElement object");
+                    throw new XmlException($"(TableAP) {nameof(T)} couldn't be serialized to a valid XElement object");
 
                 // >> Verificacion de duplicidad de valores
                 bool exists = false;
@@ -179,7 +179,7 @@ namespace tecbank.DBMS{
                 if (!exists){
                     tuples.Add(XObj);
                 } else {
-                    throw new ArgumentException($"(TableAP) {nameof(obj)} object already exists in the table {__table_name}:{__table_id}");
+                    throw new ArgumentException($"(TableAP) {nameof(T)} object already exists in the table {__table_name}:{__table_id}");
                 }
             } else {
                 throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <tuples> and/or <value> elements");
