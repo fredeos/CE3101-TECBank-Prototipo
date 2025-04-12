@@ -1,0 +1,491 @@
+/* Estilos personalizados para la página de pagos con tarjeta */
+
+.card-payments-container {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.card-container {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.back-link-container {
+    margin-bottom: 1.5rem;
+}
+
+.back-link-client {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-left: 0;
+    transition: all 0.2s ease;
+}
+
+.back-link-client:hover {
+    padding-left: 0.25rem;
+}
+
+.back-icon {
+    height: 1rem;
+    width: 1rem;
+}
+
+.card-header {
+    position: relative;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #6366f1;
+    border-radius: 2px;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-description {
+    color: #64748b;
+}
+
+.card-payment-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.card-payment-header {
+    margin-bottom: 1rem;
+}
+
+.card-payment-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-payment-description {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group-client {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.card-select {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.card-select:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.account-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.account-balance {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* Credit Card Display */
+.credit-card-display {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.card-platinum {
+    background: linear-gradient(to right, #1e293b, #334155);
+}
+
+.card-blue {
+    background: linear-gradient(to right, #1e40af, #3b82f6);
+}
+
+.credit-card-content {
+    padding: 1.5rem;
+    color: white;
+    position: relative;
+    min-height: 180px;
+}
+
+.credit-card-issuer {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.credit-card-number {
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    margin-top: 3rem;
+    font-weight: 500;
+}
+
+.credit-card-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    max-width: 80%;
+}
+
+.credit-card-label {
+    font-size: 0.625rem;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.credit-card-balance-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem 1.5rem;
+    color: #1e293b;
+}
+
+.credit-card-balance-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.credit-card-balance-row:last-child {
+    border-bottom: none;
+}
+
+.balance-amount {
+    font-weight: 700;
+}
+
+/* Payment Options */
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.payment-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.payment-option.selected {
+    border-color: #6366f1;
+    background-color: #eff6ff;
+}
+
+.payment-option-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.payment-option-amount {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.input-container {
+    position: relative;
+}
+
+.payment-amount-input {
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.payment-amount-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-weight: 500;
+}
+
+.payment-date {
+    background-color: #f8fafc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+}
+
+.recurring-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.recurring-checkbox {
+    margin-top: 0.25rem;
+}
+
+.recurring-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.recurring-label {
+    font-weight: 500;
+}
+
+.recurring-description {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Confirmation Section */
+.confirm-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.confirm-section {
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.confirm-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.confirm-row:last-child {
+    border-bottom: none;
+}
+
+.confirm-label {
+    color: #64748b;
+}
+
+.confirm-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.confirm-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.info-box {
+    background-color: #e0e7ff;
+    border-left: 4px solid #6366f1;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.info-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.info-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: #6366f1;
+    margin-top: 0.125rem;
+}
+
+.info-text {
+    font-size: 0.875rem;
+    color: #1e3a8a;
+}
+
+/* Success Card */
+.success-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    text-align: center;
+}
+
+.success-icon-container {
+    margin: 0 auto 1.5rem;
+    width: 64px;
+    height: 64px;
+    background-color: #f0fdf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-icon-check {
+    height: 3rem;
+    width: 3rem;
+    color: #22c55e;
+}
+
+.success-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.success-message {
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.success-details {
+    background-color: #f8fafc;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.success-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.success-detail-row:last-child {
+    border-bottom: none;
+}
+
+.success-label {
+    color: #64748b;
+}
+
+.success-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.another-payment-button {
+    margin-top: 1.5rem;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.submit-button {
+    background-color: #6366f1;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #4f46e5;
+}
+
+.submit-button:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.back-button {
+    color: #64748b;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .payment-options {
+    grid-template-columns: 1fr;
+    }
+
+    .credit-card-details {
+    flex-direction: column;
+    gap: 1rem;
+    }
+
+    .confirm-row {
+    flex-direction: column;
+    gap: 0.25rem;
+    }
+
+    .confirm-value,
+    .confirm-amount {
+    margin-top: 0.25rem;
+    }
+}
