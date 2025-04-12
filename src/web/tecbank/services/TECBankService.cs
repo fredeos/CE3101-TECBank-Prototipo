@@ -140,7 +140,7 @@ namespace tecbank.services{
                 var existingClient = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == client.id).FirstOrDefault();
                 if (existingClient != null)
                 {
-                    throw new InvalidOperationException($"Ya existe un cliente con el ID {client.id}");
+                    throw new InvalidOperationException($"A client already exists with the ID {client.id}");
                 }
 
                 // 2. Insert new client into XML database
@@ -149,7 +149,7 @@ namespace tecbank.services{
             catch (Exception ex)
             {
                // Log error details to console (consider using ILogger in production)
-                Console.WriteLine($"Error al agregar cliente: {ex.Message}");
+                Console.WriteLine($"Error adding client: {ex.Message}");
                 throw; // Re-throw to allow controller to handle
             }
         }
@@ -225,9 +225,16 @@ namespace tecbank.services{
         }
 
         // Falta
-        public List<BankAccount> AccountsFromClient(int user_id){
+        /*public List<BankAccount> AccountsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
             return client_accounts;
+        }*/
+
+        // Listo con XML
+        public List<BankAccount> AccountsFromClient(int user_id)
+        {
+            // Use generic SELECT method to find accounts matching client_id
+            return tecbank_db.SELECT<BankAccount>("accounts", acc => acc.client_id == user_id);
         }
 
         /// <summary>
@@ -371,7 +378,7 @@ namespace tecbank.services{
         }
 
         // Falta
-        public List<BankCard> CardsFromClient(int user_id){
+        /*public List<BankCard> CardsFromClient(int user_id){
             var client_accounts = accounts.FindAll(acc => acc.client_id == user_id);
             List<BankCard> client_cards = [];
             for (int i = 0; i < client_accounts.Count; i++){
@@ -382,6 +389,28 @@ namespace tecbank.services{
                 }
             }
             return client_cards;
+        }*/
+
+        // Listo con XML
+        public List<BankCard> CardsFromClient(int user_id)
+        {
+            // Step 1: Get all accounts belonging to this client
+            var clientAccounts = tecbank_db.SELECT<BankAccount>("accounts", 
+                                acc => acc.client_id == user_id);
+
+            // Step 2: Collect all cards linked to these accounts
+            var clientCards = new List<BankCard>();
+            
+            foreach (var account in clientAccounts)
+            {
+                // Find cards associated with each account
+                var accountCards = tecbank_db.SELECT<BankCard>("cards", 
+                                card => card.account_id == account.id);
+                
+                clientCards.AddRange(accountCards);
+            }
+
+            return clientCards;
         }
 
         // Falta
@@ -526,6 +555,66 @@ namespace tecbank.services{
             }
         }
 
+        // Service Layer Methods
+        public List<BankEmployee> GetAllLoanAdvisers()
+        {
+            // Get all employees with role_id = 2 (loan advisers)
+            return tecbank_db.SELECT<BankEmployee>("employees", 
+                e => e.role_id == 2);
+        }
+
+        public BankEmployee? GetLoanAdviserById(int id)
+        {
+            // Get employee that must be a loan adviser (role_id = 2)
+            var advisers = tecbank_db.SELECT<BankEmployee>("employees", 
+                        e => e.id == id && e.role_id == 2);
+            
+            return advisers.FirstOrDefault();
+        }
+
+        public void CreateEmployee(BankEmployee employee)
+        {
+            // 1. Validar que el rol exista usando el método find existente
+            var roles = tecbank_db.SELECT<Role>("roles", r => r.id == employee.role_id);
+            if (!roles.Any())
+            {
+                throw new ArgumentException($"No existe un rol con ID {employee.role_id}");
+            }
+
+            // 2. Verificar si el empleado ya existe usando el método find
+            var existingEmployees = tecbank_db.SELECT<BankEmployee>("employees", e => e.id == employee.id);
+            if (existingEmployees.Any())
+            {
+                throw new InvalidOperationException($"Ya existe un empleado con ID {employee.id}");
+            }
+
+            // 3. Insertar el nuevo empleado
+            tecbank_db.INSERT("employees", employee);
+        }
+
+        public BankEmployee? GetEmployeeById(int id)
+        {
+            var employees = tecbank_db.SELECT<BankEmployee>("employees", e => e.id == id);
+            return employees.FirstOrDefault();
+        }
+
+        private void ValidateRoleExists(int roleId)
+        {
+            try
+            {
+                bool roleExists = tecbank_db.SELECT<Role>("roles", r => r.id == roleId).Any();
+                if (!roleExists)
+                {
+                    throw new ArgumentException($"No existe un rol con ID {roleId}");
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new KeyNotFoundException("La tabla de roles no existe en la base de datos");
+            }
+        }
+
+
         // ::. LOAN PAYMENT METHODS
 
         /// <summary>
@@ -546,13 +635,34 @@ namespace tecbank.services{
         }
 
         // Falta
-        public List<LoanPayment> Payments_FromClient(int user_id) {
+        /*public List<LoanPayment> Payments_FromClient(int user_id) {
             List<LoanPayment> client_payments = [];
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);
             for (int i=0; i < client_loans.Count; i++){
                 client_payments.InsertRange(0,payments.FindAll(p => p.loan_id == client_loans[i].id));
             }
             return client_payments;
+        }*/
+
+        // Listo con XML
+        public List<LoanPayment> GetClientLoanPayments(int user_id)
+        {
+            // 1. Get all loans for this client
+            var clientLoans = tecbank_db.SELECT<BankLoan>("loans", 
+                            loan => loan.client_id == user_id);
+
+            // 2. Collect all payments for these loans
+            var clientPayments = new List<LoanPayment>();
+            
+            foreach (var loan in clientLoans)
+            {
+                var loanPayments = tecbank_db.SELECT<LoanPayment>("payments",
+                                payment => payment.loan_id == loan.id);
+                
+                clientPayments.AddRange(loanPayments);
+            }
+
+            return clientPayments;
         }
 
         // Falta
@@ -589,9 +699,17 @@ namespace tecbank.services{
         }
 
         // Falta
-        public List<BankLoan> Loans_FromClient(int user_id){
+        /*public List<BankLoan> Loans_FromClient(int user_id){
             var client_loans = loans.FindAll(ln => ln.client_id == user_id);
             return client_loans;
+        }*/
+
+        // Listo con XML
+        public List<BankLoan> LoansFromClient(int user_id)
+        {
+            // Use generic SELECT method to find loans matching client_id
+            return tecbank_db.SELECT<BankLoan>("loans", 
+                loan => loan.client_id == user_id);
         }
 
         /// <summary>

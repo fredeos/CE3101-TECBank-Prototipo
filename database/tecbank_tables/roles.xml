@@ -1,12 +1,10 @@
 <table>
     <name>roles</name>
     <id>10</id>
-    <PKS> 
+    <PKs> 
         <PK>id</PK>
-    </PKS>
-    <FKs> 
-        
-    </FKs>
+    </PKs>
+    <FKs></FKs>
     <tuples>
         <value> 
             <id>1</id>

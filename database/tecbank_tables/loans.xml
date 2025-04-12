@@ -59,5 +59,17 @@
       <client_id>309</client_id>
       <adviser_id>109</adviser_id>
     </value>
+    <value>
+      <id>5</id>
+      <lapse>4</lapse>
+      <request_date>2025-04-11T17:44:41.9800268-06:00</request_date>
+      <interest_rate>7</interest_rate>
+      <balance>200</balance>
+      <total>200</total>
+      <state>0</state>
+      <currency_id>1</currency_id>
+      <client_id>303</client_id>
+      <adviser_id>109</adviser_id>
+    </value>
   </tuples>
 </table>

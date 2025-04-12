@@ -13,43 +13,99 @@ namespace tecbank.controllers{
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all client accounts from the system
+        /// </summary>
+        /// <returns>List of all client accounts</returns>
+        /// <response code="200">Returns the complete client list</response>
         [HttpGet("clients/all")]
         public ActionResult<IEnumerable<ClientAccount>> GetClients(){
             return Ok(tecbankService.GetAllClients());
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all bank accounts from the system
+        /// </summary>
+        /// <returns>List of all bank accounts</returns>
+        /// <response code="200">Returns complete account list</response>
         [HttpGet("accounts/all")]
         public ActionResult<IEnumerable<BankAccount>> GetAccounts(){
             return Ok(tecbankService.GetAllAccounts());
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all bank cards from the system
+        /// </summary>
+        /// <returns>List of all bank cards</returns>
+        /// <response code="200">Success - Returns card list</response>
         [HttpGet("cards/all")]
         public ActionResult<IEnumerable<BankCard>> GetCards(){
             return Ok(tecbankService.GetAllCards());
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all bank employees
+        /// </summary>
+        /// <returns>List of all employees</returns>
+        /// <response code="200">Returns complete employee list</response>
         [HttpGet("employees/all")]
         public ActionResult<IEnumerable<BankEmployee>> GetAllEmployees(){
             return Ok(tecbankService.GetAllEmployes());
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all loan advisers (role_id = 2)
+        /// </summary>
+        /// <returns>List of loan advisers</returns>
+        /// <response code="200">Returns loan adviser list</response>
+        /// <response code="404">No loan advisers found</response>
+        /// <response code="500">Internal server error</response>
+        [HttpGet("advisers/all")]
+        public ActionResult<IEnumerable<BankEmployee>> GetAllLoanAdvisers()
+        {
+            try
+            {
+                // Get all employees with role_id = 2 (loan advisers)
+                var advisers = tecbankService.GetAllLoanAdvisers();
+                
+                if (!advisers.Any())
+                {
+                    return NotFound("No loan advisers found");
+                }
+                
+                return Ok(advisers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving loan advisers: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all bank movements
+        /// </summary>
+        /// <returns>List of all transactions</returns>
+        /// <response code="200">Returns complete movement list</response>
         [HttpGet("movements/all")]
         public ActionResult<IEnumerable<BankMovement>> GetAllMovements(){
             return Ok(tecbankService.GetAllMovements());
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all loan records
+        /// </summary>
+        /// <returns>List of all loans</returns>
+        /// <response code="200">Returns complete loan list</response>
         [HttpGet("loans/all")]
         public ActionResult<IEnumerable<BankLoan>> GetAllLoans(){
             return Ok(tecbankService.GetAllLoans());
         }
         
-        // Listo con XML
+        /// <summary>
+        /// Retrieves all loan payments
+        /// </summary>
+        /// <returns>List of all payments</returns>
+        /// <response code="200">Returns complete payment list</response>
         [HttpGet("loans/payments/all")]
         public ActionResult<IEnumerable<LoanPayment>> GetAllLoanPayments(){
             return Ok(tecbankService.GetAllPayments());
@@ -57,7 +113,14 @@ namespace tecbank.controllers{
 
     
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
-        // Listo con XML
+
+        /// <summary>
+        /// Retrieves a client by ID
+        /// </summary>
+        /// <param name="id">Client ID</param>
+        /// <returns>Client account details</returns>
+        /// <response code="200">Client found</response>
+        /// <response code="404">Client not found</response>
         [HttpGet("clients/{id}")]
         public ActionResult<ClientAccount> GetClient(int id){
             try{
@@ -74,7 +137,14 @@ namespace tecbank.controllers{
         }
 
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves a loan by ID
+        /// </summary>
+        /// <param name="id">Loan ID</param>
+        /// <returns>Loan details</returns>
+        /// <response code="200">Loan found</response>
+        /// <response code="404">Loan not found</response>
+        /// <response code="500">Database error</response>
         [HttpGet("loans/{id}")]
         public ActionResult<BankLoan> GetLoan(int id)
         {
@@ -94,7 +164,14 @@ namespace tecbank.controllers{
         }
 
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves a bank account by ID
+        /// </summary>
+        /// <param name="id">Account ID</param>
+        /// <returns>Account details</returns>
+        /// <response code="200">Account found</response>
+        /// <response code="404">Account not found</response>
+        /// <response code="500">Database error</response>
         [HttpGet("accounts/{id}")]
         public ActionResult<BankAccount> GetAccount(string id)
         {
@@ -114,7 +191,14 @@ namespace tecbank.controllers{
         }
 
 
-        // Listo con XML
+        /// <summary>
+        /// Retrieves a bank card by card number
+        /// </summary>
+        /// <param name="id">Card number</param>
+        /// <returns>Card details</returns>
+        /// <response code="200">Card found</response>
+        /// <response code="404">Card not found</response>
+        /// <response code="500">Database error</response>
         [HttpGet("cards/{id}")]
         public ActionResult<BankCard> GetCard(int id)
         {
@@ -133,16 +217,126 @@ namespace tecbank.controllers{
             }
         }
 
+        /// <summary>
+        /// Retrieves a loan adviser by ID
+        /// </summary>
+        /// <param name="id">Employee ID</param>
+        /// <returns>Loan adviser details</returns>
+        /// <response code="200">Adviser found</response>
+        /// <response code="404">Adviser not found or not a loan adviser</response>
+        /// <response code="500">Internal server error</response>
+        [HttpGet("advisers/{id}")]
+        public ActionResult<BankEmployee> GetLoanAdviserById(int id)
+        {
+            try
+            {
+                // Get specific adviser by ID (must have role_id = 2)
+                var adviser = tecbankService.GetLoanAdviserById(id);
+                
+                if (adviser == null)
+                {
+                    return NotFound($"Loan adviser with ID {id} not found");
+                }
+                
+                return Ok(adviser);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving loan adviser: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves an employee by ID
+        /// </summary>
+        /// <param name="id">Employee ID</param>
+        /// <returns>Employee details</returns>
+        /// <response code="200">Employee found</response>
+        /// <response code="404">Employee not found</response>
+        /// <response code="500">Internal server error</response>
+        [HttpGet("employees/{id}")]
+        public ActionResult<BankEmployee> GetEmployeeById(int id)
+        {
+            try
+            {
+                var employee = tecbankService.GetEmployeeById(id);
+                if (employee == null)
+                {
+                    return NotFound($"No se encontró un empleado con ID {id}");
+                }
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener empleado: {ex.Message}");
+            }
+        }
+
 
         // ------------------------------------------------- [ POST ] -------------------------------------------------
 
-        // Listo con XML
+        /// <summary>
+        /// Creates a new employee record
+        /// </summary>
+        /// <param name="employee">Employee data</param>
+        /// <returns>Created employee</returns>
+        /// <response code="201">Employee successfully created</response>
+        /// <response code="400">Invalid input data</response>
+        /// <response code="409">Employee already exists</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPost("employees/add")]
+        public ActionResult<BankEmployee> AddEmployee([FromBody] BankEmployee employee)
+        {
+            if (employee == null)
+            {
+                return BadRequest("Invalid employee data");
+            }
+
+            try
+            {
+                // Validación básica
+                if (employee.id <= 0)
+                {
+                    return BadRequest("Employee ID must be positive");
+                }
+
+                if (string.IsNullOrWhiteSpace(employee.name))
+                {
+                    return BadRequest("Employee name is required");
+                }
+
+                tecbankService.CreateEmployee(employee);
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.id }, employee);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error while creating employee: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Adds a new client to the system
+        /// </summary>
+        /// <param name="client">Client data to add</param>
+        /// <returns>ActionResult with created client</returns>
+        /// <response code="201">Returns the newly created client</response>
+        /// <response code="400">If client data is invalid</response>
+        /// <response code="409">If client already exists</response>
+        /// <response code="500">If internal server error occurs</response>
         [HttpPost("clients/add")]
         public ActionResult<ClientAccount> AddClient([FromBody] ClientAccount client)
         {
             if (client == null)
             {
-                return BadRequest("Datos del cliente inválidos.");
+                return BadRequest("Invalid client data");
             }
 
             try
@@ -150,7 +344,7 @@ namespace tecbank.controllers{
                 // Validación adicional si es necesaria
                 if (client.id <= 0)
                 {
-                    return BadRequest("El ID del cliente debe ser un número positivo.");
+                    return BadRequest("Client ID must be a positive number");
                 }
 
                 tecbankService.Client_Add(client);
@@ -164,22 +358,29 @@ namespace tecbank.controllers{
             catch (Exception ex)
             {
                 // Otros errores
-                return StatusCode(500, $"Error interno al agregar cliente: {ex.Message}");
+                return StatusCode(500, $"Internal server error while adding client: {ex.Message}");
             }
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Adds a new bank account to the system
+        /// </summary>
+        /// <param name="account">Account data to add</param>
+        /// <returns>ActionResult with created account</returns>
+        /// <response code="201">Returns the newly created account</response>
+        /// <response code="400">If account data is invalid</response>
+        /// <response code="500">If internal server error occurs</response>
         [HttpPost("accounts/add")]
         public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account)
         {
             try
             {
                 if (account == null)
-                    return BadRequest("Datos de la cuenta inválidos");
+                    return BadRequest("Invalid account data");
 
                 // Validación básica de campos requeridos
                 if (account.client_id <= 0 || account.currency_id <= 0)
-                    return BadRequest("ID de cliente y moneda son requeridos");
+                    return BadRequest("Client ID and currency ID are required");
 
                 // Generar ID costarricense si no viene especificado
                 if (string.IsNullOrEmpty(account.id))
@@ -196,24 +397,32 @@ namespace tecbank.controllers{
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error interno al crear cuenta: {ex.Message}");
+                return StatusCode(500, $"Internal server error while creating account: {ex.Message}");
             }
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Adds a new bank card to the system
+        /// </summary>
+        /// <param name="card">Card data to add</param>
+        /// <returns>ActionResult with created card</returns>
+        /// <response code="201">Returns the newly created card</response>
+        /// <response code="400">If card data is invalid</response>
+        /// <response code="500">If internal server error occurs</response>
         [HttpPost("cards/add")]
         public ActionResult<BankCard> AddCard([FromBody] BankCard card)
         {
             try
             {
+                // Null check for card object
                 if (card == null)
-                    return BadRequest("Datos de la tarjeta inválidos");
+                    return BadRequest("Invalid card data");
 
-                // Validar que se proporcione account_id
+                // Validate that account_id is provided
                 if (string.IsNullOrEmpty(card.account_id))
-                    return BadRequest("El número de cuenta es requerido");
+                    return BadRequest("Account number is required");
 
-                // Generar valores automáticos si no están establecidos
+                // Generate automatic values ​​if not set
                 if (card.card_num == 0)
                     card.card_num = tecbankService.GenerateCardNumber();
                 
@@ -229,11 +438,18 @@ namespace tecbank.controllers{
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error interno al crear tarjeta: {ex.Message}");
+                return StatusCode(500, $"Internal error creating card: {ex.Message}");
             }
         }
 
-        // Listo con XML
+        /// <summary>
+        /// Creates a new loan in the system
+        /// </summary>
+        /// <param name="loan">Loan data to create</param>
+        /// <returns>Created loan information</returns>
+        /// <response code="201">Loan successfully created</response>
+        /// <response code="400">Invalid loan data</response>
+        /// <response code="500">Database operation error</response>
         [HttpPost("loans/add")]
         public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan)
         {
@@ -256,6 +472,7 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
+        
         [HttpPut("clients/update/{id}")]
         public ActionResult UpdateClient(int id, [FromBody] ClientAccount client)
         {
