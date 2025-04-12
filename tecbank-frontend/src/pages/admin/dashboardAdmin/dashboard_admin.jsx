@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BarChart3, CreditCard, DollarSign, LayoutDashboard, Settings, Shield, Users, UserPlus } from "lucide-react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import '../CSS/dashboard_admin.css'; // Archivo CSS para estilos
+import { Card, CardContent } from "@/components/ui/card"
+import './dashboard_admin.css'; // Archivo CSS para estilos
 import { Navigate, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 

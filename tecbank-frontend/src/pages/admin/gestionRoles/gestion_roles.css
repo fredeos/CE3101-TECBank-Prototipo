@@ -1,0 +1,74 @@
+
+body {
+    margin: 0;
+    display: block;
+    place-items: stretch;
+    min-width: 100%;
+    min-height: 100vh;
+  }
+
+.role-management-container {
+    width: 90%;
+    max-width: 6xl;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.role-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-top: 30px;
+}
+
+.role-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: bold;
+}
+
+.role-subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-right: 30px;
+}
+
+.role-description {
+  color: var(--muted-foreground);
+}
+
+.actions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.delete-button {
+  color: #ef4444;
+}
+
+.delete-button:hover {
+  color: #dc2626;
+}
+
+.cell-header1 {
+  background-color: rgb(54, 189, 83);
+  text-align: left;
+  font-weight: 600;
+  font-size: medium;
+}
+
+.cell-header2 {
+  background-color: rgb(54, 189, 83);
+  text-align: center;
+  font-weight: 600;
+  font-size: medium;
+}
+
+.table-cell-role {
+  color: rgb(55, 73, 73);
+  font-size: medium;
+  font-weight: 400;
+}

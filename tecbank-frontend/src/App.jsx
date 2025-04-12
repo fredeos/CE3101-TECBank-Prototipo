@@ -1,7 +1,8 @@
 import './App.css'
 
-import LoginAdmin from './pages/admin/apps/login_admin'
-import DashBoardAdmin from './pages/admin/apps/dashboard_admin'
+import LoginAdmin from './pages/admin/loginAdmin/login_admin'
+import DashBoardAdmin from './pages/admin/dashboardAdmin/dashboard_admin'
+import GestionRolesAdmin from './pages/admin/gestionRoles/gestion_roles'
 import LoginClient from './pages/client/loginClient/loginView'
 import DashBoardClient from './pages/client/dashboardClient/dashboardView'
 
@@ -11,12 +12,12 @@ function App(){
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/loginAdmin" element={<LoginAdmin/>}/>
-        <Route path="/adminDashboard" element={<DashBoardAdmin/>}/>
+        <Route path='/loginAdmin' element={<LoginAdmin/>}/>
+        <Route path='/adminDashboard' element={<DashBoardAdmin/>}/>
+        <Route path='/gestion-roles' element={<GestionRolesAdmin/>} />
         <Route path='/loginClient' element={<LoginClient/>}/>
         <Route path='/dashboardClient' element={<DashBoardClient/>}/>
 
-        
       </Routes>
     </BrowserRouter>
   );
