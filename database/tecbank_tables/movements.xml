@@ -9,6 +9,7 @@
         <FK>account_id</FK>
         <FK>currency_id</FK>
     </FKs>
+    <removal>physical</removal>
     <tuples>
         <value>
             <id>EF200</id>

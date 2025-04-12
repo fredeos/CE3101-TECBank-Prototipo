@@ -15,5 +15,8 @@ namespace tecbank.models {
         
         [XmlElement("description")]
         public String description {get; set;}
+
+        [XmlElement("rem_state")]
+        public int removed {get; set;}
     }
 }

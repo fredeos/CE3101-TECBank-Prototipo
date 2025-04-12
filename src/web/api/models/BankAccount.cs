@@ -26,5 +26,8 @@ namespace tecbank.models{
 
         [XmlElement("client_id")]
         public int client_id {get; set;}
+
+        [XmlElement("rem_state")]
+        public int removed {get; set;}
     }
 }

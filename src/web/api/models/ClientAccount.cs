@@ -36,5 +36,8 @@ namespace tecbank.models{
 
         [XmlElement("address")]
         public String address {get; set;}
+
+        [XmlElement("rem_state")]
+        public int removed {get; set;}
     }
 }

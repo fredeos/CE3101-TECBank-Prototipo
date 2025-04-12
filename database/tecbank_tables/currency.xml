@@ -4,22 +4,26 @@
     <PKs> 
         <PK>id</PK>
     </PKs>
+    <removal>logical</removal>
     <FKs></FKs>
     <tuples>
         <value> 
             <id>1</id>
             <name>usd</name>
             <usd_exhange>1.00</usd_exhange>
+            <rem_state>0</rem_state>
         </value>
         <value> 
             <id>2</id>
             <name>eur</name>
             <usd_exhange>1.10</usd_exhange>
+            <rem_state>0</rem_state>
         </value>
         <value> 
             <id>3</id>
             <name>crc</name>
             <usd_exhange>0.002</usd_exhange>
+            <rem_state>0</rem_state>
         </value>
     </tuples>
 </table>

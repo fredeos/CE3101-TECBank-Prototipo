@@ -6,6 +6,7 @@
         <PK>target_profit</PK>
         <PK>currency_id</PK>
     </PKS>
+    <removal>physical</removal>
     <FKs> 
         <FK>adviser_id</FK>
         <FK>currency_id</FK>

@@ -15,5 +15,8 @@ namespace tecbank.models{
         
         [XmlElement("usd_exchange")]
         public float usd_exchange {get; set;}
+
+        [XmlElement("rem_state")]
+        public int removed {get; set;}
     }
 }

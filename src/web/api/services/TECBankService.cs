@@ -85,7 +85,7 @@ namespace tecbank.services{
 
         public ClientAccount? Client_find(String username, String password){
             try {
-                var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.username == username && c.password == password).FirstOrDefault();
+                var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.username == username && c.password == password && c.removed == 0).FirstOrDefault();
                 return client;
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");

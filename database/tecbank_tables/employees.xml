@@ -4,6 +4,7 @@
     <PKs> 
         <PK>id</PK>
     </PKs>
+    <removal>logical</removal>
     <FKs> 
         <FK>role_id</FK>
     </FKs>
@@ -14,6 +15,7 @@
             <last_name1>Miranda</last_name1>
             <last_name2>Solis</last_name2>
             <role_id>1</role_id>
+            <rem_state>0</rem_state>
         </value>
         <value> 
             <id>109</id>
@@ -21,6 +23,7 @@
             <last_name1>Vargas</last_name1>
             <last_name2>Paniagua</last_name2>
             <role_id>2</role_id>
+            <rem_state>0</rem_state>
         </value>
         <value> 
             <id>103</id>
@@ -28,6 +31,7 @@
             <last_name1>Cabrera</last_name1>
             <last_name2>Ortiz</last_name2>
             <role_id>2</role_id>
+            <rem_state>0</rem_state>
         </value>
     </tuples>
 </table>

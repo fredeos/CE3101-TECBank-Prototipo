@@ -8,6 +8,7 @@
         <FK>loan_id</FK>
         <FK>movement_id</FK>
     </FKs>
+    <removal>physical</removal>
     <tuples>
         <value>
             <id>t1fe712y78</id>

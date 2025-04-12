@@ -57,3 +57,31 @@
    at tecbank.controllers.Admin.GetLoan(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 148
 [2025-04-11 14:48:00][INFO]: ============= Log Console started
 [2025-04-11 14:48:00][INFO]: (HTTP)(GET=GetLoan) Bank loan(ID=1) was found successfully
+[2025-04-11 19:01:55][INFO]: ============= Log Console started
+[2025-04-11 19:01:55][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-11 19:02:22][WARNING]: (HTTP)(DELETE=DeleteClient)tecbank.services.ServiceException: (TECBANKSERVICE)tecbank.services.DBMS.DBMSException: (DBConnect)System.Xml.XmlException: (TableAp) Serialization of table value failed: <value>
+  <id>301</id>
+  <name>Isaac</name>
+  <last_name1>Ramirez</last_name1>
+  <last_name2>Herrera</last_name2>
+  <type>1</type>
+  <username>snk100</username>
+  <password>1234</password>
+  <monthly_income>3000000.00</monthly_income>
+  <phone_number>+506 3162 7168</phone_number>
+  <address>Cartago</address>
+  <rem_state>0</rem_state>
+</value>
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at tecbank.DBMS.TableAP.delete[T](Func`2 criteria) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 222
+   at tecbank.DBMS.TableAP.delete[T](Func`2 criteria) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 227
+   at tecbank.services.DBMS.DBConnect.REMOVE[T](String table, Func`2 criteria) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 149
+   at tecbank.services.DBMS.DBConnect.REMOVE[T](String table, Func`2 criteria) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 151
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 136
+   at tecbank.services.TECBankService.Client_Delete(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 142
+   at tecbank.controllers.Admin.DeleteClient(Int32 id) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 314
+[2025-04-11 19:05:37][INFO]: ============= Log Console started
+[2025-04-11 19:05:37][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-11 19:05:52][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-11 19:06:18][WARNING]: (HTTP)(GET=Login) Client login failed, no such client exists
+[2025-04-11 19:06:34][INFO]: (HTTP)(GET=GetClient) Client(ID=301) was found successfully

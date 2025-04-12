@@ -5,6 +5,7 @@
   <PKs>
     <PK>id</PK>
   </PKs>
+  <removal>logical</removal>
   <FKs>
     <FK>currency_id</FK>
     <FK>client_id</FK>
@@ -17,6 +18,7 @@
       <description>Cuenta Personal</description>
       <currency_id>3</currency_id>
       <client_id>301</client_id>
+      <rem_state>1</rem_state>
     </value>
     <value>
       <id>897CR54134bt01</id>
@@ -25,6 +27,7 @@
       <description>Cuenta de Trabajo</description>
       <currency_id>1</currency_id>
       <client_id>301</client_id>
+      <rem_state>1</rem_state>
     </value>
     <value>
       <id>646CR54186bt11</id>
@@ -33,6 +36,7 @@
       <description>Cuenta Personal</description>
       <currency_id>1</currency_id>
       <client_id>302</client_id>
+      <rem_state>0</rem_state>
     </value>
   </tuples>
 </table>

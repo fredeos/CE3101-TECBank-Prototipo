@@ -12,6 +12,7 @@ namespace tecbank.DBMS{
         private String __table_file;
         public int? __table_id;
         public String? __table_name;
+        private int? __remove_type;
         private List<String> primary_keys = [];
         private List<String> foreign_keys = [];
         // --------------------------------[ Class methods ]--------------------------------
@@ -39,6 +40,19 @@ namespace tecbank.DBMS{
             if (idElement == null || !int.TryParse(idElement.Value, out var tableId))
                 throw new SystemException($"(TableAP) The table doesn't have a valid ID property: {__table_file}");
             this.__table_id = tableId;
+
+            // Manejo seguro del tipo de removido para la tabla
+            var removal = table_xml.Element("removal")?.Value?.Trim();
+            if (string.IsNullOrWhiteSpace(removal))
+                throw new SystemException($"(TableAP) The table doesn't have a valid removal type property: {__table_file}");
+            if (removal == "logical"){
+                this.__remove_type = 1;
+            } else if (removal == "physical"){
+                this.__remove_type = 0;
+            } else {
+                this.__remove_type = -1;
+            }
+            
 
             // >> Cargar llaves de la tabala
             foreach (var pk in xml_doc.Descendants("PK")){
@@ -188,10 +202,42 @@ namespace tecbank.DBMS{
         }
 
         /// <summary>
-        /// Deletes all ocurrences that match the criteria
+        /// Deletes all ocurrences that match the criteria.
+        /// It does logic removals if the XML property specifies it, else does a physical remove from the table file
         /// </summary>
         /// <exception cref="XmlException"></exception>
         public void delete<T>(Func<T,bool> criteria){
+            XDocument xml_doc = XDocument.Load(__table_file);
+            var tuples = xml_doc.Descendants("tuples").FirstOrDefault();
+            if (tuples != null){
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                foreach (var value in tuples.Elements().ToList()){
+                    try{
+                        using (StringReader reader = new StringReader(value.ToString())){
+                            T tuple = (T) serializer.Deserialize(reader);
+                            if (tuple!=null && criteria.Invoke(tuple)){
+                                if (this.__remove_type == 0){
+                                    value.Remove();
+                                } else if (this.__remove_type == 1){
+                                    value.Element("rem_state").SetValue(1);
+                                }
+                            }
+                        }
+                    } catch (System.Exception e1){
+                        throw new XmlException($"(TableAp) Serialization of table value failed: {value.ToString()}\n{e1.ToString()}");
+                    }
+                }
+            } else {
+                throw new XmlException($"(TableAP) Database table file {__table_file} doesn't contain expected <tuples> element");
+            }
+            xml_doc.Save(__table_file);
+        }
+
+        /// <summary>
+        /// Removes all ocurrences that match criteria from file regardless of specified removal type
+        /// </summary>
+        /// <exception cref="XmlException"></exception>
+        public void true_delete<T>(Func<T,bool> criteria){
             XDocument xml_doc = XDocument.Load(__table_file);
             var tuples = xml_doc.Descendants("tuples").FirstOrDefault();
             if (tuples != null){

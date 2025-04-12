@@ -4,6 +4,7 @@
     <PKs> 
         <PK>id</PK>
     </PKs>
+    <removal>logical</removal>
     <FKs> 
         <FK>currency_id</FK>
         <FK>client_id</FK>
@@ -21,6 +22,7 @@
             <currency_id>1</currency_id>
             <client_id>302</client_id>
             <adviser_id>109</adviser_id>
+            <rem_state>0</rem_state>
         </value>
     </tuples>
 </table>

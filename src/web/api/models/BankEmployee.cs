@@ -22,6 +22,9 @@ namespace tecbank.models{
 
         [XmlElement("role_id")]
         public int role_id {get; set;}
+
+        [XmlElement("rem_state")]
+        public int removed {get; set;}
     }
     
     /// <summary>
