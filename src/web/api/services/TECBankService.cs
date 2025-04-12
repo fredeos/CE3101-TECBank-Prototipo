@@ -472,7 +472,7 @@ namespace tecbank.services{
         public void Loan_Add(BankLoan loan){
             if (loan == null) 
                 throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(loan)} is null and therefore not a valid object in the database");
-            try{
+            try{ 
                 // >> Comprobar existencia del cliente y el prestamista
                 var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == loan.client_id).FirstOrDefault() ??
                     throw new ArgumentException($"(TECBANKSERVICE) Client(ID={loan.client_id}) used for loans(ID={loan.id}) doesn't exist in database");
