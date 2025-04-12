@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using tecbank.models;
 using tecbank.services;
@@ -16,7 +17,7 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
-        [HttpGet("clients/all")]
+        [HttpGet("{password}/clients/all")]
         public ActionResult<IEnumerable<ClientAccount>> GetClients(){
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetClients)}) Clients retrieved succesfully");
@@ -27,7 +28,7 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("accounts/all")]
+        [HttpGet("/accounts/all")]
         public ActionResult<IEnumerable<BankAccount>> GetAccounts(){
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAccounts)}) Bank accounts retrieved succesfully");
@@ -479,7 +480,7 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpDelete("cards/employee/{id}")]
+        [HttpDelete("employees/delete/{id}")]
         public ActionResult DeleteEmployee(int id){
             try{
                 tecbankService.Employee_Delete(id);

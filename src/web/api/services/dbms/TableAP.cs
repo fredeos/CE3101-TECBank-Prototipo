@@ -216,9 +216,9 @@ namespace tecbank.DBMS{
                         using (StringReader reader = new StringReader(value.ToString())){
                             T tuple = (T) serializer.Deserialize(reader);
                             if (tuple!=null && criteria.Invoke(tuple)){
-                                if (this.__remove_type == 0){
+                                if (this.__remove_type == 0){ // Physical remove
                                     value.Remove();
-                                } else if (this.__remove_type == 1){
+                                } else if (this.__remove_type == 1){ // Logical remove
                                     value.Element("rem_state").SetValue(1);
                                 }
                             }

@@ -85,3 +85,19 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-11 19:05:52][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
 [2025-04-11 19:06:18][WARNING]: (HTTP)(GET=Login) Client login failed, no such client exists
 [2025-04-11 19:06:34][INFO]: (HTTP)(GET=GetClient) Client(ID=301) was found successfully
+[2025-04-12 14:18:01][INFO]: ============= Log Console started
+[2025-04-12 14:18:01][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-12 14:18:08][INFO]: (HTTP)(GET=GetEmployees) Employees retrieved succesfully
+[2025-04-12 14:18:27][INFO]: (HTTP)(GET=GetAdvisers) Employees retrieved succesfully
+[2025-04-12 14:18:36][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
+[2025-04-12 14:18:51][INFO]: (HTTP)(GET=GetEmployees) Loans retrieved succesfully
+[2025-04-12 14:19:16][WARNING]: (HTTP)(GET=GetAdviser) No matching data was found in the database for employee(ID=101)
+[2025-04-12 14:19:20][WARNING]: (HTTP)(GET=GetAdviser) No matching data was found in the database for employee(ID=102)
+[2025-04-12 14:19:24][INFO]: (HTTP)(GET=GetAdviser) Employee(ID=103) was found successfully
+[2025-04-12 14:19:29][WARNING]: (HTTP)(GET=GetAdviser) No matching data was found in the database for employee(ID=104)
+[2025-04-12 14:19:39][INFO]: (HTTP)(GET=GetAdviser) Employee(ID=109) was found successfully
+[2025-04-12 14:22:00][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-12 14:22:18][INFO]: (HTTP)(POST=AddAccount) Bank account(ID=) was added successfully
+[2025-04-12 14:22:39][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-12 14:25:06][INFO]: ============= Log Console started
+[2025-04-12 14:25:06][INFO]: (HTTP)(POST=AddAccount) Bank account(ID=151CR2255871423) was added successfully

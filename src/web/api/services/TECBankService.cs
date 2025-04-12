@@ -265,6 +265,7 @@ namespace tecbank.services{
             if (account == null) 
                 throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(account)} is null and therefore not a valid object in the database");
             try{
+                account.id = GenerateBankAccountId("CR");
                 // >> Set default description if empty
                 if (string.IsNullOrWhiteSpace(account.description))
                     account.description = "Personal account"; // Valor por defecto

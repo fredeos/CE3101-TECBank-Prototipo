@@ -30,23 +30,34 @@ namespace tecbank.controllers{
             }
         }
 
+        /// <summary>
+        /// Retrieves all accounts for a specific client
+        /// </summary>
+        /// <param name="user_id">Client ID</param>
+        /// <returns>List of client accounts</returns>
+        /// <response code="200">Returns account list</response>
+        /// <response code="404">No accounts found</response>
+        /// <response code="500">Internal server error</response>
         [HttpGet("{user_id}/accounts")]
         public ActionResult<IEnumerable<BankAccount>> GetAccounts(int user_id){
             try{
                 var accounts = tecbankService.Accounts_FromClient(user_id);
                 if (accounts.Count==0){
-                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetAccounts)}) No banck accounts are bound to client(ID={user_id})");
-                    return NotFound();
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetAccounts)}) No bank accounts are bound to client(ID={user_id})");
+                    return NotFound($"No bank accounts were found for client(ID={user_id})");
                 }
                 return Ok(accounts); 
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAccounts)}){e1.ToString()}");
                 return StatusCode(500, "Something went wrong");
+            } catch (ArgumentException e2){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAccounts)}){e2.ToString()}");
+                return StatusCode(500, $"Client(ID={user_id}) was not found");
             }
         }
 
         [HttpGet("{user_id}/{account_id}/cards")]
-        public ActionResult<IEnumerable<BankAccount>> GetCardsPerAccount(int user_id, String account_id){
+        public ActionResult<IEnumerable<BankCard>> GetCardsPerAccount(int user_id, String account_id){
             try {
                 var cards = tecbankService.Cards_FromAccount(user_id, account_id);
                 if (cards.Count == 0){
@@ -59,7 +70,7 @@ namespace tecbank.controllers{
         }
 
         [HttpGet("{user_id}/cards")]
-        public ActionResult<IEnumerable<BankAccount>> GetCardsPerAccount(int user_id){
+        public ActionResult<IEnumerable<BankCard>> GetCardsPerClient(int user_id){
             var cards = tecbankService.Cards_FromClient(user_id);
             if (cards.Count==0){
                 return NotFound();
