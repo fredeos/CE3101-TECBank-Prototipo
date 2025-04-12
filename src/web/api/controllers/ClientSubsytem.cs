@@ -120,23 +120,23 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPost("{user_id}/movements/new")]
-        public ActionResult makeMovement(int user_id, [FromBody] BankMovement movement){
-            if (movement.account_id == null){
-                return BadRequest("El movimiento debe pertenecer a una cuenta");
-            }
-            try{
-                tecbankService.Movement_New(user_id, movement);
-            } catch (System.Exception e1){
-                return BadRequest(e1);
-            }
-            return Ok();
-        }
+        // [HttpPost("{user_id}/movements/new")]
+        // public ActionResult makeMovement(int user_id, [FromBody] BankMovement movement){
+        //     if (movement.account_id == null){
+        //         return BadRequest("El movimiento debe pertenecer a una cuenta");
+        //     }
+        //     try{
+        //         tecbankService.Movement_New(user_id, movement);
+        //     } catch (System.Exception e1){
+        //         return BadRequest(e1);
+        //     }
+        //     return Ok();
+        // }
 
-        [HttpPost("{user_id}/{card_num}/movements/new")]
-        public ActionResult makeMovementWithCard(int user_id, int card_num){
-            return Ok();
-        }
+        // [HttpPost("{user_id}/{card_num}/movements/new")]
+        // public ActionResult makeMovementWithCard(int user_id, int card_num){
+        //     return Ok();
+        // }
 
         [HttpPost("{user_id}/loans/payment/{account_id}")]
         public ActionResult makePayment(int user_id, String account_id,[FromBody] LoanPayment payment){
