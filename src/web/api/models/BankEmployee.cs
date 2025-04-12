@@ -7,7 +7,7 @@ namespace tecbank.models{
     /// Model class for a employee in the database
     /// </summary>
     [XmlRoot("value")]
-    public class Employee {
+    public class BankEmployee {
         [XmlElement("id")]
         public int id {get; set;}
 
@@ -25,14 +25,6 @@ namespace tecbank.models{
 
         [XmlElement("rem_state")]
         public int removed {get; set;}
-    }
-    
-    /// <summary>
-    /// Class for subtype of employee that works as a loan adviser
-    /// </summary>
-    public class LoanAdviser : Employee {
-        public List<BankLoan> loans = [];
-        public List<AdviserGoal> goals = [];
     }
 
 }

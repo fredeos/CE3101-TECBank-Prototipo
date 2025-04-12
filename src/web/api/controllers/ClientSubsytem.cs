@@ -91,7 +91,7 @@ namespace tecbank.controllers{
 
         [HttpGet("{user_id}/loans/payments")]
         public ActionResult<IEnumerable<LoanPayment>> GetPayments(int user_id){
-            var payments = tecbankService.Payments_FromClient(user_id);
+            var payments = tecbankService.LoanPayments_FromClient(user_id);
             if (payments.Count == 0){
                 return NotFound();
             }

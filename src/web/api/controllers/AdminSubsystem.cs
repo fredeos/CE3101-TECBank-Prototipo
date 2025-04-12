@@ -50,7 +50,7 @@ namespace tecbank.controllers{
         }
 
         [HttpGet("employees/all")]
-        public ActionResult<IEnumerable<Employee>> GetEmployees(){
+        public ActionResult<IEnumerable<BankEmployee>> GetEmployees(){
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetEmployees)}) Employees retrieved succesfully");
                 return Ok(tecbankService.GetAllEmployees());
@@ -59,8 +59,20 @@ namespace tecbank.controllers{
                 return StatusCode(500,"Internal server error");
             }
         }
+
+        [HttpGet("employees/advisers/all")]
+        public ActionResult<IEnumerable<BankEmployee>> GetAdvisers(){
+            try{
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAdvisers)}) Employees retrieved succesfully");
+                return Ok(tecbankService.GetAllLoanAdvisers());
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAdvisers)}){e1.ToString()}");
+                return StatusCode(500,"Internal server error");
+            }
+        }
+
         [HttpGet("movements/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetMovements(){
+        public ActionResult<IEnumerable<BankMovement>> GetMovements(){
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetMovements)}) Bank movements retrieved succesfully");
                 return Ok(tecbankService.GetAllMovements());
@@ -85,7 +97,7 @@ namespace tecbank.controllers{
         public ActionResult<IEnumerable<LoanPayment>> GetLoanPayments(){
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetLoanPayments)}) Loan payments retrieved succesfully");
-                return Ok(tecbankService.GetAllPayments());
+                return Ok(tecbankService.GetAllLoanPayments());
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetLoanPayments)}){e1.ToString()}");
                 return StatusCode(500,"Internal server error");
@@ -132,12 +144,44 @@ namespace tecbank.controllers{
                 var card = tecbankService.Card_Get(id);
                 if (card == null){
                     logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetCard)}) No matching data was found in the database for card(ID={id})");
-                    return NotFound($"(ID={id}) not found");
+                    return NotFound($"Card(ID={id}) not found");
                 }
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetCard)}) Bank card(ID={id}) was found successfully");
                 return Ok(card);
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetCard)}){e1.ToString()}");
+                return StatusCode(500,"Something went wrong");
+            }
+        }
+
+        [HttpGet("employees/{id}")]
+        public ActionResult<BankEmployee> GetEmployee(int id){
+            try{
+                var employee = tecbankService.Employee_GetById(id);
+                if (employee == null){
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetEmployee)}) No matching data was found in the database for employee(ID={id})");
+                    return NotFound($"Employee(ID={id}) not found");
+                }
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetEmployee)}) Employee(ID={id}) was found successfully");
+                return Ok(employee);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetEmployee)}){e1.ToString()}");
+                return StatusCode(500,"Something went wrong");
+            }
+        }
+
+        [HttpGet("employees/advisers/{id}")]
+        public ActionResult<BankEmployee> GetAdviser(int id){
+            try{
+                var adviser = tecbankService.Adviser_GetById(id);
+                if (adviser == null){
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetAdviser)}) No matching data was found in the database for employee(ID={id})");
+                    return NotFound($"Employee(ID={id}) not found");
+                }
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAdviser)}) Employee(ID={id}) was found successfully");
+                return Ok(adviser);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAdviser)}){e1.ToString()}");
                 return StatusCode(500,"Something went wrong");
             }
         }
@@ -148,12 +192,28 @@ namespace tecbank.controllers{
                 var loan = tecbankService.Loan_Get(id);
                 if (loan == null){
                     logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetLoan)}) No matching data was found in the database for loan(ID={id})");
-                    return NotFound($"(ID={id}) not found");
+                    return NotFound($"Loan(ID={id}) not found");
                 }
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetLoan)}) Bank loan(ID={id}) was found successfully");
                 return Ok(loan);
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetLoan)}){e1.ToString()}");
+                return StatusCode(500,"Something went wrong");
+            }
+        }
+
+        [HttpGet("movements/{id}")]
+        public ActionResult<BankMovement> GetMovement(String id){
+            try{
+                var movement = tecbankService.Movement_Get(id);
+                if (movement == null){
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetMovement)}) No matching data was found in the database for movement(ID={id})");
+                    return NotFound($"Movement(ID={id}) not found");
+                }
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetMovement)}) Bank movement(ID={id}) was found successfully");
+                return Ok(movement);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetMovement)}){e1.ToString()}");
                 return StatusCode(500,"Something went wrong");
             }
         }
@@ -166,10 +226,9 @@ namespace tecbank.controllers{
                     logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddClient)}) Client.id is negative and therefore can't be added to the database");
                     return BadRequest("Client.id must be positive");
                 }
-
                 tecbankService.Client_Add(client);
                 logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddClient)}) Client(ID={client.id}) was added successfully");
-                return Ok();
+                return CreatedAtAction(nameof(AddClient),new {id = client.id},client);
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddClient)}){e1.ToString()}");
                 return StatusCode(500,"Internal server error");
@@ -185,14 +244,16 @@ namespace tecbank.controllers{
         [HttpPost("accounts/add")]
         public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account){
             try{
+                // >> Verificar existencia del cliente
                 var owner = tecbankService.Client_findByID(account.client_id);
                 if (owner == null){
                     logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddAccount)}) Bank account(ID={account.id}) doesn't belong to a known client");
-                    return BadRequest("Owner of account doesn't exist in the database");
+                    return BadRequest($"Account owner client(ID={account.client_id}) doesn't exist in the database");
                 }
+                // >> Agregar cuenta
                 tecbankService.Account_Add(account);
                 logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddAccount)}) Bank account(ID={account.id}) was added successfully");
-                return Ok();
+                return CreatedAtAction(nameof(AddAccount), new {id = account.id}, account);
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddAccount)}){e1.ToString()}");
                 return StatusCode(500,"Internal server error");
@@ -206,43 +267,83 @@ namespace tecbank.controllers{
         }
 
         [HttpPost("cards/add")]
-        public ActionResult<BankCard> AddCard([FromBody] BankCard card)
-        {
-            if (card == null)
-            {
-                return BadRequest("Datos de la tarjeta inválidos.");
+        public ActionResult<BankCard> AddCard([FromBody] BankCard card){
+            try{
+                // >> Comprobar existencia de la cuenta dueña
+                var account = tecbankService.Account_Get(card.account_id);
+                if (account == null){
+                    logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddCard)}) Bank account(ID={card.account_id}) from card doesn't exist on the database");
+                    return BadRequest($"(HTTP)(POST={nameof(AddCard)}) Bank account(ID={card.account_id}) doesn't exist on the database");
+                }
+                // >> Agregar el prestamo
+                tecbankService.Card_Add(card);
+                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddCard)}) Card(ID={card.card_num}) successfully added to database");
+                return CreatedAtAction(nameof(AddCard), new { id = card.card_num }, card);
+            } catch (ArgumentNullException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddCard)}){e1.ToString()}");
+                return BadRequest("Card object is null");
+            } catch (ArgumentException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddCard)}){e2.ToString()}");
+                return BadRequest("Credit/debit card content is invalid");
+            } catch (ServiceException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddCard)}){e3.ToString()}");
+                return StatusCode(500,"Something went wrong");
             }
-
-            tecbankService.Card_Add(card);
-            return CreatedAtAction(nameof(GetCard), new { id = card.card_num }, card);
         }
 
         [HttpPost("loans/add")]
         public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan){
-            try
-            {
-                if (loan == null)
-                    return BadRequest("Datos del préstamo inválidos.");
-
-                // Validar que el monto total sea positivo
-                if (loan.total <= 0)
-                    return BadRequest("El monto total debe ser positivo.");
-
-                loan.request_date = DateTime.Now; // Fecha automática
-                loan.balance = loan.total; // Saldo inicial = monto total
-
+            try{
+                // >> Comprobar existencia del cliente
+                var client = tecbankService.Client_findByID(loan.client_id);
+                if (client == null){
+                    logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddLoan)}) Client(ID={loan.client_id}) from loan doesn't exist on the database");
+                    return BadRequest($"(HTTP)(POST={nameof(AddLoan)}) Client(ID={loan.client_id}) doesn't exist on the database");
+                }
+                // >> Comprobar existencia del prestamista
+                var adviser = tecbankService.Adviser_GetById(loan.adviser_id);
+                if (client == null){
+                    logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddLoan)}) Loan adviser(ID={loan.adviser_id}) from loan doesn't exist on the database");
+                    return BadRequest($"(HTTP)(POST={nameof(AddLoan)}) Client(ID={loan.adviser_id}) doesn't exist on the database");
+                }
+                // >> Agregar el prestamo
                 tecbankService.Loan_Add(loan);
-                return CreatedAtAction(nameof(GetLoan), new { id = loan.id }, loan);
+                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddLoan)}) Loan(ID={loan.id}) successfully added to database");
+                return CreatedAtAction(nameof(AddLoan), new { id = loan.id }, loan);
+            } catch (ArgumentNullException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddLoan)}){e1.ToString()}");
+                return BadRequest("Loan object is null");
+            } catch (ArgumentException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddLoan)}){e2.ToString()}");
+                return BadRequest("Loan object content is invalid");
+            } catch (ServiceException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddLoan)}){e3.ToString()}");
+                return StatusCode(500,"Something went wrong");
             }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+        }
+
+        [HttpPost("employees/add")]
+        public ActionResult<BankLoan> AddEmployee([FromBody] BankEmployee employee){
+            try{
+                // >> Agregar el prestamo
+                tecbankService.Employee_Add(employee);
+                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(AddEmployee)}) Employee(ID={employee.id}) successfully added to database");
+                return CreatedAtAction(nameof(AddEmployee), new { id = employee.id }, employee);
+            } catch (ArgumentNullException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddEmployee)}){e1.ToString()}");
+                return BadRequest("Loan object is null");
+            } catch (ArgumentException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddEmployee)}){e2.ToString()}");
+                return BadRequest("Loan object content is invalid");
+            } catch (ServiceException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddEmployee)}){e3.ToString()}");
+                return StatusCode(500,"Something went wrong");
             }
         }
 
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
         [HttpPut("clients/update/{id}")]
-        public ActionResult UpdateClient(int id, [FromBody] ClientAccount client){
+        public ActionResult<ClientAccount> UpdateClient(int id, [FromBody] ClientAccount client){
             if (id != client.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateClient)}) Client ID({id}) doesnt match body ID({client.id})");
                 return BadRequest($"Client ID({id}) doesnt match body ID({client.id})");
@@ -250,7 +351,7 @@ namespace tecbank.controllers{
             try{
                 tecbankService.Client_Update(client);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateClient)}) Client(ID={id}) has been correctly modified");
-                return Ok();
+                return AcceptedAtAction(nameof(UpdateClient),new {id=client.id}, client);
             } catch (ArgumentNullException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateClient)}){e1.ToString()}");
                 return BadRequest("Client object is null");
@@ -264,7 +365,7 @@ namespace tecbank.controllers{
         }
 
         [HttpPut("accounts/update/{id}")]
-        public ActionResult UpdateAccount(string id, [FromBody] BankAccount account){
+        public ActionResult<BankAccount> UpdateAccount(string id, [FromBody] BankAccount account){
             if (id != account.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAccount)}) Account ID({id}) doesnt match body ID({account.id})");
                 return BadRequest($"Account ID({id}) doesnt match body ID({account.id})");
@@ -272,7 +373,7 @@ namespace tecbank.controllers{
             try{
                 tecbankService.Account_Update(account);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateAccount)}) Bank account(ID={id}) has been correctly modified");
-                return Ok();
+                return AcceptedAtAction(nameof(UpdateAccount),new {id=account.id}, account);
             } catch (ArgumentNullException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAccount)}){e1.ToString()}");
                 return BadRequest("Account object is null");
@@ -286,7 +387,7 @@ namespace tecbank.controllers{
         }
 
         [HttpPut("loans/update/{id}")]
-        public ActionResult UpdateLoan(int id, [FromBody] BankLoan loan){
+        public ActionResult<BankLoan> UpdateLoan(int id, [FromBody] BankLoan loan){
             if (id != loan.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateLoan)}) Loan ID({id}) doesnt match body ID({loan.id})");
                 return BadRequest($"Loan ID({id}) doesnt match body ID({loan.id})");
@@ -294,7 +395,7 @@ namespace tecbank.controllers{
             try{
                 tecbankService.Loan_Update(loan);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateLoan)}) Loan(ID={id}) has been correctly modified");
-                return Ok();
+                return AcceptedAtAction(nameof(UpdateLoan),new {id=loan.id}, loan);
             } catch (ArgumentNullException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateLoan)}){e1.ToString()}");
                 return BadRequest("Account object is null");
@@ -307,11 +408,34 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpPut("employees/update/{id}")]
+        public ActionResult<BankLoan> UpdateEmployee(int id, [FromBody] BankEmployee employee){
+            if (id != employee.id){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateEmployee)}) Employee ID({id}) doesnt match body ID({employee.id})");
+                return BadRequest($"Employee ID({id}) doesnt match body ID({employee.id})");
+            }
+            try{
+                tecbankService.Employee_Update(employee);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateEmployee)}) Employee(ID={id}) has been correctly modified");
+                return AcceptedAtAction(nameof(UpdateEmployee),new {id=employee.id}, employee);
+            } catch (ArgumentNullException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateEmployee)}){e1.ToString()}");
+                return BadRequest("Account object is null");
+            } catch (KeyNotFoundException e2){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateEmployee)}){e2.ToString()}");
+                return NotFound("Account object not found");
+            } catch (ServiceException e3){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateEmployee)}){e3.ToString()}");
+                return StatusCode(500, "Something went wrong");
+            }
+        }
+
         // ------------------------------------------------- [ DELETE ] -------------------------------------------------
         [HttpDelete("clients/delete/{id}")]
         public ActionResult DeleteClient(int id){
             try{
                 tecbankService.Client_Delete(id);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteClient)}) Removed client(ID={id}) successfully from database");
                 return Ok($"Client(ID={id}) removed successfully from system");
             } catch (KeyNotFoundException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteClient)}){e1.ToString()}");
@@ -329,6 +453,7 @@ namespace tecbank.controllers{
         public ActionResult DeleteAccount(string id){
             try{
                 tecbankService.Account_Delete(id);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteAccount)}) Removed bank account(ID={id}) successfully from database");
                 return Ok($"Bank account(ID={id}) removed successfully from system");
             } catch (KeyNotFoundException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteAccount)}){e1.ToString()}");
@@ -343,12 +468,28 @@ namespace tecbank.controllers{
         public ActionResult DeleteCard(int num){
             try{
                 tecbankService.Card_Delete(num);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteCard)}) Removed bank card(ID={num}) successfully from database");
                 return Ok($"Bank card(ID={num}) removed successfully from system");
             } catch (KeyNotFoundException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteCard)}){e1.ToString()}");
                 return NotFound($"Bank account(ID={num}) doesn't exist on the database");
             }  catch (ServiceException e2){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteCard)}){e2.ToString()}");
+                return StatusCode(500,"Internal server error");
+            }
+        }
+
+        [HttpDelete("cards/employee/{id}")]
+        public ActionResult DeleteEmployee(int id){
+            try{
+                tecbankService.Employee_Delete(id);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteEmployee)}) Removed employee(ID={id}) successfully from database");
+                return Ok($"Employee(ID={id}) removed successfully from system");
+            } catch (KeyNotFoundException e1){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteEmployee)}){e1.ToString()}");
+                return NotFound($"Employee(ID={id}) doesn't exist on the database");
+            }  catch (ServiceException e2){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteEmployee)}){e2.ToString()}");
                 return StatusCode(500,"Internal server error");
             }
         }
