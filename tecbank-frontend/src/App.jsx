@@ -1,9 +1,9 @@
 import './App.css'
 
-import Home from './pages/Home'
 import LoginAdmin from './pages/admin/loginAdmin/login_admin'
 import DashBoardAdmin from './pages/admin/dashboardAdmin/dashboard_admin'
 import GestionRolesAdmin from './pages/admin/gestionRoles/gestion_roles'
+import GestionClientesAdmin from './pages/admin/gestionClientes/gestion_clientes'
 /* + ========================= Cliente ========================= + */
 import LoginClient from './pages/client/loginView/loginClient'
 import DashboardClient from './pages/client/dashboardView/dashboardClient'
@@ -13,17 +13,18 @@ import CardPaymentsClient from './pages/client/CardPaymentsView/cardsPaymentsCli
 import PurchasesClient from './pages/client/PurchasesView/purchasesClient'
 import LoansClient from './pages/client/loansPaymentView/loansPaymentClient'
 
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>}/>
         {/* + ========================= Admin ========================= + */}
         <Route path='/loginAdmin' element={<LoginAdmin/>}/>
         <Route path='/adminDashboard' element={<DashBoardAdmin/>}/>
         <Route path='/gestion-roles' element={<GestionRolesAdmin/>} />
+        <Route path='/gestion-clientes' element={<GestionClientesAdmin/>} />
         {/* + ========================= Cliente ========================= + */}
         <Route path="/client_login" element={<LoginClient/>}/>
         <Route path="/client_dashboard" element={<DashboardClient/>}/>
@@ -32,7 +33,7 @@ function App() {
         <Route path="/cards/payments" element={<CardPaymentsClient/>}/>
         <Route path="/cards/purchases" element={<PurchasesClient/>}/>
         <Route path="/loans/payments" element={<LoansClient/>}/>
-
+      
       </Routes>
     </BrowserRouter>
   );
