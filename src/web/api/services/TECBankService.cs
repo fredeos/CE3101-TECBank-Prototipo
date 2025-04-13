@@ -769,7 +769,7 @@ namespace tecbank.services{
                 // >> Registar un nuevo movimiento bancario relacionado al prestamo y con la cuenta indicada
                 BankMovement related_movement = new BankMovement{id = Guid.NewGuid().ToString(), description= "Pago de prestamo", date = DateTime.Now, card_id = -1, total_transfer = -payment.total, currency_id = loan.currency_id, account_id = account.id, type = 3};
                 tecbank_db.INSERT<BankMovement>("movements",related_movement);
-                account.balance = (related_movement.total_transfer*transaction_currency.usd_exchange)/account_currency.usd_exchange;
+                account.balance -= (related_movement.total_transfer*transaction_currency.usd_exchange)/account_currency.usd_exchange;
                 tecbank_db.MODIFY<BankAccount>("accounts",account,(a,b) => a.id == b.id);
 
                 // >> Identificar si el pago es de tipo extraordinario o ordinario (segun el id)
@@ -876,7 +876,7 @@ namespace tecbank.services{
                 // >> Insertar el nuevo prestamo
                 tecbank_db.INSERT<BankLoan>("loans", loan);
                 // >> Calendarizar los pagos del prestamo ordinarios
-                float per_pay = (loan.balance/loan.lapse)+(loan.total*loan.interest_rate)/100;
+                double per_pay = (loan.balance/loan.lapse)+(loan.total*loan.interest_rate)/100;
                 DateTime today = loan.request_date;
                 DateTime concurrent = new DateTime(today.Year, today.Month, today.Day, 23, 59, 0);
                 for (int i = 0; i < loan.lapse; i++){
@@ -967,7 +967,7 @@ namespace tecbank.services{
                 var receiver_acc = accs.FirstOrDefault(acc => acc.id == receiver_id)??
                     throw new ArgumentException($"(TECBANKSERVICE) Bank account(ID={receiver_id}) for receiver doesn't exist on the database");
                 // >> Obtener los tipos de dinero utilizados
-                var currencies = tecbank_db.SELECT<Currency>("currency",cur => cur.id == movement.currency_id || cur.id == sender_acc.currency_id || cur.id == receiver_acc.currency_id);
+                var currencies = tecbank_db.SELECT<Currency>("currency",cur => cur.id == movement.currency_id);
                 var transfer_cur = currencies.FirstOrDefault(mv => mv.id == movement.currency_id) ??
                     throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={movement.currency_id}) from new movement doesn't exist on database");
                 var send_cur = currencies.FirstOrDefault(mv => mv.id == sender_acc.currency_id)??
@@ -1015,6 +1015,7 @@ namespace tecbank.services{
                 tecbank_db.INSERT("movements", receiver_mov);
                 // >> Agregar el id del movimiento al objeto original
                 movement.id = sender_mov.id;
+                movement.account_id = sender_acc.id;
             } catch (KeyNotFoundException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
             } catch (DBMSException e2){
@@ -1036,24 +1037,40 @@ namespace tecbank.services{
         public void Movement_New_WithCard(int card_num, BankMovement movement){
             if (movement == null)
                 throw new ArgumentNullException($"(TECBANKSERBIVE) {nameof(movement)} is null and therefore is not a valid object in the database");
-            try{
+            try {
+                // >> Agregar propiedades al movimiento
                 movement.id = Guid.NewGuid().ToString();
                 movement.date = DateTime.Now;
                 // >> Verificar que exista la tarjeta designada
                 var card = tecbank_db.SELECT<BankCard>("cards",bc => bc.card_num == card_num).FirstOrDefault() ??
                     throw new ArgumentException($"(TECBANKSERVICE) Bank card(ID={card_num}) doesn't exist on database");
-                card.balance += movement.total_transfer;
-                movement.card_id = card.card_num;
                 // >> Verificar que exista una cuenta asociada a la tarjeta
                 var account = tecbank_db.SELECT<BankAccount>("accounts",ba => ba.id == card.account_id).FirstOrDefault() ??
                     throw new ArgumentException($"(TECBANKSERVICE) Bank account(ID={card.account_id}) from bank card(ID={card_num}) doesn't exist on database");
-                account.balance -= Math.Abs(movement.total_transfer);
-                movement.account_id = account.id;
-                // >> Aplicar cambios a la tarjeta y la cuenta
-                tecbank_db.MODIFY<BankCard>("cards",card, (a,b)=>a.card_num == b.card_num);
-                tecbank_db.MODIFY<BankAccount>("accounts",account, (a,b)=>a.id == b.id);
-                // >> Registrar el movimiento
-                tecbank_db.INSERT<BankMovement>("movements",movement);
+                // >> Obtener los tipos de moneda utilizados
+                var currencies = tecbank_db.SELECT<Currency>("currency",cur => cur.id == movement.currency_id || cur.id == account.currency_id);
+                var mov_cur = currencies.FirstOrDefault(mv => mv.id == movement.currency_id) ??
+                    throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={movement.currency_id}) from new movement doesn't exist on database");
+                var acc_cur = currencies.FirstOrDefault(mv => mv.id == account.currency_id)??
+                    throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={account.currency_id}) from sender bank account(ID={account.id}) doesn't exist on database");
+                // >> Realizar el tipo de movimiento
+                if (movement.type==2 || movement.type==4){ // Pagos de deuda de credito O retiro de dinero en ATM
+                    if (account.balance < movement.total_transfer)
+                        throw new InvalidOperationException($"(TECBANKSERVICE) Account(ID={account.id}) from card(ID={card_num}) doesn't have enough funds to proceed");
+                    // >> Hacer cambios en la tarjeta
+                    card.balance += (movement.total_transfer*mov_cur.usd_exchange)/acc_cur.usd_exchange;
+                    tecbank_db.MODIFY<BankCard>("cards", card, (a,b) => a.card_num == b.card_num);
+                    // >> Hacer cambios en la cuenta
+                    account.balance -= Math.Abs((movement.total_transfer*mov_cur.usd_exchange)/acc_cur.usd_exchange);
+                    tecbank_db.MODIFY<BankAccount>("accounts", account, (a,b) => a.id == b.id);
+                    // >> Registrar el movimiento
+                    movement.card_id = card_num;
+                    movement.account_id = account.id;
+                    tecbank_db.INSERT<BankMovement>("movements", movement);
+                } else { // Aumento de limite en la tarjeta
+                    card.balance = movement.total_transfer;
+                    tecbank_db.MODIFY<BankCard>("cards", card, (a,b) => a.card_num == b.card_num);
+                }
             } catch (KeyNotFoundException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
             } catch (DBMSException e2){

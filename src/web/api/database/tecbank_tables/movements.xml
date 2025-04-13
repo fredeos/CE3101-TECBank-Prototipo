@@ -33,23 +33,63 @@
       <currency_id>1</currency_id>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>c3ad800f-4108-413f-b776-77e7d750a481</id>
-      <total_transfer>-20.99</total_transfer>
-      <date>2025-04-12T19:08:46.1362458-06:00</date>
+      <id>95c912b5-c309-4d50-9f4b-66454d8cf618</id>
+      <total_transfer>-118.6</total_transfer>
+      <date>2025-04-13T17:27:10.6498316-06:00</date>
       <description>Transferencia simple</description>
       <type>1</type>
       <card_id>-1</card_id>
-      <account_id>646CR54186bt11</account_id>
+      <account_id>897CR54134bt01</account_id>
       <currency_id>2</currency_id>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>5324ec68-5563-4a1f-b0bf-5dc4915e8502</id>
-  <total_transfer>20.99</total_transfer>
-  <date>2025-04-12T19:08:46.1362458-06:00</date>
-  <description>Transferencia simple</description>
-  <type>1</type>
+      <id>b4d4df24-e72b-4b22-90ff-8d2aa511224d</id>
+      <total_transfer>118.6</total_transfer>
+      <date>2025-04-13T17:27:10.6818403-06:00</date>
+      <description>Transferencia simple</description>
+      <type>1</type>
+      <card_id>-1</card_id>
+      <account_id>151CR6461051191</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>de9659a4-9052-420b-bfb5-b872f72e4cc9</id>
+      <total_transfer>100</total_transfer>
+      <date>2025-04-13T17:30:05.847266-06:00</date>
+      <description>Pago de deuda de tarjeta de credito</description>
+      <type>2</type>
+      <card_id>40030</card_id>
+      <account_id>152CR54126bt67</account_id>
+      <currency_id>1</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>cae4b14d-e087-4890-aa72-adf2f1ab02dc</id>
+      <total_transfer>5000</total_transfer>
+      <date>2025-04-13T17:40:42.1489551-06:00</date>
+      <description>Pago de deuda de tarjeta de credito</description>
+      <type>2</type>
+      <card_id>40030</card_id>
+      <account_id>152CR54126bt67</account_id>
+      <currency_id>3</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>ab2d84ed-7130-4e0b-841b-e367df8052db</id>
+      <total_transfer>-21.15</total_transfer>
+      <date>2025-04-13T17:45:12.0293955-06:00</date>
+      <description>Pago de prestamo</description>
+      <type>3</type>
+      <card_id>-1</card_id>
+      <account_id>897CR54134bt01</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>4e602f84-d901-43e1-ab1f-8b66b4ed7643</id>
+  <total_transfer>-21.15</total_transfer>
+  <date>2025-04-13T17:48:44.6164605-06:00</date>
+  <description>Pago de prestamo</description>
+  <type>3</type>
   <card_id>-1</card_id>
-  <account_id>151CR1830471500</account_id>
+  <account_id>897CR54134bt01</account_id>
   <currency_id>2</currency_id>
 </value>
   </tuples>

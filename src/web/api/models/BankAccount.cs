@@ -16,7 +16,7 @@ namespace tecbank.models{
         public int type {get; set;}
 
         [XmlElement("balance")]
-        public float balance {get; set;}
+        public double balance {get; set;}
 
         [XmlElement("description")]
         public String description {get; set;}

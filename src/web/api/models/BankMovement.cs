@@ -11,7 +11,7 @@ namespace tecbank.models {
         public String id {get; set;}
         
         [XmlElement("total_transfer")]
-        public float total_transfer {get; set;}
+        public double total_transfer {get; set;}
         
         [XmlElement("date")]
         public DateTime date {get; set;}

@@ -14,7 +14,7 @@ namespace tecbank.models{
         public String name {get; set;}
         
         [XmlElement("usd_exchange")]
-        public float usd_exchange {get; set;}
+        public double usd_exchange {get; set;}
 
         [XmlElement("rem_state")]
         public int removed {get; set;}

@@ -21,10 +21,10 @@ namespace tecbank.models{
         public float interest_rate {get; set;}
 
         [XmlElement("balance")]
-        public float balance {get; set;}
+        public double balance {get; set;}
 
         [XmlElement("total")]
-        public float total {get; set;}
+        public double total {get; set;}
 
         [XmlElement("state")]
         public int state {get; set;}

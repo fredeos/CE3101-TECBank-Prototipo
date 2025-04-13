@@ -18,7 +18,7 @@ namespace tecbank.models{
         public int cvc {get; set;}
 
         [XmlElement("balance")]
-        public float balance {get; set;}
+        public double balance {get; set;}
 
         [XmlElement("account_id")]
         public String account_id {get; set;}

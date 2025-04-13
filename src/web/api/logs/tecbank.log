@@ -136,3 +136,32 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-12 21:36:51][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
 [2025-04-13 14:30:40][INFO]: ============= Log Console started
 [2025-04-13 14:30:40][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-13 16:58:57][INFO]: ============= Log Console started
+[2025-04-13 16:58:57][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-13 17:01:30][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=a9876eda-5669-4570-bacb-99ab6c971c03) has been added to database
+[2025-04-13 17:05:39][INFO]: ============= Log Console started
+[2025-04-13 17:05:39][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=756b242e-c317-412e-bd66-2f01f06381f4) has been added to database
+[2025-04-13 17:15:27][INFO]: ============= Log Console started
+[2025-04-13 17:15:27][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=7812bb2f-e6fa-4c08-86c6-a4e4ad3ba3ad) has been added to database
+[2025-04-13 17:17:42][INFO]: ============= Log Console started
+[2025-04-13 17:17:42][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=087fd5f2-781e-45ca-a2fb-ad2f9ceb017d) has been added to database
+[2025-04-13 17:24:06][INFO]: ============= Log Console started
+[2025-04-13 17:24:06][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=56c33bca-b37c-4f35-a89d-54c1bc3720d5) has been added to database
+[2025-04-13 17:27:10][INFO]: ============= Log Console started
+[2025-04-13 17:27:10][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=95c912b5-c309-4d50-9f4b-66454d8cf618) has been added to database
+[2025-04-13 17:29:20][WARNING]: (HTTP)(POST=MakeCardTransfer) Client(ID=301) doesn't exist on database
+[2025-04-13 17:29:36][WARNING]: (HTTP)(POST=MakeCardTransfer) Card(ID=40030) doesn't exist on database
+[2025-04-13 17:41:02][INFO]: ============= Log Console started
+[2025-04-13 17:41:02][INFO]: (HTTP)(GET=GetCardsPerClient) Credit/debit cards from client(ID=301) found succesfullly
+[2025-04-13 17:41:13][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=301) found succesfullly
+[2025-04-13 17:41:31][WARNING]: (HTTP)(GET=GetLoans) No loans are bound to client(ID=301)
+[2025-04-13 17:42:47][INFO]: (HTTP)(POST=AddLoan) Loan(ID=888) successfully added to database
+[2025-04-13 17:42:57][INFO]: (HTTP)(GET=GetLoans) Loans from client(ID=301) found succesfullly
+[2025-04-13 17:43:44][INFO]: (HTTP)(GET=GetLoanPayments) Loans from client(ID=301) found succesfullly
+[2025-04-13 17:45:12][INFO]: (HTTP)(POST=Register) Loan payment(ID=38d2285b-02b6-47d2-9738-f517c063c151) has been added to database
+[2025-04-13 17:45:26][INFO]: (HTTP)(GET=GetAllPayments) Loans from client(ID=301) found succesfullly
+[2025-04-13 17:45:33][INFO]: (HTTP)(GET=GetLoanPayments) Loans from client(ID=301) found succesfullly
+[2025-04-13 17:45:46][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=301) found succesfullly
+[2025-04-13 17:47:03][INFO]: (HTTP)(GET=GetLoans) Loans from client(ID=301) found succesfullly
+[2025-04-13 17:48:44][INFO]: (HTTP)(POST=Register) Loan payment(ID=38d2285b-02b6-47d2-9738-f517c063c151) has been added to database
+[2025-04-13 17:48:52][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=301) found succesfullly

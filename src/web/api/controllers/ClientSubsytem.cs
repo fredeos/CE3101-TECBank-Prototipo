@@ -264,6 +264,7 @@ namespace tecbank.controllers{
 
         [HttpPost("{user_id}/movements/new/{owner_id}/{target_id}")]
         public ActionResult<BankMovement> MakeTransfer(int user_id, String owner_id, String target_id, [FromBody] BankMovement transfer){
+            // >> Verificaciones para tipo de transaccion
             if (transfer.total_transfer < 0){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeTransfer)}) Transfers between account can't be negative");
                 return BadRequest($"Transfer amount can't be negative");
@@ -289,7 +290,7 @@ namespace tecbank.controllers{
                 return StatusCode(500,"Internal server error");
             } catch (InvalidOperationException e2){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e2.ToString()}");
-                return BadRequest($"Either account(ID={owner_id}) or used credit card(ID={transfer.card_id}) doesn't ");
+                return BadRequest($"Either account(ID={owner_id}) or used credit card(ID={transfer.card_id}) doesn't have enough funds to proceed with transaction");
             } catch (ArgumentNullException e3){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e3.ToString()}");
                 return BadRequest("Transfer movement doesn't have a valid format");
@@ -298,6 +299,67 @@ namespace tecbank.controllers{
                 return BadRequest("Failed to add a new movement to the database");
             }
         }
+
+        [HttpPost("{user_id}/cards/{card_num}/movement/new")]
+        public ActionResult<BankCard> MakeCardTransfer(int user_id, int card_num, [FromBody] BankMovement transfer){
+            // >> Verificaciones para la tarjeta
+            if (transfer.card_id != card_num){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={MakeCardTransfer}) Card(ID={card_num}) doesn't match the card id({transfer.card_id}) on movement object");
+                return BadRequest($"Card(ID={card_num}) doesn't match the card id({transfer.card_id}) on movement object");
+            }
+            // >> Verificaciones para tipo de transaccion
+            if (transfer.type == 2 && transfer.total_transfer < 0){ // Pago de deuda de tarjeta
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={MakeCardTransfer}) Credit debt payment for card(ID={card_num}) can't be negative");
+                return BadRequest($"Credit debt payment for card(ID={card_num}) can't be negative");
+            }
+            if (transfer.type == 4 && transfer.total_transfer > 0){ // Retiro de dinero en ATM
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Withdrawal for card(ID={card_num}) can't be positive");
+                return BadRequest($"Withdrawal for card(ID={card_num}) can't be positive");
+            }
+            if (transfer.type == 5 && transfer.total_transfer < 0){ // Configuracion de limite para tarjetas de debito
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Debit card(ID={card_num}) limit can't be negative");
+                return BadRequest($"Expense limit for debit card(ID={card_num}) can't be negative");
+            }
+            try{
+                // >> Verificar existencia del cliente
+                var client = tecbankService.Client_findByID(user_id);
+                if (client == null){
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Client(ID={user_id}) doesn't exist on database");
+                    return NotFound($"Client(ID={user_id}) not found");
+                }
+                // >> Verificar que el cliente es dueño de la tarjeta
+                var card = tecbankService.Card_Get(card_num);
+                if(card == null){
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Card(ID={card_num}) doesn't exist on database");
+                    return NotFound($"Card(ID={card_num}) not found");
+                }
+                var card_account = tecbankService.Account_Get(card.account_id);
+                if(card_account == null){
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Bank account(ID={card.account_id}) from card(ID={card_num}) doesn't exist on database");
+                    return NotFound($"Bank account(ID={card.account_id}) from card(ID={card_num}) not found");
+                }
+                if (card_account.client_id != client.id){
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeCardTransfer)}) Client(ID={user_id}) doesn't own the account(ID={card_account.id}) from card(ID={card_num})");
+                    return BadRequest($"Card(ID={card_num}) isn't owned by client(ID={user_id})");
+                }
+                // >> Registrar el movimiento para la tarjeta
+                tecbankService.Movement_New_WithCard(card_num, transfer);
+                return CreatedAtAction(nameof(MakeCardTransfer), new {id=transfer.id}, transfer);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e1.ToString()}");
+                return StatusCode(500,"Internal server error");
+            } catch (InvalidOperationException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e2.ToString()}");
+                return BadRequest($"Used credit card(ID={card_num}) doesn't have enough funds to proceed with transaction");
+            } catch (ArgumentNullException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e3.ToString()}");
+                return BadRequest("Movement information is not valid");
+            } catch (ArgumentException e4){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e4.ToString()}");
+                return BadRequest("Failed to add a new movement to the database");
+            }
+        }
+
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
         [HttpPut("{user_id}/profile/update")]
         public ActionResult<ClientAccount> UpdateClient(int user_id, [FromBody] ClientAccount client){

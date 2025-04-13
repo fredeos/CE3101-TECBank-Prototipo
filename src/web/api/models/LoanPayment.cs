@@ -23,7 +23,7 @@ namespace tecbank.models {
         public DateTime date {get; set;}
         
         [XmlElement("total")]
-        public float total {get; set;}
+        public double total {get; set;}
         
         [XmlElement("state")]
         public int state {get; set;}
