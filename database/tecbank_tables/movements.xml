@@ -1,35 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <table>
-    <name>movements</name>
-    <id>4</id>
-    <PKs> 
-        <PK>id</PK>
-    </PKs>
-    <FKs> 
-        <FK>card_id</FK>
-        <FK>account_id</FK>
-        <FK>currency_id</FK>
-    </FKs>
-    <removal>physical</removal>
-    <tuples>
-        <value>
-            <id>EF200</id>
-            <total_transfer>-7000.00</total_transfer>
-            <date>2025-02-21T10:36:00</date>
-            <description>Compra en Servicios</description>
-            <type>2</type>
-            <card_id>40025</card_id>
-            <account_id>152CR54126bt67</account_id>
-            <currency_id>3</currency_id>
-        </value>
-        <value>
-            <id>EF200</id>
-            <total_transfer>-100.00</total_transfer>
-            <date>2025-02-21T10:36:00</date>
-            <description>Transferencia</description>
-            <type>1</type>
-            <card_id>-1</card_id>
-            <account_id>152CR54126bt67</account_id>
-            <currency_id>1</currency_id>
-        </value>
-    </tuples>
+  <name>movements</name>
+  <id>4</id>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <FKs>
+    <FK>card_id</FK>
+    <FK>account_id</FK>
+    <FK>currency_id</FK>
+  </FKs>
+  <removal>physical</removal>
+  <tuples>
+    <value>
+      <id>EF200</id>
+      <total_transfer>-7000.00</total_transfer>
+      <date>2025-02-21T10:36:00</date>
+      <description>Compra en Servicios</description>
+      <type>2</type>
+      <card_id>40025</card_id>
+      <account_id>152CR54126bt67</account_id>
+      <currency_id>3</currency_id>
+    </value>
+    <value>
+      <id>EF200</id>
+      <total_transfer>-100.00</total_transfer>
+      <date>2025-02-21T10:36:00</date>
+      <description>Transferencia</description>
+      <type>1</type>
+      <card_id>-1</card_id>
+      <account_id>152CR54126bt67</account_id>
+      <currency_id>1</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>c3ad800f-4108-413f-b776-77e7d750a481</id>
+      <total_transfer>-20.99</total_transfer>
+      <date>2025-04-12T19:08:46.1362458-06:00</date>
+      <description>Transferencia simple</description>
+      <type>1</type>
+      <card_id>-1</card_id>
+      <account_id>646CR54186bt11</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>5324ec68-5563-4a1f-b0bf-5dc4915e8502</id>
+  <total_transfer>20.99</total_transfer>
+  <date>2025-04-12T19:08:46.1362458-06:00</date>
+  <description>Transferencia simple</description>
+  <type>1</type>
+  <card_id>-1</card_id>
+  <account_id>151CR1830471500</account_id>
+  <currency_id>2</currency_id>
+</value>
+  </tuples>
 </table>

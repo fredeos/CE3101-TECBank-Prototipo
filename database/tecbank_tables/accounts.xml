@@ -29,23 +29,32 @@
       <client_id>301</client_id>
       <rem_state>1</rem_state>
     </value>
-    <value>
-      <id>646CR54186bt11</id>
-      <type>1</type>
-      <balance>40000.00</balance>
-      <description>Cuenta Personal</description>
-      <currency_id>1</currency_id>
-      <client_id>302</client_id>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>646CR54186bt11</id>
+  <type>1</type>
+  <balance>NaN</balance>
+  <description>Cuenta Personal</description>
+  <currency_id>1</currency_id>
+  <client_id>302</client_id>
+  <rem_state>0</rem_state>
+</value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>151CR2255871423</id>
+      <type>2</type>
+      <balance>10000.69</balance>
+      <description>Cuenta Personal de Ahorros</description>
+      <currency_id>3</currency_id>
+      <client_id>306</client_id>
       <rem_state>0</rem_state>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>151CR2255871423</id>
-  <type>2</type>
-  <balance>10000.69</balance>
-  <description>Cuenta Personal de Ahorros</description>
-  <currency_id>3</currency_id>
-  <client_id>306</client_id>
-  <rem_state>0</rem_state>
-</value>
+      <id>151CR1830471500</id>
+      <type>1</type>
+      <balance>NaN</balance>
+      <description>Cuenta de trabajo</description>
+      <currency_id>3</currency_id>
+      <client_id>306</client_id>
+      <rem_state>0</rem_state>
+    </value>
   </tuples>
 </table>

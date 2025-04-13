@@ -101,3 +101,20 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-12 14:22:39][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
 [2025-04-12 14:25:06][INFO]: ============= Log Console started
 [2025-04-12 14:25:06][INFO]: (HTTP)(POST=AddAccount) Bank account(ID=151CR2255871423) was added successfully
+[2025-04-12 18:52:22][INFO]: ============= Log Console started
+[2025-04-12 18:52:22][INFO]: (HTTP)(GET=Login) Client(ID=306) login succesful
+[2025-04-12 18:53:45][INFO]: ============= Log Console started
+[2025-04-12 18:53:45][INFO]: (HTTP)(GET=Login) Client(ID=306) login succesful
+[2025-04-12 18:55:09][INFO]: (HTTP)(PUT=UpdateClient) Client(ID=306) has been correctly modified
+[2025-04-12 18:55:23][WARNING]: (HTTP)(GET=Login) Client login failed, no such client exists
+[2025-04-12 18:55:32][INFO]: (HTTP)(GET=Login) Client(ID=306) login succesful
+[2025-04-12 18:55:40][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=306) found succesfullly
+[2025-04-12 18:56:39][INFO]: (HTTP)(POST=CreateCard) Card(ID=475478735) has been added for client(ID=306) to database
+[2025-04-12 18:57:04][INFO]: (HTTP)(GET=GetCardsPerClient) Credit/debit cards from client(ID=306) found succesfullly
+[2025-04-12 18:57:52][INFO]: (HTTP)(POST=OpenAccount) Bank account(ID=151CR1830471500) has been added for client(ID=306) to database
+[2025-04-12 18:58:05][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=306) found succesfullly
+[2025-04-12 18:58:40][WARNING]: (HTTP)(GET=GetAccounts) No bank accounts are bound to client(ID=301)
+[2025-04-12 18:58:47][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=302) found succesfullly
+[2025-04-12 19:03:52][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
+[2025-04-12 19:08:46][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=5324ec68-5563-4a1f-b0bf-5dc4915e8502) has been added to database
+[2025-04-12 19:09:09][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully

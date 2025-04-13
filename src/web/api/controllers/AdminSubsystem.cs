@@ -473,7 +473,7 @@ namespace tecbank.controllers{
                 return Ok($"Bank card(ID={num}) removed successfully from system");
             } catch (KeyNotFoundException e1){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteCard)}){e1.ToString()}");
-                return NotFound($"Bank account(ID={num}) doesn't exist on the database");
+                return NotFound($"Bank card(ID={num}) doesn't exist on the database");
             }  catch (ServiceException e2){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteCard)}){e2.ToString()}");
                 return StatusCode(500,"Internal server error");

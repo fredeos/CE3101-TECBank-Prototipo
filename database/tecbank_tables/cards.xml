@@ -34,5 +34,13 @@
       <account_id>646CR54186bt11</account_id>
       <rem_state>0</rem_state>
     </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <card_num>475478735</card_num>
+  <type>2</type>
+  <cvc>171</cvc>
+  <balance>500000.8</balance>
+  <account_id>151CR2255871423</account_id>
+  <rem_state>0</rem_state>
+</value>
   </tuples>
 </table>

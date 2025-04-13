@@ -200,7 +200,6 @@ namespace tecbank.services{
         /// </summary>
         /// <param name="id">Account ID to search for</param>
         /// <returns>Matching BankAccount object</returns>
-        /// <exception cref="KeyNotFoundException">Account not found</exception>
         /// <exception cref="SystemException">Database operation failed</exception>
         public BankAccount? Account_Get(string id){
             try {
@@ -431,8 +430,7 @@ namespace tecbank.services{
         /// Generates a valid card number (8 digits starting with 4)
         /// </summary>
         /// <returns>Generated card number with check digit</returns>
-        public int GenerateCardNumber()
-        {
+        public int GenerateCardNumber(){
             Random random = new Random();
             
             // Generate 8-digit number (safe Int32 range)
@@ -698,6 +696,31 @@ namespace tecbank.services{
             }
         }
 
+        /// <summary>
+        /// Get the scheduled payments for a loan
+        /// </summary>
+        /// <param name="client_id"></param>
+        /// <param name="loan_id"></param>
+        /// <returns>List of loan payments from the schedule of a loan</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ServiceException"></exception>
+        public List<LoanPayment> LoanPayments_FromLoan(int client_id, int loan_id) {
+            try{
+                // >> Buscar el cliente
+                var client = tecbank_db.SELECT<ClientAccount>("clients",c => c.id == client_id).FirstOrDefault() ??
+                    throw new ArgumentException($"(TECBANKSERVICE) Client(ID={client_id}) not found in database");
+                // >> Buscar el prestamo del cliente
+                var loan = tecbank_db.SELECT<BankLoan>("loans", ln => ln.id == loan_id && ln.client_id == client_id).FirstOrDefault() ??
+                    throw new ArgumentException($"(TECBANKSERVICE) Loan(ID={loan_id}) from client(ID={client_id}) doesn't exist on the database");
+                // >> Buscar los pagos relacionados al prestamo
+                var payments = tecbank_db.SELECT<LoanPayment>("payments",p => p.loan_id == loan.id && p.type == 1);
+                return payments;
+            } catch (DBMSException e1){
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            } catch (KeyNotFoundException e2){
+                throw new ServiceException($"(TECBANKSERVICE){e2.ToString()}");
+            }
+        }
 
         /// <summary>
         /// Makes a payment for a loan on databse, either for a scheduled one or for extraordinary one
@@ -957,15 +980,15 @@ namespace tecbank.services{
                 receiver_acc.balance += (movement.total_transfer*mov_cur.usd_exchange)/recv_cur.usd_exchange;
                 tecbank_db.MODIFY<BankAccount>("accounts",sender_acc,(a,b)=>a.id == b.id);
                 tecbank_db.MODIFY<BankAccount>("accounts",receiver_acc,(a,b)=>a.id == b.id);
-                // >> Agregar el nuevo movimiento a la basde datos
+                // >> Agregar el nuevo movimiento a la base de datos
                 movement.id = Guid.NewGuid().ToString();
-                movement.total_transfer = -movement.total_transfer;
-                movement.account_id = sender_acc.id;
+                movement.total_transfer = movement.total_transfer;
+                movement.account_id = receiver_acc.id;
                 tecbank_db.INSERT<BankMovement>("movements",movement);
 
                 movement.id = Guid.NewGuid().ToString();
                 movement.total_transfer = -movement.total_transfer;
-                movement.account_id = receiver_acc.id;
+                movement.account_id = sender_acc.id;
                 tecbank_db.INSERT<BankMovement>("movements",movement);
             } catch (KeyNotFoundException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
