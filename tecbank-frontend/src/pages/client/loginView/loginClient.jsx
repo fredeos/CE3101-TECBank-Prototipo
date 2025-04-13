@@ -28,7 +28,7 @@ function LoginClient() {
       const redirectTimer = setTimeout(() => {
         navigate("/client_dashboard")
       }, 1500)
-      
+
       // Limpieza del timer si el componente se desmonta
       return () => clearTimeout(redirectTimer)
     }
@@ -51,7 +51,7 @@ function LoginClient() {
     // Simular proceso de inicio de sesión
     setTimeout(() => {
       console.log("Intento de inicio de sesión con:", { username, password })
-      
+
       // Verificar contra credenciales hardcodeadas
       if (username === hardcodedCredentials.username && password === hardcodedCredentials.password) {
         setIsSuccess(true)
@@ -63,7 +63,7 @@ function LoginClient() {
       }
 
       setIsLoading(false)
-      
+
       // Reiniciar formulario solo si fue exitoso
       if (isSuccess) {
         setUsername("")

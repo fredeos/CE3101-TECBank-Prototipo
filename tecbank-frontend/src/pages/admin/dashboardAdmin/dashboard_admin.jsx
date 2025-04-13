@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   }
   const navigate = useNavigate()
 
-  const goToPrueba = () => navigate("/prueba")
+  const goToPrueba = () => navigate("/gestion-roles")
   
   // Admin options for the dashboard
   const adminOptions = [

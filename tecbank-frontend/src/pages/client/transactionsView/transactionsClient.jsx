@@ -10,6 +10,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import "./transactionsStyle.css"
+
+import { cards } from "@/mocks/clientMocks/clientCards"
+import { sourceAccounts } from "@/mocks/clientMocks/clientAccounts"
+
 // Datos de ejemplo para transacciones
 const transactions = [
   {
@@ -70,25 +74,8 @@ const transactions = [
   },
 ]
 
-// Datos de ejemplo para tarjetas de débito
-const debitCards = [
-  {
-    id: "1",
-    cardNumber: "**** **** **** 4567",
-    expiryDate: "05/25",
-    cardType: "Visa Débito",
-    status: "active",
-  },
-  {
-    id: "2",
-    cardNumber: "**** **** **** 8901",
-    expiryDate: "09/24",
-    cardType: "Mastercard Débito",
-    status: "active",
-  },
-]
-
 function AccountTransactions() {
+
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState("")
   const [filterType, setFilterType] = useState("all")
@@ -100,14 +87,25 @@ function AccountTransactions() {
     return matchesSearch && matchesType
   })
 
+  // Cambio de moneda
+  const getCurrencySymbol = (currencyId) => {
+    const currencySymbols = {
+      1: '$', // Dólar
+      2: '€', // Euro
+      3: '₡'  // Colón costarricense
+    };
+    return currencySymbols[currencyId] || '$';
+  };
+
   return (
     <div className="transactions-container">
       <div className="transactions-content">
+
         {/* Botón de regreso */}
         <div className="back-link-container">
           <Button variant="ghost" className="back-link-client" onClick={() => navigate("/client_dashboard")}>
-              <ArrowLeft className="back-icon" />
-              <span>Volver al Panel</span>
+            <ArrowLeft className="back-icon" />
+            <span>Volver al Panel</span>
           </Button>
         </div>
 
@@ -128,39 +126,6 @@ function AccountTransactions() {
           </TabsList>
 
           <TabsContent value="transactions" className="space-y-6">
-            {/* Filtros y búsqueda */}
-            <div className="filters-row">
-              <div className="filter-group">
-                <Filter className="filter-icon" />
-                <Select value={filterType} onValueChange={setFilterType}>
-                  <SelectTrigger className="filter-select">
-                    <SelectValue placeholder="Filtrar por tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas las Transacciones</SelectItem>
-                    <SelectItem value="deposit">Solo Depósitos</SelectItem>
-                    <SelectItem value="withdrawal">Solo Retiros</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="search-group">
-                <div className="search-input-container">
-                  <Search className="search-icon" />
-                  <Input
-                    type="search"
-                    placeholder="Buscar transacciones..."
-                    className="search-input"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                <button className="download-button">
-                  <Download className="download-icon" />
-                  <span className="sr-only">Descargar transacciones</span>
-                </button>
-              </div>
-            </div>
 
             {/* Tabla de transacciones */}
             <Card className="transactions-table-card">
@@ -198,9 +163,8 @@ function AccountTransactions() {
                               )}
                             </TableCell>
                             <TableCell
-                              className={`table-cell amount-cell ${
-                                transaction.type === "deposit" ? "deposit-amount" : "withdrawal-amount"
-                              }`}
+                              className={`table-cell amount-cell ${transaction.type === "deposit" ? "deposit-amount" : "withdrawal-amount"
+                                }`}
                             >
                               {transaction.type === "deposit" ? "+" : "-"}${transaction.amount.toFixed(2)}
                             </TableCell>
@@ -223,38 +187,47 @@ function AccountTransactions() {
 
           <TabsContent value="cards" className="space-y-6">
             <div className="cards-grid-transactions">
-              {debitCards.map((card) => (
-                <div key={card.id} className="debit-card">
-                  <div className="card-header">
-                    <div className="card-header-content">
-                      <div className="card-info">
-                        <h3 className="card-type">{card.cardType}</h3>
-                        <p className="card-number">{card.cardNumber}</p>
+              {cards
+                .filter(card => card.type === 1)  // Filtra tarjetas de débito
+                .map((card) => {
+                  const account = sourceAccounts.find(acc => acc.id === card.account_id);
+                  const currencyId = account ? account.currency_id : 1;
+
+                  return (
+                    <div key={card.card_num} className="debit-card">
+                      <div className="card-header">
+                        <div className="card-header-content">
+                          <div className="card-info">
+                            <h3 className="card-type">
+                              {card.type === 1 ? "Débito" : "Crédito"}
+                            </h3>
+                            <p className="card-number">{card.card_num}</p>
+                          </div>
+                          <CreditCard className="card-icon" />
+                        </div>
                       </div>
-                      <CreditCard className="card-icon" />
-                    </div>
-                  </div>
-                  <div className="card-details">
-                    <div className="card-details-grid">
-                      <div className="card-detail-item">
-                        <p className="detail-label">Fecha de Vencimiento</p>
-                        <p className="detail-value">{card.expiryDate}</p>
+                      <div className="card-details">
+                        <div className="card-details-grid">
+                          <div className="card-detail-item">
+                            <p className="detail-label">Cuenta asociada</p>
+                            <p className="detail-value">
+                              {account ? account.description : card.account_id}
+                            </p>
+                          </div>
+                          <div className="card-detail-item">
+                            <p className="detail-label">Saldo disponible</p>
+                            <span className="detail-value">
+                              {getCurrencySymbol(currencyId)} {currencyId === 1 ? 'USD:  ' : currencyId === 2 ? 'EUR:  ' : 'CRC:  '}
+                              {card.balance.toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="card-detail-item">
-                        <p className="detail-label">Estado</p>
-                        <span className="card-status">Activa</span>
-                      </div>
                     </div>
-                    <div className="card-actions">
-                      <button className="card-action-button">Ver Detalles</button>
-                      <button className="card-action-button block-button">Bloquear Tarjeta</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  );
+                })}
             </div>
           </TabsContent>
-
         </Tabs>
       </div>
     </div>

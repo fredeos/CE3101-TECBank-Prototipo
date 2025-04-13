@@ -12,7 +12,7 @@
 }
 
 .back-link-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .back-link-client {
@@ -100,13 +100,7 @@
 
 .card-select {
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    transition: all 0.2s ease;
-}
-
-.card-select:focus-within {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    border: 1px solid #e2e8f000;
 }
 
 .account-option {
@@ -138,10 +132,11 @@
 }
 
 .credit-card-content {
-    padding: 1.5rem;
+    background-color: #1e40af;
+    padding: 1rem;
     color: white;
     position: relative;
-    min-height: 180px;
+    min-height: 100px;
 }
 
 .credit-card-issuer {
@@ -155,7 +150,6 @@
 
 .credit-card-number {
     font-size: 1.25rem;
-    letter-spacing: 2px;
     margin-top: 3rem;
     font-weight: 500;
 }
@@ -324,9 +318,9 @@
     color: #1e293b;
 }
 
-.confirm-amount {
-    font-size: 1.25rem;
-    font-weight: 700;
+.confirm-amount-pay {
+    font-size: 1rem;
+    font-weight: 600;
     color: #0f172a;
 }
 
@@ -471,21 +465,21 @@
 /* Responsive adjustments */
 @media (max-width: 640px) {
     .payment-options {
-    grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
 
     .credit-card-details {
-    flex-direction: column;
-    gap: 1rem;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .confirm-row {
-    flex-direction: column;
-    gap: 0.25rem;
+        flex-direction: column;
+        gap: 0.25rem;
     }
 
     .confirm-value,
     .confirm-amount {
-    margin-top: 0.25rem;
+        margin-top: 0.25rem;
     }
 }

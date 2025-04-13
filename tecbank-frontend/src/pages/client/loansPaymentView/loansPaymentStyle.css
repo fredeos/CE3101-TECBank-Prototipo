@@ -31,18 +31,17 @@
 
 .loan-card:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
 }
 
 .loan-select {
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e2e8f000;
     transition: all 0.2s ease;
 }
 
 .loan-select:focus-within {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    border-color: #223d6800;
+    box-shadow: 0 0 0 2px rgba(59, 131, 246, 0);
 }
 
 .loan-details-card {
@@ -104,7 +103,7 @@
 }
 
 .payment-amount-input {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.75rem 1rem 0.75rem 2rem;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
@@ -125,6 +124,7 @@
 }
 
 .payment-date {
+    font-size: small;
     background-color: #f8fafc;
     padding: 0.75rem;
     border-radius: 8px;
@@ -159,8 +159,8 @@
 }
 
 .confirm-amount {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: large;
+    font-weight: 600;
     color: #0f172a;
 }
 
@@ -207,11 +207,11 @@
 /* Responsive adjustments */
 @media (max-width: 640px) {
     .loan-details-row {
-    flex-direction: column;
-    gap: 0.25rem;
+        flex-direction: column;
+        gap: 0.25rem;
     }
 
     .payment-type-radio {
-    flex-direction: column;
+        flex-direction: column;
     }
 }

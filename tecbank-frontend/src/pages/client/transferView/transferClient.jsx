@@ -12,23 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import "./transferStyle.css"
 
-// Datos de ejemplo para cuentas de origen
-const sourceAccounts = [
-  {
-    id: "1",
-    name: "Cuenta Corriente Principal",
-    number: "**** 4567",
-    balance: 3250.75,
-    currency: "USD",
-  },
-  {
-    id: "2",
-    name: "Cuenta de Ahorros",
-    number: "**** 8901",
-    balance: 12500.5,
-    currency: "USD",
-  },
-]
+import { sourceAccounts } from "@/mocks/clientMocks/clientAccounts"
+import { cards } from '@/mocks/clientMocks/clientCards'
 
 function MoneyTransfer() {
 
@@ -45,6 +30,17 @@ function MoneyTransfer() {
 
   // Obtener detalles de la cuenta de origen seleccionada
   const selectedAccount = sourceAccounts.find((account) => account.id === sourceAccount)
+
+
+  // Cambio de moneda
+  const getCurrencySymbol = (currencyId) => {
+    const currencySymbols = {
+      1: '$', // Dólar
+      2: '€', // Euro
+      3: '₡'  // Colón costarricense
+    };
+    return currencySymbols[currencyId] || '$'; // Default a dólar si no se encuentra
+  };
 
   // Manejar envío del formulario
   const handleSubmit = (e) => {
@@ -103,8 +99,8 @@ function MoneyTransfer() {
         {/* Botón de regreso */}
         <div className="back-link-container">
           <Button variant="ghost" className="back-link-client" onClick={() => navigate("/client_dashboard")}>
-              <ArrowLeft className="back-icon" />
-              <span>Volver al Panel</span>
+            <ArrowLeft className="back-icon" />
+            <span>Volver al Panel</span>
           </Button>
         </div>
 
@@ -124,8 +120,8 @@ function MoneyTransfer() {
                 : "Por favor revise y confirme los detalles de su transferencia"}
             </CardDescription>
           </CardHeader>
-          <CardContent className="card-content">
-            <form onSubmit={handleSubmit} className="form-container">
+          <CardContent className="card-content-transfer">
+            <form onSubmit={handleSubmit} className="form-container-transfer">
               {step === 1 ? (
                 <>
                   {/* Selección de Cuenta de Origen */}
@@ -138,14 +134,20 @@ function MoneyTransfer() {
                         <SelectValue placeholder="Seleccione cuenta de origen" />
                       </SelectTrigger>
                       <SelectContent>
-                        {sourceAccounts.map((account) => (
-                          <SelectItem key={account.id} value={account.id}>
-                            <div className="account-option">
-                              <span>{account.name}</span>
-                              <span className="account-balance">${account.balance.toFixed(2)}</span>
-                            </div>
-                          </SelectItem>
-                        ))}
+                        {sourceAccounts
+                          .filter(account =>
+                            !cards.some(card => card.account_id === account.id && card.type === 2)
+                          )
+                          .map((account) => (
+                            <SelectItem key={account.id} value={account.id}>
+                              <div className="account-option">
+                                <span>{account.description + ': ' + (account.id)}</span>
+                                <span className="account-balance">
+                                  {getCurrencySymbol(account.currency_id)}{account.balance.toFixed(2)}
+                                </span>
+                              </div>
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -170,7 +172,9 @@ function MoneyTransfer() {
                       Monto
                     </Label>
                     <div className="amount-input-container">
-                      <span className="currency-symbol">$</span>
+                      <span className="currency-symbol">
+                        {selectedAccount ? getCurrencySymbol(selectedAccount.currency_id) : '$'}
+                      </span>
                       <Input
                         id="amount"
                         className="form-input amount-input"
@@ -201,8 +205,8 @@ function MoneyTransfer() {
                     <div className="transfer-flow">
                       <div className="account-details">
                         <p className="account-label">Desde</p>
-                        <p className="account-name">{selectedAccount.name}</p>
-                        <p className="account-number">{selectedAccount.number}</p>
+                        <p className="account-name">{selectedAccount.description}</p>
+                        <p className="account-number">{selectedAccount.id}</p>
                       </div>
                       <ArrowRight className="arrow-icon" />
                       <div className="account-details">
@@ -215,15 +219,21 @@ function MoneyTransfer() {
                     <div className="transfer-details">
                       <div className="detail-row">
                         <span className="detail-label">Monto</span>
-                        <span className="detail-value">${Number.parseFloat(amount).toFixed(2)}</span>
+                        <span className="detail-value">
+                          {getCurrencySymbol(selectedAccount.currency_id)}{Number.parseFloat(amount).toFixed(2)}
+                        </span>
                       </div>
                       <div className="detail-row">
                         <span className="detail-label">Comisión</span>
-                        <span className="detail-value-small">$0.00</span>
+                        <span className="detail-value-small">
+                          {getCurrencySymbol(selectedAccount.currency_id)}0.00
+                        </span>
                       </div>
                       <div className="total-row">
                         <span>Total</span>
-                        <span>${Number.parseFloat(amount).toFixed(2)}</span>
+                        <span>
+                          {getCurrencySymbol(selectedAccount.currency_id)}{Number.parseFloat(amount).toFixed(2)}
+                        </span>
                       </div>
                     </div>
 

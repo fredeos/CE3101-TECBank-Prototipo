@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { toast, Toaster} from "sonner"
+import { toast, Toaster } from "sonner"
 import "./dashboardStyle.css"
 
-import { cliente } from "@/mocks/clientMock" // Importa el mock de cliente;
+import { client } from "@/mocks/clientMocks/clientInf" // Importar el cliente mockeado
 
 
 function DashboardClient() {
@@ -19,12 +19,12 @@ function DashboardClient() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleLogout = () => {
-    
+
     setIsMobileMenuOpen(false)
-    
+
     // Mostrar notificación
     toast.success("Cerrando sesión")
-    
+
     setTimeout(() => {
       navigate("/client_login")
     }, 1500)
@@ -69,11 +69,11 @@ function DashboardClient() {
                   <div className="mobile-menu-content">
                     <div className="mobile-user-info">
                       <User className="mobile-user-icon" />
-                      <span className="mobile-user-name">{cliente.name}</span>
+                      <span className="mobile-user-name">{client.name}</span>
                     </div>
                     <div className="mobile-divider"></div>
-                    <button 
-                      className="mobile-logout-button" 
+                    <button
+                      className="mobile-logout-button"
                       onClick={() => {
                         setIsMobileMenuOpen(false)
                         handleLogout()
@@ -94,7 +94,7 @@ function DashboardClient() {
       {/* Contenido Principal */}
       <main className="main-content">
         <div className="welcome-section">
-          <h1 className="welcome-title">Bienvenido, {cliente.name}  {cliente.last_name1}</h1>
+          <h1 className="welcome-title">Bienvenido, {client.name}  {client.last_name1}</h1>
           <p className="welcome-description">Seleccione una opción para gestionar sus servicios bancarios.</p>
         </div>
 
@@ -102,7 +102,7 @@ function DashboardClient() {
         <div className="cards-grid-dashboard">
 
           {/* Tarjeta de Cuentas */}
-          <Card className="option-card">
+          <Card className="option-card-dashboard">
             <CardHeader className="card-header-dashboard card-header-accounts">
               <div className="card-title-container">
                 <Wallet className="card-icon-accounts" />
@@ -130,7 +130,7 @@ function DashboardClient() {
           </Card>
 
           {/* Tarjeta de Tarjetas */}
-          <Card className="option-card">
+          <Card className="option-card-dashboard">
             <CardHeader className="card-header-dashboard card-header-cards">
               <div className="card-title-container">
                 <CreditCard className="card-icon-cards" />
@@ -158,7 +158,7 @@ function DashboardClient() {
           </Card>
 
           {/* Tarjeta de Préstamos */}
-          <Card className="option-card">
+          <Card className="option-card-dashboard">
             <CardHeader className="card-header-dashboard card-header-loans">
               <div className="card-title-container">
                 <PiggyBank className="card-icon-loans" />
@@ -176,7 +176,7 @@ function DashboardClient() {
               </div>
             </CardContent>
           </Card>
-          
+
         </div>
       </main>
     </div>
