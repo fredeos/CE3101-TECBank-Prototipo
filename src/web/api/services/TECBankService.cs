@@ -960,7 +960,6 @@ namespace tecbank.services{
             if (movement == null)
                 throw new ArgumentNullException($"(TECBANKSERBIVE) {nameof(movement)} is null and therefore is not a valid object in the database");
             try{
-                movement.date = DateTime.Now;
                 // >> Comprobar existencia de ambas cuentas
                 var accs = tecbank_db.SELECT<BankAccount>("accounts", ba => ba.id == sender_id || ba.id == receiver_id);
                 var sender_acc = accs.FirstOrDefault(acc => acc.id == sender_id)??
@@ -969,27 +968,53 @@ namespace tecbank.services{
                     throw new ArgumentException($"(TECBANKSERVICE) Bank account(ID={receiver_id}) for receiver doesn't exist on the database");
                 // >> Obtener los tipos de dinero utilizados
                 var currencies = tecbank_db.SELECT<Currency>("currency",cur => cur.id == movement.currency_id || cur.id == sender_acc.currency_id || cur.id == receiver_acc.currency_id);
-                var mov_cur = currencies.FirstOrDefault(mv => mv.id == movement.currency_id) ??
+                var transfer_cur = currencies.FirstOrDefault(mv => mv.id == movement.currency_id) ??
                     throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={movement.currency_id}) from new movement doesn't exist on database");
                 var send_cur = currencies.FirstOrDefault(mv => mv.id == sender_acc.currency_id)??
                     throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={sender_acc.currency_id}) from sender bank account(ID={sender_id}) doesn't exist on database");
                 var recv_cur = currencies.FirstOrDefault(mv => mv.id == receiver_acc.currency_id)??
                     throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={sender_acc.currency_id}) from receiver bank account(ID={receiver_id}) doesn't exist on database");
                 // >> Mostrar cambios a las cuentas respectivas
-                sender_acc.balance -= (movement.total_transfer*mov_cur.usd_exchange)/send_cur.usd_exchange;
-                receiver_acc.balance += (movement.total_transfer*mov_cur.usd_exchange)/recv_cur.usd_exchange;
+                if (sender_acc.balance < (movement.total_transfer*transfer_cur.usd_exchange)/send_cur.usd_exchange)
+                    throw new InvalidOperationException($"(TECBANKSERVICE) Sender account(ID={sender_id}) doesn't have enough funds");
+                sender_acc.balance -= (movement.total_transfer*transfer_cur.usd_exchange)/send_cur.usd_exchange;
+                receiver_acc.balance += (movement.total_transfer*transfer_cur.usd_exchange)/recv_cur.usd_exchange;
                 tecbank_db.MODIFY<BankAccount>("accounts",sender_acc,(a,b)=>a.id == b.id);
                 tecbank_db.MODIFY<BankAccount>("accounts",receiver_acc,(a,b)=>a.id == b.id);
-                // >> Agregar el nuevo movimiento a la base de datos
-                movement.id = Guid.NewGuid().ToString();
-                movement.total_transfer = movement.total_transfer;
-                movement.account_id = receiver_acc.id;
-                tecbank_db.INSERT<BankMovement>("movements",movement);
+                // >> Mostrar los cambios en la tarjetas utilizadas
+                if (movement.card_id != -1){
+                    var sender_card = tecbank_db.SELECT<BankCard>("cards", c => c.card_num == movement.card_id).FirstOrDefault()??
+                        throw new ArgumentException($"(TECBANKSERVICE) Card(ID={movement.card_id}) from sender account(ID={sender_id}) doesn't exist on database");
+                    if (sender_card.type == 2 && sender_card.balance < (movement.total_transfer*transfer_cur.usd_exchange)/send_cur.usd_exchange )
+                        throw new InvalidOperationException($"(TECBANKSERVICE) Card(ID={movement.card_id}) from sender account(ID={sender_id}) doesn't have enough funds");
+                    sender_card.balance -= (movement.total_transfer*transfer_cur.usd_exchange)/send_cur.usd_exchange;
+                    tecbank_db.MODIFY<BankCard>("cards", sender_card, (a,b) => a.card_num == b.card_num);
+                }
 
-                movement.id = Guid.NewGuid().ToString();
-                movement.total_transfer = -movement.total_transfer;
-                movement.account_id = sender_acc.id;
-                tecbank_db.INSERT<BankMovement>("movements",movement);
+                // >> Generar dos movimientos nuevos para cada cuenta
+                BankMovement sender_mov = new(){ };
+                sender_mov.id = Guid.NewGuid().ToString();
+                sender_mov.currency_id = movement.currency_id;
+                sender_mov.account_id = sender_acc.id;
+                sender_mov.date = DateTime.Now;
+                sender_mov.description = movement.description;
+                sender_mov.type = 1;
+                sender_mov.card_id = movement.card_id;
+                sender_mov.total_transfer = -movement.total_transfer;
+                tecbank_db.INSERT("movements", sender_mov);
+
+                BankMovement receiver_mov = new(){ };
+                receiver_mov.id = Guid.NewGuid().ToString();
+                receiver_mov.currency_id = movement.currency_id;
+                receiver_mov.account_id = receiver_acc.id;
+                receiver_mov.date = DateTime.Now;
+                receiver_mov.description = movement.description;
+                receiver_mov.type = 1;
+                receiver_mov.card_id = -1;
+                receiver_mov.total_transfer = movement.total_transfer;
+                tecbank_db.INSERT("movements", receiver_mov);
+                // >> Agregar el id del movimiento al objeto original
+                movement.id = sender_mov.id;
             } catch (KeyNotFoundException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
             } catch (DBMSException e2){
@@ -1000,7 +1025,8 @@ namespace tecbank.services{
         }
 
         /// <summary>
-        /// Makes a movement with a card, such as credit debt payments or ATM withdrawals
+        /// Makes a movement with a card, such as credit debt payments or ATM withdrawals.
+        /// Can also be used to reset the spendable limit of a debit card
         /// </summary>
         /// <param name="card_num"></param>
         /// <param name="movement"></param>

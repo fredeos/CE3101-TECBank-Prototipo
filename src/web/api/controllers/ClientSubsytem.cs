@@ -264,7 +264,12 @@ namespace tecbank.controllers{
 
         [HttpPost("{user_id}/movements/new/{owner_id}/{target_id}")]
         public ActionResult<BankMovement> MakeTransfer(int user_id, String owner_id, String target_id, [FromBody] BankMovement transfer){
+            if (transfer.total_transfer < 0){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeTransfer)}) Transfers between account can't be negative");
+                return BadRequest($"Transfer amount can't be negative");
+            }
             try{
+                // >> Verificar la existencia de la cuenta del dueño y que esta pertenezca al cliente
                 var owner_account = tecbankService.Account_Get(owner_id);
                 if (owner_account == null){
                     logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(MakeTransfer)}) Bank account(ID={owner_id}) from card doesn't exist on the database");
@@ -275,18 +280,39 @@ namespace tecbank.controllers{
                         return BadRequest($"Client(ID={user_id}) isn't the owner of the bank account(ID={owner_id})");
                     }
                 }
+                // >> Generar el movimiento para ambas cuentas
                 tecbankService.Movement_New_AccountToAccount(owner_id,target_id,transfer);
                 logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(MakeTransfer)}) Movement(ID={transfer.id}) has been added to database");
                 return CreatedAtAction(nameof(MakeTransfer), new {id=transfer.id}, transfer);
             } catch (ServiceException e1){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e1.ToString()}");
                 return StatusCode(500,"Internal server error");
-            } catch (ArgumentNullException e2){
+            } catch (InvalidOperationException e2){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e2.ToString()}");
-                return BadRequest("Transfer movement doesn't have a valid format");
-            } catch (ArgumentException e3){
+                return BadRequest($"Either account(ID={owner_id}) or used credit card(ID={transfer.card_id}) doesn't ");
+            } catch (ArgumentNullException e3){
                 logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e3.ToString()}");
+                return BadRequest("Transfer movement doesn't have a valid format");
+            } catch (ArgumentException e4){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeTransfer)}){e4.ToString()}");
                 return BadRequest("Failed to add a new movement to the database");
+            }
+        }
+
+
+        [HttpPost("{user_id}/cards/{card_num}/transfer")]
+        public ActionResult<BankMovement> MakeCardTransfer(int user_id, int card_num, [FromBody] BankMovement movement){
+            try{
+                return CreatedAtAction(nameof(MakeCardTransfer), new {id=movement.id}, movement);
+            } catch (ServiceException e1){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e1.ToString()}");
+                return StatusCode(500,"Internal server error");
+            } catch (ArgumentNullException e2){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e2.ToString()}");
+                return BadRequest("Card doesn't have a valid format");
+            } catch (ArgumentException e3){
+                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e3.ToString()}");
+                return BadRequest("Payment information is not valid");
             }
         }
 
@@ -295,6 +321,7 @@ namespace tecbank.controllers{
             if (payment.total_transfer < 0)
                 return BadRequest("Credit debt payment transfer value must be positive");
             try{
+                payment.type = 2;
                 var credit_card = tecbankService.Card_Get(credit_card_num);
                 if (credit_card == null){
                     logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Card(ID={credit_card_num}) doesn't exist on database");

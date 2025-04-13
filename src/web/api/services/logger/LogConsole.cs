@@ -10,7 +10,7 @@ namespace tecbank.services.logger {
     public class LogConsole{
         // --------------------------------[ Class attributes ]--------------------------------
         private String __logfile;
-        private static String __logs_dir = Path.Combine(".","..","..","..","logs");
+        private static String __logs_dir = Path.Combine(".","logs");
         // --------------------------------[ Class functions & methods ]--------------------------------
         public LogConsole(String filename){
             this.__logfile = Path.Combine(__logs_dir,$"{filename}.log");

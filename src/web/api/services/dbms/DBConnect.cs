@@ -27,7 +27,7 @@ namespace tecbank.services.DBMS{
     /// </summary>
     public class DBConnect{
         // --------------------------------[ Class atributes ]--------------------------------
-        private static String database_dir = Path.Combine(".","..","..","..","database");
+        private static String database_dir = Path.Combine(".","database");
         private String __db_file = "";
         private String __db_name = "";
         private List<TableAP> __db_tables = [];
