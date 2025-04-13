@@ -1,84 +1,94 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.tecbankapp
 
+import com.example.tecbankapp.RegisterScreen
+import com.example.tecbankapp.ApiTestScreen
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tecbankapp.ui.theme.Screen
+import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
+import androidx.compose.ui.text.font.FontWeight
+import com.example.tecbankapp.models.User
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TecBankAppTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ApiTestScreen()
-                }
-            }
+            MyApp()
         }
     }
 }
 
+
+
 @Composable
-fun ApiTestScreen() {
-    var response by remember { mutableStateOf("Esperando respuesta...") }
+fun MyApp() {
+    val navController = rememberNavController()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Button(onClick = {
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val url = URL("http://10.0.2.2:5041/api/clientes") // Cambia a tu IP si usás celular real
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    connection.connectTimeout = 5000
-                    connection.readTimeout = 5000
-
-                    val code = connection.responseCode
-                    if (code == HttpURLConnection.HTTP_OK) {
-                        val input = BufferedReader(InputStreamReader(connection.inputStream))
-                        val result = input.readText()
-                        input.close()
-
-                        response = result
-                    } else {
-                        response = "Error HTTP: $code"
+    MaterialTheme {
+        NavHost(navController = navController, startDestination = Screen.Login.route) {
+            composable(Screen.Login.route) {
+                LoginScreen(
+                    navController = navController,
+                    onLoginSuccess = {
+                        navController.navigate(Screen.Api.route)
+                    },
+                    onGoToRegister = {
+                        navController.navigate(Screen.Register.route)
                     }
-
-                    connection.disconnect()
-                } catch (e: Exception) {
-                    response = "Error: ${e.message}"
-                    Log.e("HTTP", "Exception", e)
-                }
+                )
             }
-        }) {
-            Text("Consultar API")
-        }
+            composable(Screen.Api.route) {
+                //ApiTestScreen(navController = navController)
 
-        Text("Respuesta del servidor:")
-        Text(response)
+                // Simulamos un usuario por ahora (esto normalmente vendría del login)
+                val user = remember {
+                    User(
+                        username = "Jessica",
+                        address = "Cartago",
+                        phone = "82828282"
+                    )
+                }
+                HomeScreen(navController = navController, user = user)
+            }
+
+// Agregamos rutas en blanco
+            composable("cuentas") { BlankScreen("Cuentas") }
+            composable("tarjetas") { BlankScreen("Tarjetas") }
+            composable("prestamos") { BlankScreen("Préstamos") }
+
+            composable(Screen.Register.route) {
+                RegisterScreen(
+                    navController = navController,
+                    onRegisterSuccess = {
+                        navController.navigate(Screen.Login.route)
+                    }
+                )
+            }
+        }
     }
 }
 
 @Composable
-fun TecBankAppTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = lightColorScheme(), // tema claro
-        content = content
-    )
+fun BlankScreen(title: String) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("Pantalla de $title (próximamente)", style = MaterialTheme.typography.titleMedium)
+    }
 }
