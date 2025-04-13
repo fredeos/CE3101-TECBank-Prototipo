@@ -75,16 +75,29 @@
       <rem_state>0</rem_state>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>306</id>
-  <name>Frederick</name>
-  <last_name1>Obando</last_name1>
-  <last_name2>Solano</last_name2>
+      <id>306</id>
+      <name>Frederick</name>
+      <last_name1>Obando</last_name1>
+      <last_name2>Solano</last_name2>
+      <type>2</type>
+      <username>fredeos</username>
+      <password>nani1212</password>
+      <monthly_income>10500.49</monthly_income>
+      <phone_number>+506 8800 9673</phone_number>
+      <address>Cartago,Paraiso,Paraiso</address>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>309</id>
+  <name>Pepito</name>
+  <last_name1>Pan</last_name1>
+  <last_name2>De Dios</last_name2>
   <type>2</type>
-  <username>fredeos</username>
-  <password>nani1212</password>
-  <monthly_income>10500.49</monthly_income>
-  <phone_number>+506 8800 9673</phone_number>
-  <address>Cartago,Paraiso,Paraiso</address>
+  <username>pepe</username>
+  <password>1234</password>
+  <monthly_income>2</monthly_income>
+  <phone_number>+666 2222 1111</phone_number>
+  <address>Alajuela</address>
   <rem_state>0</rem_state>
 </value>
   </tuples>

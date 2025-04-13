@@ -118,3 +118,19 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-12 19:03:52][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
 [2025-04-12 19:08:46][INFO]: (HTTP)(POST=MakeTransfer) Movement(ID=5324ec68-5563-4a1f-b0bf-5dc4915e8502) has been added to database
 [2025-04-12 19:09:09][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
+[2025-04-12 20:40:00][INFO]: ============= Log Console started
+[2025-04-12 20:40:00][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-12 20:41:21][INFO]: ============= Log Console started
+[2025-04-12 20:41:21][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-12 20:41:26][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-12 20:42:27][INFO]: (HTTP)(GET=GetClient) Client(ID=306) was found successfully
+[2025-04-12 20:43:52][WARNING]: (HTTP)(GET=GetAccount) No matching data was found in the database for account(ID=152CR54126bt67)
+[2025-04-12 20:44:19][INFO]: (HTTP)(GET=GetAccount) Bank account(ID=646CR54186bt11) was found successfully
+[2025-04-12 20:45:06][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-12 20:48:49][INFO]: (HTTP)(POST=AddClient) Client(ID=309) was added successfully
+[2025-04-12 20:48:57][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-12 20:50:28][INFO]: (HTTP)(POST=OpenAccount) Bank account(ID=151CR6461051191) has been added for client(ID=306) to database
+[2025-04-12 20:50:36][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully
+[2025-04-12 21:36:34][INFO]: ============= Log Console started
+[2025-04-12 21:36:34][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-12 21:36:51][INFO]: (HTTP)(GET=GetAccounts) Bank accounts retrieved succesfully

@@ -11,14 +11,30 @@ namespace tecbank.controllers{
     public class Admin : ControllerBase {
         private readonly TECBankService tecbankService;
         private readonly LogService logService;
-        public Admin(TECBankService service, LogService log){
+        private readonly PasswordService security;
+        private readonly int password;
+        public Admin(TECBankService service, LogService log, PasswordService pass){
             this.tecbankService = service;
             this.logService = log;
+            this.security = pass;
+            this.password = security.AdminPassKey;
         }
 
         // ------------------------------------------------- [ General GET ] -------------------------------------------------
-        [HttpGet("{password}/clients/all")]
-        public ActionResult<IEnumerable<ClientAccount>> GetClients(){
+        [HttpGet("login/{key}")]
+        public ActionResult Login(int key){
+            if (key != password){
+                return StatusCode(500,"Access key for administrator access is invalid");
+            } else {
+                return Ok();
+            }
+        }
+
+
+        [HttpGet("{key}/clients/all")]
+        public ActionResult<IEnumerable<ClientAccount>> GetClients(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetClients)}) Clients retrieved succesfully");
                 return Ok(tecbankService.GetAllClients());
@@ -28,8 +44,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("/accounts/all")]
-        public ActionResult<IEnumerable<BankAccount>> GetAccounts(){
+        [HttpGet("{key}/accounts/all")]
+        public ActionResult<IEnumerable<BankAccount>> GetAccounts(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAccounts)}) Bank accounts retrieved succesfully");
                 return Ok(tecbankService.GetAllAccounts());
@@ -39,8 +57,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("cards/all")]
-        public ActionResult<IEnumerable<BankCard>> GetCards(){
+        [HttpGet("{key}/cards/all")]
+        public ActionResult<IEnumerable<BankCard>> GetCards(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetCards)}) Bank cards retrieved succesfully");
                 return Ok(tecbankService.GetAllCards());
@@ -50,8 +70,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("employees/all")]
-        public ActionResult<IEnumerable<BankEmployee>> GetEmployees(){
+        [HttpGet("{key}/employees/all")]
+        public ActionResult<IEnumerable<BankEmployee>> GetEmployees(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetEmployees)}) Employees retrieved succesfully");
                 return Ok(tecbankService.GetAllEmployees());
@@ -61,8 +83,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("employees/advisers/all")]
-        public ActionResult<IEnumerable<BankEmployee>> GetAdvisers(){
+        [HttpGet("{key}/employees/advisers/all")]
+        public ActionResult<IEnumerable<BankEmployee>> GetAdvisers(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAdvisers)}) Employees retrieved succesfully");
                 return Ok(tecbankService.GetAllLoanAdvisers());
@@ -72,8 +96,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("movements/all")]
-        public ActionResult<IEnumerable<BankMovement>> GetMovements(){
+        [HttpGet("{key}/movements/all")]
+        public ActionResult<IEnumerable<BankMovement>> GetMovements(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetMovements)}) Bank movements retrieved succesfully");
                 return Ok(tecbankService.GetAllMovements());
@@ -83,8 +109,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("loans/all")]
-        public ActionResult<IEnumerable<BankLoan>> GetLoans(){
+        [HttpGet("{key}/loans/all")]
+        public ActionResult<IEnumerable<BankLoan>> GetLoans(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
            try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetEmployees)}) Loans retrieved succesfully");
                 return Ok(tecbankService.GetAllLoans());
@@ -94,8 +122,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("loans/payments/all")]
-        public ActionResult<IEnumerable<LoanPayment>> GetLoanPayments(){
+        [HttpGet("{key}/loans/payments/all")]
+        public ActionResult<IEnumerable<LoanPayment>> GetLoanPayments(int key){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetLoanPayments)}) Loan payments retrieved succesfully");
                 return Ok(tecbankService.GetAllLoanPayments());
@@ -106,8 +136,10 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
-        [HttpGet("clients/{id}")]
-        public ActionResult<ClientAccount> GetClient(int id){
+        [HttpGet("{key}/clients/{id}")]
+        public ActionResult<ClientAccount> GetClient(int key, int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var client = tecbankService.Client_findByID(id);
                 if (client == null){
@@ -123,8 +155,10 @@ namespace tecbank.controllers{
             
         }
 
-        [HttpGet("accounts/{id}")]
-        public ActionResult<BankAccount> GetAccount(string id){
+        [HttpGet("{key}/accounts/{id}")]
+        public ActionResult<BankAccount> GetAccount(int key, string id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var acc = tecbankService.Account_Get(id);
                 if (acc == null){
@@ -139,8 +173,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("cards/{id}")]
-        public ActionResult<BankCard> GetCard(int id){
+        [HttpGet("{key}/cards/{id}")]
+        public ActionResult<BankCard> GetCard(int key,int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var card = tecbankService.Card_Get(id);
                 if (card == null){
@@ -155,8 +191,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("employees/{id}")]
-        public ActionResult<BankEmployee> GetEmployee(int id){
+        [HttpGet("{key}/employees/{id}")]
+        public ActionResult<BankEmployee> GetEmployee(int key, int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var employee = tecbankService.Employee_GetById(id);
                 if (employee == null){
@@ -171,8 +209,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("employees/advisers/{id}")]
-        public ActionResult<BankEmployee> GetAdviser(int id){
+        [HttpGet("{key}/employees/advisers/{id}")]
+        public ActionResult<BankEmployee> GetAdviser(int key,int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var adviser = tecbankService.Adviser_GetById(id);
                 if (adviser == null){
@@ -187,8 +227,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("loans/{id}")]
-        public ActionResult<BankLoan> GetLoan(int id){
+        [HttpGet("{key}/loans/{id}")]
+        public ActionResult<BankLoan> GetLoan(int key, int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var loan = tecbankService.Loan_Get(id);
                 if (loan == null){
@@ -203,8 +245,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpGet("movements/{id}")]
-        public ActionResult<BankMovement> GetMovement(String id){
+        [HttpGet("{key}/movements/{id}")]
+        public ActionResult<BankMovement> GetMovement(int key, String id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 var movement = tecbankService.Movement_Get(id);
                 if (movement == null){
@@ -220,8 +264,8 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ POST ] -------------------------------------------------
-        [HttpPost("clients/add")]
-        public ActionResult AddClient([FromBody] ClientAccount client){
+        [HttpPost("{key}/clients/add")]
+        public ActionResult AddClient(int key, [FromBody] ClientAccount client){
             try{
                 if (client.id <= 0){
                     logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(AddClient)}) Client.id is negative and therefore can't be added to the database");
@@ -242,8 +286,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPost("accounts/add")]
-        public ActionResult<BankAccount> AddAccount([FromBody] BankAccount account){
+        [HttpPost("{key}/accounts/add")]
+        public ActionResult<BankAccount> AddAccount(int key, [FromBody] BankAccount account){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 // >> Verificar existencia del cliente
                 var owner = tecbankService.Client_findByID(account.client_id);
@@ -267,8 +313,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPost("cards/add")]
-        public ActionResult<BankCard> AddCard([FromBody] BankCard card){
+        [HttpPost("{key}/cards/add")]
+        public ActionResult<BankCard> AddCard(int key, [FromBody] BankCard card){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 // >> Comprobar existencia de la cuenta dueña
                 var account = tecbankService.Account_Get(card.account_id);
@@ -292,8 +340,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPost("loans/add")]
-        public ActionResult<BankLoan> AddLoan([FromBody] BankLoan loan){
+        [HttpPost("{key}/loans/add")]
+        public ActionResult<BankLoan> AddLoan(int key, [FromBody] BankLoan loan){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 // >> Comprobar existencia del cliente
                 var client = tecbankService.Client_findByID(loan.client_id);
@@ -323,8 +373,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPost("employees/add")]
-        public ActionResult<BankLoan> AddEmployee([FromBody] BankEmployee employee){
+        [HttpPost("{key}/employees/add")]
+        public ActionResult<BankLoan> AddEmployee(int key, [FromBody] BankEmployee employee){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 // >> Agregar el prestamo
                 tecbankService.Employee_Add(employee);
@@ -343,8 +395,10 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
-        [HttpPut("clients/update/{id}")]
-        public ActionResult<ClientAccount> UpdateClient(int id, [FromBody] ClientAccount client){
+        [HttpPut("{key}/clients/update/{id}")]
+        public ActionResult<ClientAccount> UpdateClient(int key, int id, [FromBody] ClientAccount client){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             if (id != client.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateClient)}) Client ID({id}) doesnt match body ID({client.id})");
                 return BadRequest($"Client ID({id}) doesnt match body ID({client.id})");
@@ -365,8 +419,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPut("accounts/update/{id}")]
-        public ActionResult<BankAccount> UpdateAccount(string id, [FromBody] BankAccount account){
+        [HttpPut("{key}/accounts/update/{id}")]
+        public ActionResult<BankAccount> UpdateAccount(int key, string id, [FromBody] BankAccount account){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             if (id != account.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAccount)}) Account ID({id}) doesnt match body ID({account.id})");
                 return BadRequest($"Account ID({id}) doesnt match body ID({account.id})");
@@ -387,8 +443,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPut("loans/update/{id}")]
-        public ActionResult<BankLoan> UpdateLoan(int id, [FromBody] BankLoan loan){
+        [HttpPut("{key}/loans/update/{id}")]
+        public ActionResult<BankLoan> UpdateLoan(int key, int id, [FromBody] BankLoan loan){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             if (id != loan.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateLoan)}) Loan ID({id}) doesnt match body ID({loan.id})");
                 return BadRequest($"Loan ID({id}) doesnt match body ID({loan.id})");
@@ -409,8 +467,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpPut("employees/update/{id}")]
-        public ActionResult<BankLoan> UpdateEmployee(int id, [FromBody] BankEmployee employee){
+        [HttpPut("{key}/employees/update/{id}")]
+        public ActionResult<BankLoan> UpdateEmployee(int key, int id, [FromBody] BankEmployee employee){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             if (id != employee.id){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateEmployee)}) Employee ID({id}) doesnt match body ID({employee.id})");
                 return BadRequest($"Employee ID({id}) doesnt match body ID({employee.id})");
@@ -432,8 +492,10 @@ namespace tecbank.controllers{
         }
 
         // ------------------------------------------------- [ DELETE ] -------------------------------------------------
-        [HttpDelete("clients/delete/{id}")]
-        public ActionResult DeleteClient(int id){
+        [HttpDelete("{key}/clients/delete/{id}")]
+        public ActionResult DeleteClient(int key, int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 tecbankService.Client_Delete(id);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteClient)}) Removed client(ID={id}) successfully from database");
@@ -451,7 +513,9 @@ namespace tecbank.controllers{
         }
 
         [HttpDelete("accounts/delete/{id}")]
-        public ActionResult DeleteAccount(string id){
+        public ActionResult DeleteAccount(int key, string id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 tecbankService.Account_Delete(id);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteAccount)}) Removed bank account(ID={id}) successfully from database");
@@ -465,8 +529,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpDelete("cards/delete/{num}")]
-        public ActionResult DeleteCard(int num){
+        [HttpDelete("{key}/cards/delete/{num}")]
+        public ActionResult DeleteCard(int key,int num){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 tecbankService.Card_Delete(num);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteCard)}) Removed bank card(ID={num}) successfully from database");
@@ -480,8 +546,10 @@ namespace tecbank.controllers{
             }
         }
 
-        [HttpDelete("employees/delete/{id}")]
-        public ActionResult DeleteEmployee(int id){
+        [HttpDelete("{key}/employees/delete/{id}")]
+        public ActionResult DeleteEmployee(int key,int id){
+            if (key != password)
+                return StatusCode(500,"Access key for administrator access is invalid");
             try{
                 tecbankService.Employee_Delete(id);
                 logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteEmployee)}) Removed employee(ID={id}) successfully from database");

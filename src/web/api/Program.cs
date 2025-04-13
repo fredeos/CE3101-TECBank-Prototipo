@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<TECBankService>();
 builder.Services.AddSingleton<LogService>();
+builder.Services.AddSingleton<PasswordService>();
 
 //Permite las peticiones desde la App
 builder.Services.AddCors(options =>{
@@ -35,5 +36,8 @@ if (app.Environment.IsDevelopment()){
 app.UseCors("AllowAll"); //Permite las peticiones desde la App
 app.UseAuthorization();
 app.MapControllers();
+
+var security = app.Services.GetRequiredService<PasswordService>();
+Console.WriteLine($"Admin access key: {security.AdminPassKey}");
 
 app.Run();
