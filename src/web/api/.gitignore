@@ -22,7 +22,7 @@ ScaffoldingReadMe.txt
 *.tmp
 
 # Logs
-*.log
+
 
 # Visual Studio cache
 .vs/

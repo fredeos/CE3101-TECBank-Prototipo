@@ -298,110 +298,6 @@ namespace tecbank.controllers{
                 return BadRequest("Failed to add a new movement to the database");
             }
         }
-
-
-        [HttpPost("{user_id}/cards/{card_num}/transfer")]
-        public ActionResult<BankMovement> MakeCardTransfer(int user_id, int card_num, [FromBody] BankMovement movement){
-            try{
-                return CreatedAtAction(nameof(MakeCardTransfer), new {id=movement.id}, movement);
-            } catch (ServiceException e1){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e1.ToString()}");
-                return StatusCode(500,"Internal server error");
-            } catch (ArgumentNullException e2){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(MakeCardTransfer)}){e2.ToString()}");
-                return BadRequest("Card doesn't have a valid format");
-            } catch (ArgumentException e3){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e3.ToString()}");
-                return BadRequest("Payment information is not valid");
-            }
-        }
-
-        [HttpPost("{user_id}/cards/{credit_card_num}/credit/pay")]
-        public ActionResult<BankMovement> PayCreditDebt(int user_id, int credit_card_num, [FromBody] BankMovement payment){
-            if (payment.total_transfer < 0)
-                return BadRequest("Credit debt payment transfer value must be positive");
-            try{
-                payment.type = 2;
-                var credit_card = tecbankService.Card_Get(credit_card_num);
-                if (credit_card == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Card(ID={credit_card_num}) doesn't exist on database");
-                    return NotFound($"Card(ID={credit_card_num}) not found");
-                }
-
-                var owner_account = tecbankService.Account_Get(credit_card.account_id);
-                if (owner_account == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Account(ID={credit_card.account_id}) from credit card(ID={credit_card_num}) doesn't exist on database");
-                    return NotFound($"Account(ID={credit_card_num}) from credit card not found");
-                }
-
-                var client = tecbankService.Client_findByID(user_id);
-                if (client == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) doesn't exist on database");
-                    return NotFound($"Client(ID={user_id}) not found");
-                }
-
-                if (client.id != owner_account.client_id){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) does not own bank account(ID={owner_account.id})");
-                    return BadRequest($"Client(ID={user_id}) does not own bank account(ID={owner_account.id})");
-                }
-
-                tecbankService.Movement_New_WithCard(credit_card_num,payment);
-                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(PayCreditDebt)}) Credit payment(ID={payment.id}) has been added for client(ID={user_id}) to database");
-                return CreatedAtAction(nameof(PayCreditDebt), new {id=payment.id}, payment);
-            } catch (ServiceException e1){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e1.ToString()}");
-                return StatusCode(500,"Internal server error");
-            } catch (ArgumentNullException e2){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e2.ToString()}");
-                return BadRequest("Card doesn't have a valid format");
-            } catch (ArgumentException e3){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e3.ToString()}");
-                return BadRequest("Payment information is not valid");
-            }
-        }
-
-        [HttpPost("{user_id}/cards/{card_num}/withdrawal")]
-        public ActionResult<BankMovement> ATMWithdralWithCard(int user_id, int card_num, [FromBody] BankMovement withdrawal){
-            if (withdrawal.total_transfer > 0)
-                return BadRequest("Credit debt payment transfer value must be a negative value");
-            try{
-                var credit_card = tecbankService.Card_Get(card_num);
-                if (credit_card == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Card(ID={card_num}) doesn't exist on database");
-                    return NotFound($"Card(ID={card_num}) not found");
-                }
-
-                var owner_account = tecbankService.Account_Get(credit_card.account_id);
-                if (owner_account == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Account(ID={credit_card.account_id}) from credit card(ID={card_num}) doesn't exist on database");
-                    return NotFound($"Account(ID={card_num}) from credit card not found");
-                }
-
-                var client = tecbankService.Client_findByID(user_id);
-                if (client == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) doesn't exist on database");
-                    return NotFound($"Client(ID={user_id}) not found");
-                }
-
-                if (client.id != owner_account.client_id){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) does not own bank account(ID={owner_account.id})");
-                    return BadRequest($"Client(ID={user_id}) does not own bank account(ID={owner_account.id})");
-                }
-
-                tecbankService.Movement_New_WithCard(card_num,withdrawal);
-                logService.Log_New(LogTypes.INFO,$"(HTTP)(POST={nameof(PayCreditDebt)}) Credit payment(ID={withdrawal.id}) has been added for client(ID={user_id}) to database");
-                return CreatedAtAction(nameof(ATMWithdralWithCard), new {id=withdrawal.id}, withdrawal);
-            } catch (ServiceException e1){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e1.ToString()}");
-                return StatusCode(500,"Internal server error");
-            } catch (ArgumentNullException e2){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e2.ToString()}");
-                return BadRequest("Card doesn't have a valid format");
-            } catch (ArgumentException e3){
-                logService.Log_New(LogTypes.ERROR,$"(HTTP)(POST={nameof(PayCreditDebt)}){e3.ToString()}");
-                return BadRequest("Payment information is not valid");
-            }
-        }
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
         [HttpPut("{user_id}/profile/update")]
         public ActionResult<ClientAccount> UpdateClient(int user_id, [FromBody] ClientAccount client){
@@ -484,12 +380,12 @@ namespace tecbank.controllers{
 
                 var client = tecbankService.Client_findByID(user_id);
                 if (client == null){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) doesn't exist on database");
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(RemoveCard)}) Client(ID={user_id}) doesn't exist on database");
                     return NotFound($"Client(ID={user_id}) not found");
                 }
 
                 if (client.id != card_account.client_id){
-                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(PayCreditDebt)}) Client(ID={user_id}) does not own bank account(ID={card_account.id})");
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(RemoveCard)}) Client(ID={user_id}) does not own bank account(ID={card_account.id})");
                     return BadRequest($"Client(ID={user_id}) does not own bank card(ID={card.card_num})");
                 }
 
@@ -502,6 +398,9 @@ namespace tecbank.controllers{
             }  catch (ServiceException e2){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(RemoveCard)}){e2.ToString()}");
                 return StatusCode(500,"Internal server error");
+            } catch (InvalidOperationException e3){
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(RemoveCard)}){e3.ToString()}");
+                return BadRequest($"Card(ID={card_num}) has pending debts");
             }
         }
     }
