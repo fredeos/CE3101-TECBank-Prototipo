@@ -201,7 +201,6 @@
   font-weight: 600;
   color: #64748b;
   font-size: 0.875rem;
-  text-align: center;
 }
 
 .table-row {
@@ -215,7 +214,6 @@
 .table-cell {
   padding: 0.75rem 1rem;
   color: #1e293b;
-  text-align: center;
 }
 
 .date-cell {
@@ -232,12 +230,12 @@
 }
 
 .amount-cell {
-  text-align: center;
+  text-align: right;
   font-weight: 600;
 }
 
 .balance-cell {
-  text-align: center;
+  text-align: right;
   font-weight: 500;
   color: #64748b;
 }

@@ -1,0 +1,217 @@
+/* Estilos personalizados para la página de pagos de préstamos */
+
+.loan-payments-container {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.loan-header {
+    position: relative;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.loan-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+
+.loan-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.loan-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.loan-select {
+    border-radius: 8px;
+    border: 1px solid #e2e8f000;
+    transition: all 0.2s ease;
+}
+
+.loan-select:focus-within {
+    border-color: #223d6800;
+    box-shadow: 0 0 0 2px rgba(59, 131, 246, 0);
+}
+
+.loan-details-card {
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.loan-details-header {
+    background-color: #e0e7ff;
+    padding: 1rem;
+    border-bottom: 1px solid #c7d2fe;
+}
+
+.loan-details-content {
+    padding: 1rem;
+}
+
+.loan-details-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.loan-details-row:last-child {
+    border-bottom: none;
+}
+
+.loan-details-label {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.loan-details-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.payment-type-radio {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.payment-type-option {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.payment-type-option.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.payment-amount-input {
+    font-size: 1rem;
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.payment-amount-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-weight: 500;
+}
+
+.payment-date {
+    font-size: small;
+    background-color: #f8fafc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+}
+
+.confirm-section {
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.confirm-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.confirm-row:last-child {
+    border-bottom: none;
+}
+
+.confirm-label {
+    color: #64748b;
+}
+
+.confirm-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.confirm-amount {
+    font-size: large;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.info-box {
+    background-color: #dbeafe;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.submit-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #2563eb;
+}
+
+.submit-button:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.back-button {
+    color: #64748b;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #f8fafc;
+    color: #334155;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .loan-details-row {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .payment-type-radio {
+        flex-direction: column;
+    }
+}

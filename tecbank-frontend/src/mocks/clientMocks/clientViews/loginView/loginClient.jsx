@@ -1,126 +1,88 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react" // Importa useEffect
 import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from "sonner"
 import { AlertCircle } from "lucide-react"
-import axios from "axios"
 import "./loginStyle.css"
-import { useAuth } from "@/context/AuthContext" 
 
 function LoginClient() {
-
-  // Estados del formulario
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
-  // URL base del backend
-  const BACKEND_URL = "http://192.168.100.59:5055"
+  // Credenciales hardcodeadas para prueba
+  const hardcodedCredentials = {
+    username: "admin",
+    password: "123456"
+  }
+
   const navigate = useNavigate()
-  const { login, user } = useAuth() // Usa el contexto
 
   // Efecto para redirección después de login exitoso
-  useEffect(() => 
-  {
-    if (isSuccess && user) 
-    {
-      const redirectTimer = setTimeout(() => 
-      {
+  useEffect(() => {
+    if (isSuccess) {
+      // Redirige después de 1.5 segundos (para que el usuario vea el mensaje)
+      const redirectTimer = setTimeout(() => {
         navigate("/client_dashboard")
       }, 1500)
+
+      // Limpieza del timer si el componente se desmonta
       return () => clearTimeout(redirectTimer)
     }
-  }, [isSuccess, navigate, user])
+  }, [isSuccess, navigate])
 
-  const handleSubmit = async (e) => 
-  {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setError("")
     setIsLoading(true)
 
-    // Validación básica de campos vacios
-    if (!username || !password) 
-    {
-      toast.error("Error de Validación", { description: "Por favor complete todos los campos requeridos para continuar.", })
+    // Validación básica
+    if (!username || !password) {
+      toast.error("Error de Validación", {
+        description: "Por favor complete todos los campos requeridos para continuar.",
+      })
       setIsLoading(false)
       return
     }
 
-    try 
-    {
-      // Construye la URL con parámetros de consulta
-      const loginUrl = `${BACKEND_URL}/services/client/login?user=${encodeURIComponent(username)}&pass=${encodeURIComponent(password)}`
+    // Simular proceso de inicio de sesión
+    setTimeout(() => {
+      console.log("Intento de inicio de sesión con:", { username, password })
 
-
-      // Request al backend
-      const response = await axios.get(loginUrl)
-
-      // Verifica si la respuesta es exitosa (200 OK)
-      if (response.status === 200) 
-      {
-        
-        // Si la respuesta es string, la convierte a JSON; si ya es objeto, la usa directamente
-        const responseData = typeof response.data === 'string'
-          ? JSON.parse(response.data)
-          : response.data
-
+      // Verificar contra credenciales hardcodeadas
+      if (username === hardcodedCredentials.username && password === hardcodedCredentials.password) {
         setIsSuccess(true)
-        login(responseData)
-
-        toast.success("Inicio de sesión exitoso")
-      }
-    } 
-    catch (error) 
-    {
-      console.error("Error en login:", error)
-
-      let errorMessage = "Error al iniciar sesión"  // Mensaje generico por defecto
-      
-      // Manejo de errores específicos según la respuesta del backend
-      if (error.response) 
-      {
-        if (error.response.status === 404) 
-        {
-          errorMessage = "Credenciales incorrectas"
-        }
-      } 
-      else if (error.request) 
-      {
-        errorMessage = "No se recibió respuesta del servidor" // Si no hubo respuesta del servidor
+        toast.success("Iniciando sesión")
+      } else {
+        toast.error("Credenciales Incorrectas", {
+          description: "El nombre de usuario o contraseña son incorrectos.",
+        })
       }
 
-      toast.error("Error de Autenticación", {description: errorMessage,})
-    } 
-    finally 
-    {
-      setTimeout(() => 
-      {
+      setIsLoading(false)
 
-        setIsLoading(false)
-
-        // Reiniciar formulario solo si fue exitoso
-        if (isSuccess) 
-        {
-          setUsername("")
-          setPassword("")
-        }
-      }, 1000)
-    }
+      // Reiniciar formulario solo si fue exitoso
+      if (isSuccess) {
+        setUsername("")
+        setPassword("")
+      }
+    }, 1000)
   }
 
   return (
     <div className="login-container">
-
-      {/* Encabezado */}
       <div className="login-card">
-        <div className="login-header-client ">
+        <div className="login-header">
           <h1 className="login-title">Iniciar Sesión</h1>
           <p className="login-description">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
+          {/* Mostrar credenciales de prueba (opcional) */}
+          <p className="text-sm text-gray-500 mt-2">
+            Usuario de prueba: <strong>admin</strong> | Contraseña: <strong>123456</strong>
+          </p>
         </div>
-
         <div className="login-content">
           {error && (
             <div className="error-alert">
@@ -129,10 +91,7 @@ function LoginClient() {
             </div>
           )}
 
-          {/* Formulario de inicio de sesion */}
           <form onSubmit={handleSubmit} className="login-form">
-
-            {/* Username */}
             <div className="form-group-client">
               <label htmlFor="username" className="form-label">
                 Nombre de Usuario
@@ -146,8 +105,6 @@ function LoginClient() {
                 className="form-input"
               />
             </div>
-            
-            {/* Password */}
             <div className="form-group-client">
               <div className="form-row">
                 <label htmlFor="password" className="form-label">
@@ -169,14 +126,10 @@ function LoginClient() {
             <button type="submit" className="login-button" disabled={isLoading}>
               {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
             </button>
-
           </form>
-
         </div>
       </div>
-
       <Toaster position="bottom-right" />
-
     </div>
   )
 }

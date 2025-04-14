@@ -10,20 +10,17 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { toast, Toaster } from "sonner"
 import "./dashboardStyle.css"
 
-import { useAuth } from '@/context/AuthContext'
+import { client } from "@/mocks/clientMocks/clientInf" // Importar el cliente mockeado
+
 
 function DashboardClient() {
 
   const navigate = useNavigate()
-  const { user, logout } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  // Manejo de simulacion de salir de sesion
-  const handleLogout = () => 
-  {
-    setIsMobileMenuOpen(false)
+  const handleLogout = () => {
 
-    logout() // Limpia el usuario del contexto y del sessionStorage
+    setIsMobileMenuOpen(false)
 
     // Mostrar notificación
     toast.success("Cerrando sesión")
@@ -35,55 +32,69 @@ function DashboardClient() {
 
   return (
     <div className="dashboard-container">
-      
       {/* Barra de navegación */}
       <nav className="navbar">
-
-        {/* Titulo de la barra de navegacion */}
         <div className="navbar-content">
-          
-          {/* Encabezado */}
           <div className="logo-container">
             <BanknoteIcon className="logo-icon" />
             <span className="logo-text">TecBank</span>
           </div>
 
-          {/* Menú desplegable de usuario para salir de la sesion */}
+          {/* Menú desplegable de usuario */}
           <div className="user-menu">
-
-            {/* Menú desplegable de usuario */}
             <DropdownMenu>
-
-              {/* Icono de usuario */}
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="user-button">
                   <User className="user-icon" />
                   <span className="sr-only">Menú de usuario</span>
                 </Button>
               </DropdownMenuTrigger>
-
-              {/* Boton del icono de usuario */}
               <DropdownMenuContent align="end">
                 <DropdownMenuItem className="logout-item" onClick={handleLogout}>
                   <LogOut className="logout-icon" />
                   <span className="logout-text">Cerrar sesión</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
-
             </DropdownMenu>
 
+            {/* Botón de menú móvil */}
+            <div className="mobile-menu-button">
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    {isMobileMenuOpen ? <X className="mobile-menu-icon" /> : <Menu className="mobile-menu-icon" />}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                  <div className="mobile-menu-content">
+                    <div className="mobile-user-info">
+                      <User className="mobile-user-icon" />
+                      <span className="mobile-user-name">{client.name}</span>
+                    </div>
+                    <div className="mobile-divider"></div>
+                    <button
+                      className="mobile-logout-button"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        handleLogout()
+                      }}
+                    >
+                      <LogOut className="mobile-logout-icon" />
+                      <span>Cerrar sesión</span>
+                    </button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
-
         </div>
-
         <Toaster position="bottom-right" />
-        
       </nav>
 
       {/* Contenido Principal */}
       <main className="main-content">
         <div className="welcome-section">
-          <h1 className="welcome-title">Bienvenido, {user.name}  {user.last_name1}</h1>
+          <h1 className="welcome-title">Bienvenido, {client.name}  {client.last_name1}</h1>
           <p className="welcome-description">Seleccione una opción para gestionar sus servicios bancarios.</p>
         </div>
 
@@ -92,8 +103,6 @@ function DashboardClient() {
 
           {/* Tarjeta de Cuentas */}
           <Card className="option-card-dashboard">
-
-            {/* Encabezado */}
             <CardHeader className="card-header-dashboard card-header-accounts">
               <div className="card-title-container">
                 <Wallet className="card-icon-accounts" />
@@ -101,11 +110,7 @@ function DashboardClient() {
               </div>
               <CardDescription className="card-description">Gestione sus cuentas bancarias</CardDescription>
             </CardHeader>
-            
-            {/* Contenido */}
             <CardContent className="card-content-dashboard">
-
-              {/* Opcion 1*/}
               <div className="option-link" onClick={() => navigate("/accounts/transactions")}>
                 <Receipt className="option-icon-accounts" />
                 <div className="option-text">
@@ -114,7 +119,6 @@ function DashboardClient() {
                 </div>
               </div>
 
-              {/* Opcion 2*/}
               <div className="option-link" onClick={() => navigate("/accounts/transfer")}>
                 <ArrowRightLeft className="option-icon-accounts" />
                 <div className="option-text">
@@ -122,15 +126,11 @@ function DashboardClient() {
                   <p className="option-subtitle">Transfiera fondos a otra cuenta</p>
                 </div>
               </div>
-
             </CardContent>
-
           </Card>
 
           {/* Tarjeta de Tarjetas */}
           <Card className="option-card-dashboard">
-            
-            {/* Encabezado */}
             <CardHeader className="card-header-dashboard card-header-cards">
               <div className="card-title-container">
                 <CreditCard className="card-icon-cards" />
@@ -138,11 +138,7 @@ function DashboardClient() {
               </div>
               <CardDescription className="card-description">Gestione sus tarjetas de crédito y débito</CardDescription>
             </CardHeader>
-
-            {/* Contenido*/}
             <CardContent className="card-content-dashboard">
-              
-              {/* Opcion 1*/}
               <div className="option-link" onClick={() => navigate("/cards/payments")}>
                 <CreditCard className="option-icon-cards" />
                 <div className="option-text">
@@ -151,7 +147,6 @@ function DashboardClient() {
                 </div>
               </div>
 
-            {/* Opcion 2*/}    
               <div className="option-link" onClick={() => navigate("/cards/purchases")}>
                 <Calendar className="option-icon-cards" />
                 <div className="option-text">
@@ -159,15 +154,11 @@ function DashboardClient() {
                   <p className="option-subtitle">Ver compras por rango de fechas</p>
                 </div>
               </div>
-
             </CardContent>
-
           </Card>
 
           {/* Tarjeta de Préstamos */}
           <Card className="option-card-dashboard">
-            
-            {/* Encabezado */}
             <CardHeader className="card-header-dashboard card-header-loans">
               <div className="card-title-container">
                 <PiggyBank className="card-icon-loans" />
@@ -175,8 +166,6 @@ function DashboardClient() {
               </div>
               <CardDescription className="card-description">Gestione sus préstamos y pagos</CardDescription>
             </CardHeader>
-
-            {/* Contenido */}
             <CardContent className="card-content-dashboard">
               <div className="option-link" onClick={() => navigate("/loans/payments")}>
                 <BanknoteIcon className="option-icon-loans" />
@@ -186,13 +175,10 @@ function DashboardClient() {
                 </div>
               </div>
             </CardContent>
-            
           </Card>
 
         </div>
-
       </main>
-      
     </div>
   )
 }
