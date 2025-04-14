@@ -178,12 +178,12 @@ export default function AccountManagement({ onBack }) {
                 </Button>
             </div>
 
-            {/* Barra de busqueda por ID de cliente (filtro) */}
+            {/* Barra de búsqueda por ID de cliente (filtro) */}
             <div className="search-container">
                 <div className="search-input-container">
                     <Search className="search-icon" />
                     <Input
-                        placeholder="Buscar identificación de cliente..."
+                        placeholder="Buscar por identificación de cliente..."
                         value={clientIdFilter}
                         onChange={(e) => setClientIdFilter(e.target.value)}
                         className="pl-10 pr-10"
@@ -251,7 +251,7 @@ export default function AccountManagement({ onBack }) {
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={7} className="account-table-cell text-center py-6 text-muted-foreground">
-                                    No hay cuentas asociadas con dicha identificación
+                                    No hay cuentas asociadas a dicha identificación
                                 </TableCell>
                             </TableRow>
                         )}
@@ -260,7 +260,7 @@ export default function AccountManagement({ onBack }) {
                 </CardContent>
             </Card>
 
-            {/* Dialog for adding/editing accounts */}
+            {/* Dialogo o formulario para editar o agregar una nueva cuenta */}
             <Dialog open={isAccountDialogOpen} onOpenChange={setIsAccountDialogOpen}>
                 <DialogContent className="account-dialog">
                     <DialogHeader className="flex-shrink-0">
