@@ -2,6 +2,7 @@
 <table>
   <name>goals</name>
   <id>7</id>
+  <TruePK> </TruePK>
   <PKS>
     <PK>adviser_id</PK>
     <PK>target_profit</PK>
@@ -13,37 +14,5 @@
     <FK>currency_id</FK>
   </FKs>
   <tuples>
-    <value>
-      <adviser_id>109</adviser_id>
-      <target_profit>100.00</target_profit>
-      <start_date>2025-04-25T23:59:00</start_date>
-      <limit_date>2025-05-26T23:59:00</limit_date>
-      <state>0</state>
-      <currency_id>1</currency_id>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <adviser_id>103</adviser_id>
-      <target_profit>500</target_profit>
-      <start_date>2025-04-13T23:27:19.863Z</start_date>
-      <limit_date>2025-05-13T23:27:19.863Z</limit_date>
-      <state>0</state>
-      <currency_id>2</currency_id>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <adviser_id>101</adviser_id>
-      <target_profit>400</target_profit>
-      <start_date>2025-04-14T00:15:48.994Z</start_date>
-      <limit_date>2025-05-14T00:15:48.994Z</limit_date>
-      <state>0</state>
-      <currency_id>3</currency_id>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <adviser_id>101</adviser_id>
-  <target_profit>600</target_profit>
-  <start_date>2025-04-14T01:45:05.224Z</start_date>
-  <limit_date>2025-05-14T01:45:05.224Z</limit_date>
-  <state>0</state>
-  <currency_id>1</currency_id>
-</value>
   </tuples>
 </table>

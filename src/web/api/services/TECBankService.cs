@@ -3,6 +3,7 @@ using System;
 
 using tecbank.services.DBMS;
 using tecbank.models;
+using tecbank.services.encrypting;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml;
 
@@ -29,6 +30,8 @@ namespace tecbank.services{
         // --------------------------------[ Service atributes and properties]--------------------------------
         private static readonly String db_file = "tecbank";
         private static DBConnect tecbank_db = new DBConnect(db_file);
+
+        private static Encryptor security =  new Encryptor();
         // --------------------------------[ Service functions and methods ]--------------------------------
 
         // ::. GOALS METHODS
@@ -36,8 +39,7 @@ namespace tecbank.services{
         /// <summary>
         /// Retrieves all adviser goals from the database
         /// </summary>
-        public List<AdviserGoal> GetAllAdviserGoals()
-        {
+        public List<AdviserGoal> GetAllAdviserGoals(){
             try
             {
                 return tecbank_db.SELECT<AdviserGoal>("goals");
@@ -228,6 +230,7 @@ namespace tecbank.services{
         public List<ClientAccount> GetAllClients(){
             try {
                 var clients = tecbank_db.SELECT<ClientAccount>("clients");
+                clients.ForEach( c => c.password = security.DecryptString(c.password));
                 return clients;
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
@@ -249,6 +252,7 @@ namespace tecbank.services{
         public ClientAccount? Client_findByID(int id) {
             try {
                 var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == id && c.removed == 0).FirstOrDefault();
+                client.password = security.DecryptString(client.password);
                 return client;
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
@@ -267,7 +271,9 @@ namespace tecbank.services{
         /// <remarks> Attempts login and retrives client data </remarks>
         public ClientAccount? Client_find(String username, String password){
             try {
+                password = security.EncryptString(password);
                 var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.username == username && c.password == password && c.removed == 0).FirstOrDefault();
+                client.password = security.DecryptString(client.password);
                 return client;
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
@@ -292,6 +298,7 @@ namespace tecbank.services{
             if (client == null) 
                 throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(client)} is null and therefore not a valid object in the database");
             try{
+                client.password = security.EncryptString(client.password);
                 tecbank_db.INSERT<ClientAccount>("clients", client);
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
@@ -322,6 +329,7 @@ namespace tecbank.services{
                 if (existingClient == null)
                     throw new KeyNotFoundException($"(TECBANKSERVICE) Client(ID={client.id}) not found");
 
+                client.password = security.EncryptString(client.password);
                 tecbank_db.MODIFY<ClientAccount>("clients", client, (a,b) => a.id == b.id);
             } catch (DBMSException e1){
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
@@ -956,6 +964,7 @@ namespace tecbank.services{
                 payment.movement_id = related_movement.id;
                 var existingPayment = tecbank_db.SELECT<LoanPayment>("payments", p => p.id == payment.id).FirstOrDefault();
                 if (existingPayment == null){ // Pago extraordinario => añadir un nuevo pago
+                    payment.id = Guid.NewGuid().ToString();
                     payment.type = 2;
                     payment.date = DateTime.Now;
                     tecbank_db.INSERT<LoanPayment>("payments", payment);
@@ -1014,7 +1023,7 @@ namespace tecbank.services{
         /// <summary>
         /// Get all the loans from a client
         /// </summary>
-        /// <param name="user_id"></param>
+        /// <param name="user_id"></param> 
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ServiceException"></exception>
@@ -1048,6 +1057,7 @@ namespace tecbank.services{
                 if (loan.total <= 0)
                     throw new ArgumentException("(TECBANKSERVICE) Loan amount must be positive");
                 // >> Valores por defecto
+                loan.id = tecbank_db.SELECT<BankLoan>("loans").Count+1;
                 loan.balance = loan.total;
                 loan.request_date = DateTime.Now;
                 // >> Comprobar el tipo de dinero para el prestamo
@@ -1147,7 +1157,7 @@ namespace tecbank.services{
                 var receiver_acc = accs.FirstOrDefault(acc => acc.id == receiver_id)??
                     throw new ArgumentException($"(TECBANKSERVICE) Bank account(ID={receiver_id}) for receiver doesn't exist on the database");
                 // >> Obtener los tipos de dinero utilizados
-                var currencies = tecbank_db.SELECT<Currency>("currency",cur => cur.id == movement.currency_id);
+                var currencies = tecbank_db.SELECT<Currency>("currency", cur => cur.id == movement.currency_id || cur.id == sender_acc.currency_id || cur.id == receiver_acc.currency_id);
                 var transfer_cur = currencies.FirstOrDefault(mv => mv.id == movement.currency_id) ??
                     throw new ArgumentException($"(TECBANKSERVICE) Currency(ID={movement.currency_id}) from new movement doesn't exist on database");
                 var send_cur = currencies.FirstOrDefault(mv => mv.id == sender_acc.currency_id)??
@@ -1248,7 +1258,7 @@ namespace tecbank.services{
                     movement.account_id = account.id;
                     tecbank_db.INSERT<BankMovement>("movements", movement);
                 } else { // Aumento de limite en la tarjeta
-                    card.balance = movement.total_transfer;
+                    card.balance = (movement.total_transfer*mov_cur.usd_exchange)/acc_cur.usd_exchange;
                     tecbank_db.MODIFY<BankCard>("cards", card, (a,b) => a.card_num == b.card_num);
                 }
             } catch (KeyNotFoundException e1){

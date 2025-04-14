@@ -1,6 +1,7 @@
 <table>
     <name>currency</name>
     <id>6</id>
+    <TruePK>id</TruePK>
     <PKs> 
         <PK>id</PK>
     </PKs>

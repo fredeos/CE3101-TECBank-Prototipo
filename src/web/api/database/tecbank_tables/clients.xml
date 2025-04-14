@@ -5,113 +5,49 @@
   <TruePK>id</TruePK>
   <PKs>
     <PK>id</PK>
+    <PK>username</PK>
   </PKs>
   <removal>logical</removal>
   <FKs></FKs>
   <tuples>
-    <value>
-      <id>301</id>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>305560135</id>
+      <name>Frederick</name>
+      <last_name1>Obando</last_name1>
+      <last_name2>Solano</last_name2>
+      <type>1</type>
+      <username>frede12</username>
+      <password>KWwdzAEF96zL4/MAVw1u7Q==</password>
+      <monthly_income>500</monthly_income>
+      <phone_number>+506 8800 9673</phone_number>
+      <address>Cartago</address>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>107809105</id>
       <name>Isaac</name>
       <last_name1>Ramirez</last_name1>
       <last_name2>Herrera</last_name2>
       <type>1</type>
       <username>snk100</username>
-      <password>1234</password>
-      <monthly_income>3000000.00</monthly_income>
-      <phone_number>+506 3162 7168</phone_number>
+      <password>ZP5GWH/V8tMcpcfCHRzMGA==</password>
+      <monthly_income>1000000</monthly_income>
+      <phone_number>+506 1111 9191</phone_number>
       <address>Cartago</address>
       <rem_state>0</rem_state>
     </value>
-    <value>
-      <id>302</id>
-      <name>Marco</name>
-      <last_name1>Rivera</last_name1>
-      <last_name2>Meneses</last_name2>
-      <type>1</type>
-      <username>marc300</username>
-      <password>1234</password>
-      <monthly_income>4500650.00</monthly_income>
-      <phone_number>+506 8163 7268</phone_number>
-      <address>Cartago</address>
-      <rem_state>0</rem_state>
-    </value>
-    <value>
-      <id>303</id>
-      <name>Carlos</name>
-      <last_name1>Contreras</last_name1>
-      <last_name2>Luna</last_name2>
-      <type>1</type>
-      <username>carloscl</username>
-      <password>carlos2003</password>
-      <monthly_income>75000</monthly_income>
-      <phone_number>61119600</phone_number>
-      <address>Paraíso</address>
-      <rem_state>0</rem_state>
-    </value>
-    <value>
-      <id>304</id>
-      <name>Ludwin</name>
-      <last_name1>Ramos</last_name1>
-      <last_name2>Briceño</last_name2>
-      <type>1</type>
-      <username>lujorabri</username>
-      <password>ludwin1234</password>
-      <monthly_income>0</monthly_income>
-      <phone_number>85675900</phone_number>
-      <address>Guanacaste</address>
-      <rem_state>0</rem_state>
-    </value>
-    <value>
-      <id>305</id>
-      <name>Byron</name>
-      <last_name1>Mata</last_name1>
-      <last_name2>Fuentes</last_name2>
-      <type>1</type>
-      <username>kammatta</username>
-      <password>kammatta12</password>
-      <monthly_income>68000</monthly_income>
-      <phone_number>85674499</phone_number>
-      <address>Guadalupe</address>
-      <rem_state>0</rem_state>
-    </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>306</id>
-      <name>Frederick</name>
-      <last_name1>Obando</last_name1>
-      <last_name2>Solano</last_name2>
-      <type>2</type>
-      <username>fredeos</username>
-      <password>nani1212</password>
-      <monthly_income>10500.49</monthly_income>
-      <phone_number>+506 8800 9673</phone_number>
-      <address>Cartago,Paraiso,Paraiso</address>
-      <rem_state>0</rem_state>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>309</id>
-      <name>Pepito</name>
-      <last_name1>Pan</last_name1>
-      <last_name2>De Dios</last_name2>
-      <type>2</type>
-      <username>pepe</username>
-      <password>1234</password>
-      <monthly_income>2</monthly_income>
-      <phone_number>+666 2222 1111</phone_number>
-      <address>Alajuela</address>
-      <rem_state>0</rem_state>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>406</id>
-      <name>Pepe</name>
-      <last_name1>milan</last_name1>
-      <last_name2>fioren</last_name2>
-      <type>1</type>
-      <username>pep</username>
-      <password>1234</password>
-      <monthly_income>5</monthly_income>
-      <phone_number>3435532</phone_number>
-      <address>Heredia</address>
-      <rem_state>0</rem_state>
-    </value>
+  <id>307568991</id>
+  <name>Marco</name>
+  <last_name1>Rivera</last_name1>
+  <last_name2>Meneses</last_name2>
+  <type>1</type>
+  <username>marc300</username>
+  <password>OyV6ulQ2BAW+MULJS58GKg==</password>
+  <monthly_income>1200000</monthly_income>
+  <phone_number>+506 2020 3030</phone_number>
+  <address>Cartago</address>
+  <rem_state>0</rem_state>
+</value>
   </tuples>
 </table>

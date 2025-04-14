@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <table>
   <name>payments</name>
   <id>9</id>
+  <TruePK>id</TruePK>
   <PKs>
     <PK>id</PK>
   </PKs>
@@ -11,68 +12,50 @@
   </FKs>
   <removal>physical</removal>
   <tuples>
-    <value>
-      <id>t1fe712y78</id>
-      <loan_id>1</loan_id>
-      <movement_id></movement_id>
-      <type>1</type>
-      <date>2025-05-01T23:59:00</date>
-      <total>37.5</total>
-      <state>0</state>
-    </value>
-    <value>
-      <id>a1fe712y78</id>
-      <loan_id>1</loan_id>
-      <movement_id></movement_id>
-      <type>1</type>
-      <date>2025-06-01T23:59:00</date>
-      <total>37.5</total>
-      <state>0</state>
-    </value>
-    <value>
-      <id>t1pe552y78</id>
-      <loan_id>1</loan_id>
-      <movement_id></movement_id>
-      <type>1</type>
-      <date>2025-07-01T23:59:00</date>
-      <total>37.5</total>
-      <state>0</state>
-    </value>
-    <value>
-      <id>k1li905y78</id>
-      <loan_id>1</loan_id>
-      <movement_id></movement_id>
-      <type>1</type>
-      <date>2025-08-01T23:59:00</date>
-      <total>37.5</total>
-      <state>0</state>
-    </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>38d2285b-02b6-47d2-9738-f517c063c151</id>
-  <loan_id>888</loan_id>
-  <movement_id>4e602f84-d901-43e1-ab1f-8b66b4ed7643</movement_id>
+  <id>6929e40a-cf75-40d3-905e-cbd3fb45b603</id>
+  <loan_id>0</loan_id>
+  <movement_id>ba25f4f9-f25a-4428-8230-5207a0a68bf5</movement_id>
   <type>1</type>
   <date>2025-05-13T23:59:00</date>
-  <total>21.15</total>
+  <total>10.46</total>
   <state>1</state>
 </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>844fc734-84c8-417b-9c71-f84cc4e2acae</id>
-      <loan_id>888</loan_id>
+      <id>44da8fd2-8605-46f8-a0bd-41d982d1c529</id>
+      <loan_id>1</loan_id>
       <movement_id />
       <type>1</type>
       <date>2025-06-13T23:59:00</date>
-      <total>21.14166666666667</total>
+      <total>10.451570106220245</total>
       <state>0</state>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>6435e4b6-5570-425c-a001-346b0108a41f</id>
-      <loan_id>888</loan_id>
+      <id>f648b8ee-a317-466b-988c-95f748f2cb58</id>
+      <loan_id>1</loan_id>
       <movement_id />
       <type>1</type>
       <date>2025-07-13T23:59:00</date>
-      <total>21.14166666666667</total>
+      <total>10.451570106220245</total>
       <state>0</state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>9ba9ccb9-ef56-483e-b6d6-3cba99c123aa</id>
+      <loan_id>1</loan_id>
+      <movement_id />
+      <type>1</type>
+      <date>2025-08-13T23:59:00</date>
+      <total>10.451570106220245</total>
+      <state>0</state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>x</id>
+      <loan_id>1</loan_id>
+      <movement_id>72ab089c-c2b7-434f-9d42-c8d0aa2467e5</movement_id>
+      <type>2</type>
+      <date>2025-04-13T23:41:04.1231704-06:00</date>
+      <total>25.69</total>
+      <state>1</state>
     </value>
   </tuples>
 </table>

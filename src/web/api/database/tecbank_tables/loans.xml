@@ -2,6 +2,7 @@
 <table>
   <name>loans</name>
   <id>8</id>
+  <TruePK>id</TruePK>
   <PKs>
     <PK>id</PK>
   </PKs>
@@ -12,30 +13,17 @@
     <FK>adviser_id</FK>
   </FKs>
   <tuples>
-    <value>
-      <id>1</id>
-      <lapse>4</lapse>
-      <request_date>2025-04-01T14:23:00</request_date>
-      <interest_rate>5.0</interest_rate>
-      <balance>150.00</balance>
-      <total>150.00</total>
-      <state>0</state>
-      <currency_id>1</currency_id>
-      <client_id>302</client_id>
-      <adviser_id>109</adviser_id>
-      <rem_state>0</rem_state>
-    </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>888</id>
-  <lapse>3</lapse>
-  <request_date>2025-04-13T17:42:47.2322896-06:00</request_date>
-  <interest_rate>2.5</interest_rate>
-  <balance>16.700000000000003</balance>
-  <total>59</total>
+  <id>1</id>
+  <lapse>4</lapse>
+  <request_date>2025-04-13T23:34:02.961752-06:00</request_date>
+  <interest_rate>5.3</interest_rate>
+  <balance>19.539999999999996</balance>
+  <total>55.69</total>
   <state>0</state>
   <currency_id>2</currency_id>
-  <client_id>301</client_id>
-  <adviser_id>109</adviser_id>
+  <client_id>307568991</client_id>
+  <adviser_id>906701143</adviser_id>
   <rem_state>0</rem_state>
 </value>
   </tuples>

@@ -2,6 +2,7 @@
 <table>
   <name>roles</name>
   <id>10</id>
+  <TruePK>id</TruePK>
   <PKS>
     <PK>id</PK>
   </PKS>

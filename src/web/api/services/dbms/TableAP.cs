@@ -13,7 +13,9 @@ namespace tecbank.DBMS{
         public int? __table_id;
         public String? __table_name;
         private int? __remove_type;
-        private List<String> primary_keys = [];
+
+        private String primary_key = "";
+        private List<String> composite_keys = [];
         private List<String> foreign_keys = [];
         // --------------------------------[ Class methods ]--------------------------------
         public TableAP(String table){
@@ -55,10 +57,12 @@ namespace tecbank.DBMS{
             
 
             // >> Cargar llaves de la tabala
-            foreach (var pk in xml_doc.Descendants("PK")){
-                primary_keys.Add(pk.Value);
+            // Llave primaria (si existe)
+            this.primary_key = table_xml.Element("TruePK")?.Value;
+            foreach (var pk in xml_doc.Descendants("PK")){ // Llaves compuestas
+                composite_keys.Add(pk.Value);
             }
-            foreach (var fk in xml_doc.Descendants("FK")){
+            foreach (var fk in xml_doc.Descendants("FK")){ // Llave foraneas
                 foreign_keys.Add(fk.Value);
             }
         }
@@ -139,7 +143,9 @@ namespace tecbank.DBMS{
         /// <remarks><>
         private bool TableIntegrityCheck(XElement target1, XElement target2){
             bool condition = true;
-            foreach(var PK in primary_keys){
+            if (primary_key != "" && target1.Element(primary_key).Value == target2.Element(primary_key).Value)
+                return true;
+            foreach(var PK in composite_keys){
                 condition = condition && (target1.Element(PK).Value == target2.Element(PK).Value);
             }
             return condition;

@@ -5,6 +5,7 @@
   <PKs>
     <PK>id</PK>
   </PKs>
+  <TruePK>id</TruePK>
   <FKs>
     <FK>card_id</FK>
     <FK>account_id</FK>
@@ -12,84 +13,44 @@
   </FKs>
   <removal>physical</removal>
   <tuples>
-    <value>
-      <id>EF200</id>
-      <total_transfer>-7000.00</total_transfer>
-      <date>2025-02-21T10:36:00</date>
-      <description>Compra en Servicios</description>
-      <type>2</type>
-      <card_id>40025</card_id>
-      <account_id>152CR54126bt67</account_id>
-      <currency_id>3</currency_id>
-    </value>
-    <value>
-      <id>EF200</id>
-      <total_transfer>-100.00</total_transfer>
-      <date>2025-02-21T10:36:00</date>
-      <description>Transferencia</description>
-      <type>1</type>
-      <card_id>-1</card_id>
-      <account_id>152CR54126bt67</account_id>
-      <currency_id>1</currency_id>
-    </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>95c912b5-c309-4d50-9f4b-66454d8cf618</id>
-      <total_transfer>-118.6</total_transfer>
-      <date>2025-04-13T17:27:10.6498316-06:00</date>
+      <id>48815d6c-82ad-4d86-b821-f2752a9df2a4</id>
+      <total_transfer>-30.99</total_transfer>
+      <date>2025-04-13T23:35:47.6962098-06:00</date>
       <description>Transferencia simple</description>
       <type>1</type>
       <card_id>-1</card_id>
-      <account_id>897CR54134bt01</account_id>
+      <account_id>151CR8184164502</account_id>
       <currency_id>2</currency_id>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>b4d4df24-e72b-4b22-90ff-8d2aa511224d</id>
-      <total_transfer>118.6</total_transfer>
-      <date>2025-04-13T17:27:10.6818403-06:00</date>
+      <id>4dcbade7-f719-4440-be4b-9bc8c4e3b044</id>
+      <total_transfer>30.99</total_transfer>
+      <date>2025-04-13T23:35:47.7256593-06:00</date>
       <description>Transferencia simple</description>
       <type>1</type>
       <card_id>-1</card_id>
-      <account_id>151CR6461051191</account_id>
+      <account_id>151CR9178635545</account_id>
       <currency_id>2</currency_id>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>de9659a4-9052-420b-bfb5-b872f72e4cc9</id>
-      <total_transfer>100</total_transfer>
-      <date>2025-04-13T17:30:05.847266-06:00</date>
-      <description>Pago de deuda de tarjeta de credito</description>
-      <type>2</type>
-      <card_id>40030</card_id>
-      <account_id>152CR54126bt67</account_id>
-      <currency_id>1</currency_id>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>cae4b14d-e087-4890-aa72-adf2f1ab02dc</id>
-      <total_transfer>5000</total_transfer>
-      <date>2025-04-13T17:40:42.1489551-06:00</date>
-      <description>Pago de deuda de tarjeta de credito</description>
-      <type>2</type>
-      <card_id>40030</card_id>
-      <account_id>152CR54126bt67</account_id>
-      <currency_id>3</currency_id>
-    </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <id>ab2d84ed-7130-4e0b-841b-e367df8052db</id>
-      <total_transfer>-21.15</total_transfer>
-      <date>2025-04-13T17:45:12.0293955-06:00</date>
+      <id>72ab089c-c2b7-434f-9d42-c8d0aa2467e5</id>
+      <total_transfer>-25.69</total_transfer>
+      <date>2025-04-13T23:41:04.0464135-06:00</date>
       <description>Pago de prestamo</description>
       <type>3</type>
       <card_id>-1</card_id>
-      <account_id>897CR54134bt01</account_id>
+      <account_id>151CR4824722633</account_id>
       <currency_id>2</currency_id>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>4e602f84-d901-43e1-ab1f-8b66b4ed7643</id>
-  <total_transfer>-21.15</total_transfer>
-  <date>2025-04-13T17:48:44.6164605-06:00</date>
+  <id>ba25f4f9-f25a-4428-8230-5207a0a68bf5</id>
+  <total_transfer>-10.46</total_transfer>
+  <date>2025-04-13T23:41:52.6383625-06:00</date>
   <description>Pago de prestamo</description>
   <type>3</type>
   <card_id>-1</card_id>
-  <account_id>897CR54134bt01</account_id>
+  <account_id>151CR4824722633</account_id>
   <currency_id>2</currency_id>
 </value>
   </tuples>
