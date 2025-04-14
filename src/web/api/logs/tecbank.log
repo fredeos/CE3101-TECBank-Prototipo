@@ -165,3 +165,32 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-13 17:47:03][INFO]: (HTTP)(GET=GetLoans) Loans from client(ID=301) found succesfullly
 [2025-04-13 17:48:44][INFO]: (HTTP)(POST=Register) Loan payment(ID=38d2285b-02b6-47d2-9738-f517c063c151) has been added to database
 [2025-04-13 17:48:52][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=301) found succesfullly
+[2025-04-13 18:11:57][INFO]: ============= Log Console started
+[2025-04-13 18:11:57][INFO]: (HTTP)(POST=Register) Client(ID=406) was added successfully
+[2025-04-13 18:23:43][INFO]: (HTTP)(GET=Login) Client(ID=306) login succesful
+[2025-04-13 18:58:58][INFO]: ============= Log Console started
+[2025-04-13 18:58:58][WARNING]: (HTTP)(POST=AddEmployee)System.ArgumentException: (TECBANKSERVICE)System.ArgumentException: (DBConnect)System.ArgumentException: (TableAP) T object already exists in the table employees:5
+   at tecbank.DBMS.TableAP.create[T](T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 195
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 109
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 113
+   at tecbank.services.TECBankService.Employee_Add(BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 614
+   at tecbank.services.TECBankService.Employee_Add(BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 620
+   at tecbank.controllers.Admin.AddEmployee(Int32 key, BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 382
+[2025-04-13 19:00:27][INFO]: ============= Log Console started
+[2025-04-13 19:00:27][INFO]: (HTTP)(POST=AddEmployee) Employee(ID=101) successfully added to database
+[2025-04-13 19:00:33][WARNING]: (HTTP)(POST=AddEmployee)System.ArgumentException: (TECBANKSERVICE)System.ArgumentException: (DBConnect)System.ArgumentException: (TableAP) T object already exists in the table employees:5
+   at tecbank.DBMS.TableAP.create[T](T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 195
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 109
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 113
+   at tecbank.services.TECBankService.Employee_Add(BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 614
+   at tecbank.services.TECBankService.Employee_Add(BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 620
+   at tecbank.controllers.Admin.AddEmployee(Int32 key, BankEmployee employee) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 382
+[2025-04-13 19:01:05][INFO]: (HTTP)(POST=AddClient) Client(ID=301) was added successfully
+[2025-04-13 19:03:39][INFO]: ============= Log Console started
+[2025-04-13 19:03:39][WARNING]: (HTTP)(POST=AddClient)System.ArgumentException: (TECBANKSERVICE)System.ArgumentException: (DBConnect)System.ArgumentException: (TableAP) T object already exists in the table clients:1
+   at tecbank.DBMS.TableAP.create[T](T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\TableAP.cs:line 195
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 109
+   at tecbank.services.DBMS.DBConnect.INSERT[T](String table, T obj) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\dbms\DBConnect.cs:line 113
+   at tecbank.services.TECBankService.Client_Add(ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 115
+   at tecbank.services.TECBankService.Client_Add(ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\services\TECBankService.cs:line 121
+   at tecbank.controllers.Admin.AddClient(Int32 key, ClientAccount client) in B:\workbench\repos\CE3101-TECBank-Prototipo\src\web\api\controllers\AdminSubsystem.cs:line 274

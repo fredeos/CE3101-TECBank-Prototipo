@@ -2,9 +2,9 @@
 <table>
   <name>clients</name>
   <id>1</id>
+  <TruePK>id</TruePK>
   <PKs>
     <PK>id</PK>
-    <PK>username</PK>
   </PKs>
   <removal>logical</removal>
   <FKs></FKs>
@@ -88,17 +88,30 @@
       <rem_state>0</rem_state>
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <id>309</id>
-  <name>Pepito</name>
-  <last_name1>Pan</last_name1>
-  <last_name2>De Dios</last_name2>
-  <type>2</type>
-  <username>pepe</username>
-  <password>1234</password>
-  <monthly_income>2</monthly_income>
-  <phone_number>+666 2222 1111</phone_number>
-  <address>Alajuela</address>
-  <rem_state>0</rem_state>
-</value>
+      <id>309</id>
+      <name>Pepito</name>
+      <last_name1>Pan</last_name1>
+      <last_name2>De Dios</last_name2>
+      <type>2</type>
+      <username>pepe</username>
+      <password>1234</password>
+      <monthly_income>2</monthly_income>
+      <phone_number>+666 2222 1111</phone_number>
+      <address>Alajuela</address>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>406</id>
+      <name>Pepe</name>
+      <last_name1>milan</last_name1>
+      <last_name2>fioren</last_name2>
+      <type>1</type>
+      <username>pep</username>
+      <password>1234</password>
+      <monthly_income>5</monthly_income>
+      <phone_number>3435532</phone_number>
+      <address>Heredia</address>
+      <rem_state>0</rem_state>
+    </value>
   </tuples>
 </table>

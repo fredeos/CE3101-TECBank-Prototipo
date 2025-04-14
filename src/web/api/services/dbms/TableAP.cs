@@ -133,16 +133,16 @@ namespace tecbank.DBMS{
         }
 
         /// <summary>
-        /// Verifies two tuples are not the same to prevent data integrity problems in the table
+        /// Check if two tuples are the same to prevent data integrity problems in the table
         /// </summary>
-        /// <returns>"true" if target1 is different from target2, otherwise "false"</returns>
+        /// <returns> "true" if target1 is the same as target2, otherwise "false"</returns>
+        /// <remarks><>
         private bool TableIntegrityCheck(XElement target1, XElement target2){
+            bool condition = true;
             foreach(var PK in primary_keys){
-                if(target1.Element(PK).Value == target2.Element(PK).Value){
-                    return false;
-                }
+                condition = condition && (target1.Element(PK).Value == target2.Element(PK).Value);
             }
-            return true;
+            return condition;
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace tecbank.DBMS{
                 // >> Verificacion de duplicidad de valores
                 bool exists = false;
                 foreach(var val in values.ToList()){
-                    if (!this.TableIntegrityCheck(val,XObj)){
+                    if (this.TableIntegrityCheck(val,XObj)){
                         exists = true;
                         break;
                     }
