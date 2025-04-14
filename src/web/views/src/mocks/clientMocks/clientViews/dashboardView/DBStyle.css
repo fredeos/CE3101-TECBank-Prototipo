@@ -1,0 +1,320 @@
+/* Estilos personalizados para el panel de control */
+
+.dashboard-container {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  height: 2rem;
+  width: 2rem;
+  color: #2563eb;
+}
+
+.logo-text {
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.user-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: #f1f5f9;
+}
+
+.user-icon {
+  height: 1rem;
+  width: 1rem;
+  color: #64748b;
+}
+
+.mobile-menu-button {
+  display: none;
+  margin-left: 0.5rem;
+}
+
+.mobile-menu-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.main-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.welcome-section {
+  margin-bottom: 2rem;
+}
+
+.welcome-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.welcome-description {
+  color: #64748b;
+}
+
+.cards-grid-dashboard {
+  margin-top: 5rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.option-card-dashboard {
+  background-color: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.option-card-dashboard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header-dashboard {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header-accounts {
+  background-color: #eff6ff;
+}
+
+.card-header-cards {
+  background-color: #f5f3ff;
+}
+
+.card-header-loans {
+  background-color: #ecfdf5;
+}
+
+.card-title-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-icon-accounts {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #2563eb;
+}
+
+.card-icon-cards {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #7c3aed;
+}
+
+.card-icon-loans {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #10b981;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.card-content-dashboard {
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.option-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.option-link:last-child {
+  margin-bottom: 0;
+}
+
+.option-link:hover {
+  background-color: #f8fafc;
+}
+
+.option-icon-accounts {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #2563eb;
+  margin-top: 0.125rem;
+}
+
+.option-icon-cards {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #7c3aed;
+  margin-top: 0.125rem;
+}
+
+.option-icon-loans {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #10b981;
+  margin-top: 0.125rem;
+}
+
+.option-text {
+  flex: 1;
+}
+
+.option-title {
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.option-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.logout-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.logout-icon {
+  height: 1rem;
+  width: 1rem;
+  color: #ef4444;
+}
+
+.logout-text {
+  color: #ef4444;
+}
+
+/* Estilos para el menú móvil */
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.mobile-user-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.mobile-user-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.mobile-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 0.5rem 0;
+}
+
+.mobile-logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: #ef4444;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-logout-button:hover {
+  background-color: #fee2e2;
+}
+
+.mobile-logout-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Estilos responsivos */
+@media (min-width: 768px) {
+  .cards-grid-dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  .welcome-title {
+    font-size: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+}

@@ -270,3 +270,6 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-13 23:39:07][INFO]: (HTTP)(GET=GetAccounts) Bank accounts from client(ID=305560135) found succesfullly
 [2025-04-13 23:41:04][INFO]: (HTTP)(POST=Register) Loan payment(ID=x) has been added to database
 [2025-04-13 23:41:52][INFO]: (HTTP)(POST=Register) Loan payment(ID=6929e40a-cf75-40d3-905e-cbd3fb45b603) has been added to database
+[2025-04-14 11:50:02][INFO]: ============= Log Console started
+[2025-04-14 11:50:02][INFO]: (HTTP)(GET=GetClients) Clients retrieved succesfully
+[2025-04-14 11:50:23][INFO]: (HTTP)(GET=Login) Client(ID=305560135) login succesful

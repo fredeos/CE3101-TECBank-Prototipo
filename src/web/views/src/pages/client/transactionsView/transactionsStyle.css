@@ -1,0 +1,432 @@
+/* Estilos personalizados para la vista de transacciones de cuenta */
+
+.transactions-container {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.transactions-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.back-link-container {
+  margin-bottom: 1.5rem;
+}
+
+.back-link-client {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding-left: 0;
+  transition: all 0.2s ease;
+}
+
+.back-link-client:hover {
+  padding-left: 0.25rem;
+}
+
+.back-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.page-header {
+  position: relative;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.page-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.page-description {
+  color: #64748b;
+}
+
+.tabs-container {
+  margin-top: 1.5rem;
+}
+
+.tabs-list {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.tab-button {
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  color: #64748b;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-button.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.filters-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-icon {
+  height: 1rem;
+  width: 1rem;
+  color: #64748b;
+}
+
+.filter-select {
+  width: 180px;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.filter-select:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.search-group {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.search-input-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.625rem;
+  top: 0.625rem;
+  height: 1rem;
+  width: 1rem;
+  color: #64748b;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 2rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.download-button:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.download-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.transactions-table-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header {
+  background-color: #f8fafc;
+  text-align: left;
+}
+
+.table-header-cell {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.table-row {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  padding: 0.75rem 1rem;
+  color: #1e293b;
+  text-align: center;
+}
+
+.date-cell {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.description-cell {
+  font-weight: 400;
+}
+
+.type-cell {
+  text-align: center;
+}
+
+.amount-cell {
+  text-align: center;
+  font-weight: 600;
+}
+
+.balance-cell {
+  text-align: center;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.deposit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.withdrawal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.deposit-icon {
+  height: 0.75rem;
+  width: 0.75rem;
+}
+
+.withdrawal-icon {
+  height: 0.75rem;
+  width: 0.75rem;
+}
+
+.deposit-amount {
+  color: #047857;
+}
+
+.withdrawal-amount {
+  color: #b91c1c;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+}
+
+/* Estilos para tarjetas de débito */
+.cards-grid-transactions {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.debit-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.card-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-type {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #1e293b;
+}
+
+.card-number {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.card-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #2563eb;
+}
+
+.card-details {
+  padding: 1.25rem;
+}
+
+.card-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.card-status {
+  display: inline-flex;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.card-action-button {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-action-button:hover {
+  background-color: #f8fafc;
+}
+
+.block-button {
+  color: #ef4444;
+}
+
+.block-button:hover {
+  background-color: #fee2e2;
+}
+
+/* Estilos responsivos */
+@media (min-width: 640px) {
+  .filters-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-group {
+    width: auto;
+  }
+
+  .search-input {
+    width: 250px;
+  }
+}
+
+@media (min-width: 768px) {
+  .cards-grid-transactions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
