@@ -4,6 +4,8 @@ import LoginAdmin from './pages/admin/loginAdmin/login_admin'
 import DashBoardAdmin from './pages/admin/dashboardAdmin/dashboard_admin'
 import GestionRolesAdmin from './pages/admin/gestionRoles/gestion_roles'
 import GestionClientesAdmin from './pages/admin/gestionClientes/gestion_clientes'
+import GestionCuentasAdmin from './pages/admin/gestionCuentas/gestion_cuentas'
+
 /* + ========================= Cliente ========================= + */
 import LoginClient from './pages/client/loginView/loginClient'
 import DashboardClient from './pages/client/dashboardView/dashboardClient'
@@ -25,6 +27,7 @@ function App() {
         <Route path='/adminDashboard' element={<DashBoardAdmin/>}/>
         <Route path='/gestion-roles' element={<GestionRolesAdmin/>} />
         <Route path='/gestion-clientes' element={<GestionClientesAdmin/>} />
+        <Route path='/gestion-cuentas-admin' element={<GestionCuentasAdmin/>}/> 
         {/* + ========================= Cliente ========================= + */}
         <Route path="/client_login" element={<LoginClient/>}/>
         <Route path="/client_dashboard" element={<DashboardClient/>}/>
