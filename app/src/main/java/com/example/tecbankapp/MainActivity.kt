@@ -55,9 +55,31 @@ fun MyApp() {
             }
         }
 
-        composable("cards") {SimpleScreen("Cards") }
-        composable("loans") { SimpleScreen("Loans") }
-        composable("movements") { SimpleScreen("Movements") }
-        composable("payments") { SimpleScreen("Payments") }
+        composable("cards/{clientId}") { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")?.toIntOrNull() ?: -1
+            CardsScreen(clientId)
+        }
+
+        composable("loans/{clientId}") { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")?.toIntOrNull() ?: -1
+            LoansScreen(clientId)
+        }
+
+        composable("movements/{clientId}") { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")?.toIntOrNull() ?: -1
+            MovementsScreen(clientId)
+        }
+
+        composable("payments/{clientId}") { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")?.toIntOrNull() ?: -1
+            if (clientId != -1) {
+                PaymentsScreen(clientId)
+            } else {
+                Text("Error: clientId inválido")
+            }
+        }
+
+
+
     }
 }

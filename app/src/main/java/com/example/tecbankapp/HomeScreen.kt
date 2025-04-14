@@ -3,6 +3,7 @@
 
 
 package com.example.tecbankapp
+import android.adservices.adid.AdId
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -43,10 +44,10 @@ fun HomeScreen(navController: NavHostController, username:String, clientId: Int)
                     Log.e("HomeScreen", "clientId no válido")
                 }
 
-                DrawerItem("Cards", navController, "Cards", drawerState, scope)
-                DrawerItem("Loans", navController, "loans", drawerState, scope)
-                DrawerItem("Movements", navController, "movements", drawerState, scope)
-                DrawerItem("Payments", navController, "payments", drawerState, scope)
+                DrawerItem("Cards", navController, "cards/$clientId", drawerState, scope)
+                DrawerItem("Loans", navController, "loans/$clientId", drawerState, scope)
+                DrawerItem("Movements", navController, "movements/$clientId", drawerState, scope)
+                DrawerItem("Payments", navController, "payments/$clientId", drawerState, scope)
             }
         }
     ) {

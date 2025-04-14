@@ -90,7 +90,8 @@ fun LoginScreen(navController: NavHostController) {
 
                         val jsonResponse = JSONObject(response)
                         val clientId = jsonResponse.getInt("id")
-                        //val accountId = jsonResponse.getString("accountId")
+                        //val accountId = jsonResponse.getJSONArray("accounts").getJSONObject(0).getString("id")
+
                         // Extraer los campos del nombre
                         val name = jsonResponse.getString("name")
                         val last1 = jsonResponse.getString("last_name1")
