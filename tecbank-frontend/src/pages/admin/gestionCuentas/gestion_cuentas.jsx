@@ -359,9 +359,9 @@ export default function AccountManagement({ onBack }) {
                                 value={editingAccount ? editingAccount.client_id : newAccount.client_id}
                                 onChange={(e) => {
                                     if (editingAccount) {
-                                    setEditingAccount({ ...editingAccount, client_id: e.target.value })
+                                        setEditingAccount({ ...editingAccount, client_id: e.target.value })
                                     } else {
-                                    setNewAccount({ ...newAccount, client_id: e.target.value })
+                                        setNewAccount({ ...newAccount, client_id: e.target.value })
                                     }
                                 }}
                                 placeholder="Ingrese el número de identificación del cliente"

@@ -4,7 +4,7 @@ body {
     place-items: stretch;
     min-width: 100%;
     min-height: 100vh;
-  }
+}
 
 .account-management-container {
     width: 90%;

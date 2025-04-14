@@ -8,6 +8,7 @@ import GestionRolesAdmin from './pages/admin/gestionRoles/gestion_roles'
 import GestionClientesAdmin from './pages/admin/gestionClientes/gestion_clientes'
 import GestionCuentasAdmin from './pages/admin/gestionCuentas/gestion_cuentas'
 import GestionTarjetasAdmin from './pages/admin/gestionTarjetas/gestion_tarjetas'
+import GestionEmpleadosAdmin from './pages/admin/gestionEmpleados/gestion_empleados'
 
 import LoginClient from './mocks/clientMocks/clientViews/loginView/loginClient'
 import DashboardClient from './mocks/clientMocks/clientViews/dashboardView/dashboardClient'
@@ -30,7 +31,8 @@ function App() {
         <Route path='/gestion-clientes' element={<GestionClientesAdmin/>} />
         <Route path='/gestion-cuentas-admin' element={<GestionCuentasAdmin/>}/>
         <Route path='/gestion-tarjetas-admin' element={<GestionTarjetasAdmin/>}/>
-        
+        <Route path='/gestion-empleados-admin' element={<GestionEmpleadosAdmin/>}/>
+
         <Route path="/client_login" element={<LoginClient/>}/>
         <Route path="/client_dashboard" element={<DashboardClient/>}/>
         <Route path="/accounts/transactions" element={<TransactionsClient/>}/>
@@ -60,6 +62,7 @@ import GestionRolesAdmin from './pages/admin/gestionRoles/gestion_roles'
 import GestionClientesAdmin from './pages/admin/gestionClientes/gestion_clientes'
 import GestionCuentasAdmin from './pages/admin/gestionCuentas/gestion_cuentas'
 import GestionTarjetasAdmin from './pages/admin/gestionTarjetas/gestion_tarjetas'
+import GestionEmpleadosAdmin from './pages/admin/gestionEmpleados/gestion_empleados'
 
 import LoginClient from './pages/client/loginView/loginClient'
 import DashboardClient from './pages/client/dashboardView/dashboardClient'
@@ -81,6 +84,7 @@ function App() {
           <Route path='/gestion-clientes' element={<GestionClientesAdmin/>} />
           <Route path='/gestion-cuentas-admin' element={<GestionCuentasAdmin/>}/>
           <Route path='/gestion-tarjetas-admin' element={<GestionTarjetasAdmin/>}/>
+          <Route path='/gestion-empleados-admin' element={<GestionEmpleadosAdmin/>}/>
         </Routes>
         <AuthProvider>
           <Routes>
