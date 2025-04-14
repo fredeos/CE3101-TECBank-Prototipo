@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>accounts</name>
+  <id>2</id>
+  <TruePK>id</TruePK>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <removal>logical</removal>
+  <FKs>
+    <FK>currency_id</FK>
+    <FK>client_id</FK>
+  </FKs>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>151CR9178635545</id>
+      <type>2</type>
+      <balance>74089</balance>
+      <description>Cuenta personal de ahorros</description>
+      <currency_id>3</currency_id>
+      <client_id>305560135</client_id>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>151CR8184164502</id>
+      <type>1</type>
+      <balance>11132.282</balance>
+      <description>Cuenta de trabajo</description>
+      <currency_id>1</currency_id>
+      <client_id>107809105</client_id>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>151CR4824722633</id>
+  <type>1</type>
+  <balance>9389.875</balance>
+  <description>Cuenta personal</description>
+  <currency_id>1</currency_id>
+  <client_id>307568991</client_id>
+  <rem_state>0</rem_state>
+</value>
+  </tuples>
+</table>

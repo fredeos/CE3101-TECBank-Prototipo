@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>goals</name>
+  <id>7</id>
+  <TruePK> </TruePK>
+  <PKS>
+    <PK>adviser_id</PK>
+    <PK>target_profit</PK>
+    <PK>currency_id</PK>
+  </PKS>
+  <removal>physical</removal>
+  <FKs>
+    <FK>adviser_id</FK>
+    <FK>currency_id</FK>
+  </FKs>
+  <tuples>
+  </tuples>
+</table>

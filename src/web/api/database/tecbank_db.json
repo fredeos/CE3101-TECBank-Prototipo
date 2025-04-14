@@ -1,0 +1,5 @@
+{
+    "name": "tecbank",
+    "ext":"xml",
+    "tables": ["clients","accounts", "cards", "movements", "loans", "currency","employees","goals","payments","roles"]
+}

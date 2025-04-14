@@ -1,0 +1,70 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider project files
+.idea/
+
+# VS Code project settings
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# dotnet watch/other temporary files
+*.swp
+*.tmp
+
+# Logs
+
+
+# Visual Studio cache
+.vs/
+
+# Secrets and settings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+secrets.json
+
+# Database files
+*.mdf
+*.ldf
+
+# Publish output
+wwwroot/
+publish/
+*.db
+
+# Test result files
+TestResults/
+
+# NUGET Packages folder
+packages/
+*.nupkg
+
+# Backup files
+*.bak
+
+# Coverage reports
+coverage/
+coverage.*.json
+*.coverage
+*.coveragexml
+
+# Docker artifacts
+docker-compose.override.yml
+.docker/
+
+# Node modules (if using front-end with React/Vue/etc.)
+node_modules/
+
+# Environment files
+.env
+.env.*

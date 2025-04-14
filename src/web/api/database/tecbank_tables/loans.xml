@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>loans</name>
+  <id>8</id>
+  <TruePK>id</TruePK>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <removal>logical</removal>
+  <FKs>
+    <FK>currency_id</FK>
+    <FK>client_id</FK>
+    <FK>adviser_id</FK>
+  </FKs>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>1</id>
+  <lapse>4</lapse>
+  <request_date>2025-04-13T23:34:02.961752-06:00</request_date>
+  <interest_rate>5.3</interest_rate>
+  <balance>19.539999999999996</balance>
+  <total>55.69</total>
+  <state>0</state>
+  <currency_id>2</currency_id>
+  <client_id>307568991</client_id>
+  <adviser_id>906701143</adviser_id>
+  <rem_state>0</rem_state>
+</value>
+  </tuples>
+</table>

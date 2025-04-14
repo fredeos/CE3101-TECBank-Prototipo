@@ -1,0 +1,30 @@
+<table>
+    <name>currency</name>
+    <id>6</id>
+    <TruePK>id</TruePK>
+    <PKs> 
+        <PK>id</PK>
+    </PKs>
+    <removal>logical</removal>
+    <FKs></FKs>
+    <tuples>
+        <value> 
+            <id>1</id>
+            <name>usd</name>
+            <usd_exchange>1.00</usd_exchange>
+            <rem_state>0</rem_state>
+        </value>
+        <value> 
+            <id>2</id>
+            <name>eur</name>
+            <usd_exchange>1.10</usd_exchange>
+            <rem_state>0</rem_state>
+        </value>
+        <value> 
+            <id>3</id>
+            <name>crc</name>
+            <usd_exchange>0.002</usd_exchange>
+            <rem_state>0</rem_state>
+        </value>
+    </tuples>
+</table>

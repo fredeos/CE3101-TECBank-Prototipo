@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>employees</name>
+  <id>5</id>
+  <TruePK>id</TruePK>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <removal>logical</removal>
+  <FKs>
+    <FK>role_id</FK>
+  </FKs>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>906701143</id>
+  <name>Ricardo</name>
+  <last_name1>Vega</last_name1>
+  <last_name2>Paqueta</last_name2>
+  <role_id>2</role_id>
+  <rem_state>0</rem_state>
+</value>
+  </tuples>
+</table>

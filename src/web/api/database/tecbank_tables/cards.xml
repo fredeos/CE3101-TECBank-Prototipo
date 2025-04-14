@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>cards</name>
+  <id>3</id>
+  <TruePK>card_num</TruePK>
+  <PKs>
+    <PK>card_num</PK>
+  </PKs>
+  <removal>logical</removal>
+  <FKs>
+    <FK>account_id</FK>
+  </FKs>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <card_num>477646127</card_num>
+      <type>1</type>
+      <cvc>873</cvc>
+      <balance>0</balance>
+      <account_id>151CR4824722633</account_id>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <card_num>482320469</card_num>
+      <type>1</type>
+      <cvc>701</cvc>
+      <balance>0</balance>
+      <account_id>151CR8184164502</account_id>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <card_num>462310534</card_num>
+  <type>2</type>
+  <cvc>713</cvc>
+  <balance>120000</balance>
+  <account_id>151CR9178635545</account_id>
+  <rem_state>0</rem_state>
+</value>
+  </tuples>
+</table>

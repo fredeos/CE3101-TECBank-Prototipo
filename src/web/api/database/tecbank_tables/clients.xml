@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>clients</name>
+  <id>1</id>
+  <TruePK>id</TruePK>
+  <PKs>
+    <PK>id</PK>
+    <PK>username</PK>
+  </PKs>
+  <removal>logical</removal>
+  <FKs></FKs>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>305560135</id>
+      <name>Frederick</name>
+      <last_name1>Obando</last_name1>
+      <last_name2>Solano</last_name2>
+      <type>1</type>
+      <username>frede12</username>
+      <password>KWwdzAEF96zL4/MAVw1u7Q==</password>
+      <monthly_income>500</monthly_income>
+      <phone_number>+506 8800 9673</phone_number>
+      <address>Cartago</address>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>107809105</id>
+      <name>Isaac</name>
+      <last_name1>Ramirez</last_name1>
+      <last_name2>Herrera</last_name2>
+      <type>1</type>
+      <username>snk100</username>
+      <password>ZP5GWH/V8tMcpcfCHRzMGA==</password>
+      <monthly_income>1000000</monthly_income>
+      <phone_number>+506 1111 9191</phone_number>
+      <address>Cartago</address>
+      <rem_state>0</rem_state>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>307568991</id>
+  <name>Marco</name>
+  <last_name1>Rivera</last_name1>
+  <last_name2>Meneses</last_name2>
+  <type>1</type>
+  <username>marc300</username>
+  <password>OyV6ulQ2BAW+MULJS58GKg==</password>
+  <monthly_income>1200000</monthly_income>
+  <phone_number>+506 2020 3030</phone_number>
+  <address>Cartago</address>
+  <rem_state>0</rem_state>
+</value>
+  </tuples>
+</table>

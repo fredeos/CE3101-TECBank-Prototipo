@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+  <name>movements</name>
+  <id>4</id>
+  <PKs>
+    <PK>id</PK>
+  </PKs>
+  <TruePK>id</TruePK>
+  <FKs>
+    <FK>card_id</FK>
+    <FK>account_id</FK>
+    <FK>currency_id</FK>
+  </FKs>
+  <removal>physical</removal>
+  <tuples>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>48815d6c-82ad-4d86-b821-f2752a9df2a4</id>
+      <total_transfer>-30.99</total_transfer>
+      <date>2025-04-13T23:35:47.6962098-06:00</date>
+      <description>Transferencia simple</description>
+      <type>1</type>
+      <card_id>-1</card_id>
+      <account_id>151CR8184164502</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>4dcbade7-f719-4440-be4b-9bc8c4e3b044</id>
+      <total_transfer>30.99</total_transfer>
+      <date>2025-04-13T23:35:47.7256593-06:00</date>
+      <description>Transferencia simple</description>
+      <type>1</type>
+      <card_id>-1</card_id>
+      <account_id>151CR9178635545</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <id>72ab089c-c2b7-434f-9d42-c8d0aa2467e5</id>
+      <total_transfer>-25.69</total_transfer>
+      <date>2025-04-13T23:41:04.0464135-06:00</date>
+      <description>Pago de prestamo</description>
+      <type>3</type>
+      <card_id>-1</card_id>
+      <account_id>151CR4824722633</account_id>
+      <currency_id>2</currency_id>
+    </value>
+    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>ba25f4f9-f25a-4428-8230-5207a0a68bf5</id>
+  <total_transfer>-10.46</total_transfer>
+  <date>2025-04-13T23:41:52.6383625-06:00</date>
+  <description>Pago de prestamo</description>
+  <type>3</type>
+  <card_id>-1</card_id>
+  <account_id>151CR4824722633</account_id>
+  <currency_id>2</currency_id>
+</value>
+  </tuples>
+</table>
