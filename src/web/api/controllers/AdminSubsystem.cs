@@ -30,7 +30,6 @@ namespace tecbank.controllers{
             }
         }
 
-
         [HttpGet("{key}/clients/all")]
         public ActionResult<IEnumerable<ClientAccount>> GetClients(int key){
             if (key != password)
@@ -134,6 +133,42 @@ namespace tecbank.controllers{
                 return StatusCode(500,"Internal server error");
             }
         }
+
+        [HttpGet("{key}/roles/all")]
+        public ActionResult<IEnumerable<Role>> GetRoles(int key)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            try
+            {
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetRoles)}) Roles retrieved successfully");
+                return Ok(tecbankService.GetAllRoles());
+            }
+            catch (ServiceException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetRoles)}){e1.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("{key}/goals/all")]
+        public ActionResult<IEnumerable<AdviserGoal>> GetAllAdviserGoals(int key)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            try
+            {
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAllAdviserGoals)}) Goals retrieved successfully");
+                return Ok(tecbankService.GetAllAdviserGoals());
+            }
+            catch (ServiceException e)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAllAdviserGoals)}){e.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        
 
         // ------------------------------------------------- [ Specific GET ] -------------------------------------------------
         [HttpGet("{key}/clients/{id}")]
@@ -263,7 +298,72 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpGet("{key}/goals/adviser/{adviserId}")]
+        public ActionResult<IEnumerable<AdviserGoal>> GetAdviserGoals(int key, int adviserId)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            try
+            {
+                var adviser = tecbankService.GetAdviserGoals(adviserId);
+                if (adviser.Count == 0){
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(GET={nameof(GetAdviser)}) No matching data was found in the database for adviser(ID={adviserId})");
+                    return NotFound($"Adviser(ID={adviserId}) not found");
+                }
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(GET={nameof(GetAdviserGoals)}) Goals for adviser {adviserId} retrieved successfully");
+                return Ok(adviser);
+            }
+            catch (ServiceException e)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(GET={nameof(GetAdviserGoals)}){e.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         // ------------------------------------------------- [ POST ] -------------------------------------------------
+
+        [HttpPost("{key}/roles/add")]
+        public ActionResult<Role> AddRole(int key, [FromBody] Role role)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            try
+            {
+                // Basic validation
+                if (role.id <= 0)
+                {
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddRole)}) Role ID must be positive");
+                    return BadRequest("Role ID must be positive");
+                }
+                
+                if (string.IsNullOrWhiteSpace(role.name))
+                {
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddRole)}) Role name cannot be empty");
+                    return BadRequest("Role name cannot be empty");
+                }
+
+                tecbankService.AddRole(role);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(POST={nameof(AddRole)}) Role(ID={role.id}) was added successfully");
+                return CreatedAtAction(nameof(AddRole), new { id = role.id }, role);
+            }
+            catch (ServiceException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddRole)}){e1.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+            catch (ArgumentNullException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddRole)}){e2.ToString()}");
+                return BadRequest("Role object doesn't have a valid format");
+            }
+            catch (ArgumentException e3)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddRole)}){e3.ToString()}");
+                return BadRequest(e3.Message);
+            }
+        }
+        
         [HttpPost("{key}/clients/add")]
         public ActionResult AddClient(int key, [FromBody] ClientAccount client){
             try{
@@ -394,6 +494,43 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpPost("{key}/goals/add")]
+        public ActionResult<AdviserGoal> AddAdviserGoal(int key, [FromBody] AdviserGoal goal)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            try
+            {
+                // Basic validation
+                if (goal.adviser_id <= 0)
+                {
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddAdviserGoal)}) Goal ID must be positive");
+                    return BadRequest("Goal ID must be positive");
+                }
+
+                tecbankService.AddAdviserGoal(goal);
+                
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(POST={nameof(AddAdviserGoal)}) Goal(ID={goal.adviser_id}) for adviser(ID={goal.adviser_id}) was added successfully");
+                return CreatedAtAction(nameof(AddAdviserGoal), new { id = goal.adviser_id }, goal);
+            }
+            catch (ServiceException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddAdviserGoal)}){e1.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+            catch (ArgumentNullException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddAdviserGoal)}){e2.ToString()}");
+                return BadRequest("Goal object doesn't have a valid format");
+            }
+            catch (ArgumentException e3)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(POST={nameof(AddAdviserGoal)}){e3.ToString()}");
+                return BadRequest(e3.Message);
+            }
+        }
+
         // ------------------------------------------------- [ PUT ] -------------------------------------------------
         [HttpPut("{key}/clients/update/{id}")]
         public ActionResult<ClientAccount> UpdateClient(int key, int id, [FromBody] ClientAccount client){
@@ -491,6 +628,48 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpPut("{key}/roles/update/{id}")]
+        public ActionResult<Role> UpdateRole(int key, int id, [FromBody] Role role)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            if (id != role.id)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateRole)}) Role ID({id}) doesn't match body ID({role.id})");
+                return BadRequest($"Role ID({id}) doesn't match body ID({role.id})");
+            }
+
+            try
+            {
+                // Basic validation
+                if (string.IsNullOrWhiteSpace(role.name))
+                {
+                    logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateRole)}) Role name cannot be empty");
+                    return BadRequest("Role name cannot be empty");
+                }
+
+                tecbankService.UpdateRole(role);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateRole)}) Role(ID={role.id}) was updated successfully");
+                return Ok(role);
+            }
+            catch (ServiceException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateRole)}){e1.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+            catch (ArgumentNullException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateRole)}){e2.ToString()}");
+                return BadRequest("Role object doesn't have a valid format");
+            }
+            catch (ArgumentException e3)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateRole)}){e3.ToString()}");
+                return BadRequest(e3.Message);
+            }
+        }
+
         // ------------------------------------------------- [ DELETE ] -------------------------------------------------
         [HttpDelete("{key}/clients/delete/{id}")]
         public ActionResult DeleteClient(int key, int id){
@@ -560,6 +739,38 @@ namespace tecbank.controllers{
             }  catch (ServiceException e2){
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteEmployee)}){e2.ToString()}");
                 return StatusCode(500,"Internal server error");
+            }
+        }
+
+        [HttpDelete("{key}/roles/delete/{id}")]
+        public ActionResult DeleteRole(int key, int id)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            try
+            {
+                // First check if any employees are using this role
+                var employeesWithRole = tecbankService.GetAllEmployees().Where(e => e.role_id == id);
+                if (employeesWithRole.Any())
+                {
+                    logService.Log_New(LogTypes.WARNING, $"(HTTP)(DELETE={nameof(DeleteRole)}) Cannot delete role(ID={id}) as it's assigned to employees");
+                    return BadRequest($"Cannot delete role as it's currently assigned to {employeesWithRole.Count()} employees");
+                }
+
+                tecbankService.RemoveRole(id);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteRole)}) Role(ID={id}) was deleted successfully");
+                return Ok($"Role(ID={id}) was deleted successfully");
+            }
+            catch (ServiceException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteRole)}){e1.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+            catch (KeyNotFoundException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteRole)}){e2.ToString()}");
+                return NotFound($"Role(ID={id}) not found");
             }
         }
     }

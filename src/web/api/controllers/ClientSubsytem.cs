@@ -172,6 +172,29 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpGet("{client_id}/loans/full-report")]
+        public ActionResult<IEnumerable<ClientLoanReportDTO>> GetClientLoanFullReport(int client_id)
+        {
+            try
+            {
+                var report = tecbankService.GetClientLoanReport(client_id);
+                
+                if (report == null || !report.Any())
+                {
+                    logService.Log_New(LogTypes.INFO, $"No active loans found for client {client_id}");
+                    return NotFound($"No active loans found for client {client_id}");
+                }
+
+                logService.Log_New(LogTypes.INFO, $"Generated loan report for client {client_id}");
+                return Ok(report);
+            }
+            catch (ServiceException ex)
+            {
+                logService.Log_New(LogTypes.ERROR, $"Error generating loan report: {ex}");
+                return StatusCode(500, "Error generating loan report");
+            }
+        }
+
         // ------------------------------------------------- [ POST ] -------------------------------------------------
         [HttpPost("login/new")]
         public ActionResult<ClientAccount> Register([FromBody] ClientAccount client){

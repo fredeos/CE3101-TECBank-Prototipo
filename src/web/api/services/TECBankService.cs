@@ -31,6 +31,186 @@ namespace tecbank.services{
         private static DBConnect tecbank_db = new DBConnect(db_file);
         // --------------------------------[ Service functions and methods ]--------------------------------
 
+        // ::. GOALS METHODS
+
+        /// <summary>
+        /// Retrieves all adviser goals from the database
+        /// </summary>
+        public List<AdviserGoal> GetAllAdviserGoals()
+        {
+            try
+            {
+                return tecbank_db.SELECT<AdviserGoal>("goals");
+            }
+            catch (DBMSException e)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves goals for a specific adviser
+        /// </summary>
+        public List<AdviserGoal> GetAdviserGoals(int adviserId)
+        {
+            try
+            {
+                return tecbank_db.SELECT<AdviserGoal>("goals", g => g.adviser_id == adviserId);
+            }
+            catch (DBMSException e)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Adds a new adviser goal to the database
+        /// </summary>
+        /// <param name="goal">The goal to add</param>
+        /// <exception cref="ArgumentNullException">Thrown when goal is null</exception>
+        /// <exception cref="ArgumentException">Thrown when goal data is invalid</exception>
+        /// <exception cref="ServiceException">Thrown for database errors</exception>
+        public void AddAdviserGoal(AdviserGoal goal)
+        {
+            if (goal == null)
+                throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(goal)} is null and therefore not a valid object in the database");
+
+            try
+            {
+                // Verify the adviser exists
+                var adviser = this.Adviser_GetById(goal.adviser_id);
+                if (adviser == null)
+                    throw new ArgumentException($"(TECBANKSERVICE) Adviser(ID={goal.adviser_id}) doesn't exist in database");
+
+                // Set default values if needed
+                if (goal.start_date == default)
+                    goal.start_date = DateTime.Now;
+                    
+                if (goal.limit_date == default)
+                    goal.limit_date = goal.start_date.AddMonths(1);
+
+                tecbank_db.INSERT<AdviserGoal>("goals", goal);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+            catch (KeyNotFoundException e2)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e2.ToString()}");
+            }
+            catch (ArgumentException e3)
+            {
+                throw new ArgumentException($"(TECBANKSERVICE){e3.ToString()}");
+            }
+        }
+
+
+        // ::. ROLE METHODS
+
+        /// <summary>
+        /// Retrieves all roles from the database
+        /// </summary>
+        /// <returns>List of all roles</returns>
+        /// <exception cref="ServiceException">Thrown when there's a database error</exception>
+        public List<Role> GetAllRoles()
+        {
+            try
+            {
+                var roles = tecbank_db.SELECT<Role>("roles");
+                return roles;
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Adds a new role to the database
+        /// </summary>
+        /// <param name="role">The role to add</param>
+        /// <exception cref="ArgumentNullException">Thrown when role is null</exception>
+        /// <exception cref="ServiceException">Thrown when there's a database error</exception>
+        public void AddRole(Role role)
+        {
+            if (role == null)
+                throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(role)} is null and therefore not a valid object in the database");
+            
+            try
+            {
+                // Verify the role doesn't already exist
+                var existingRole = tecbank_db.SELECT<Role>("roles", r => r.id == role.id).FirstOrDefault();
+                if (existingRole != null)
+                    throw new ArgumentException($"(TECBANKSERVICE) Role with ID {role.id} already exists");
+                    
+                tecbank_db.INSERT<Role>("roles", role);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+            catch (KeyNotFoundException e2)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e2.ToString()}");
+            }
+            catch (ArgumentException e3)
+            {
+                throw new ArgumentException($"(TECBANKSERVICE){e3.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Updates an existing role in the database
+        /// </summary>
+        /// <param name="role">The role to update</param>
+        /// <exception cref="ArgumentNullException">Thrown when role is null</exception>
+        /// <exception cref="KeyNotFoundException">Thrown when role doesn't exist</exception>
+        /// <exception cref="ServiceException">Thrown for database errors</exception>
+        public void UpdateRole(Role role)
+        {
+            if (role == null)
+                throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(role)} is null");
+            
+            try
+            {
+                // Verify the role exists
+                var existingRole = tecbank_db.SELECT<Role>("roles", r => r.id == role.id).FirstOrDefault();
+                if (existingRole == null)
+                    throw new KeyNotFoundException($"(TECBANKSERVICE) Role with ID {role.id} doesn't exist");
+                    
+                tecbank_db.MODIFY<Role>("roles", role, (a,b) => a.id == b.id);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+        }
+        
+
+        /// <summary>
+        /// Removes a role from the database
+        /// </summary>
+        /// <param name="id">ID of the role to remove</param>
+        /// <exception cref="KeyNotFoundException">Thrown when role doesn't exist</exception>
+        /// <exception cref="ServiceException">Thrown for database errors</exception>
+        public void RemoveRole(int id)
+        {
+            try
+            {
+                // Verify the role exists
+                var existingRole = tecbank_db.SELECT<Role>("roles", r => r.id == id).FirstOrDefault();
+                if (existingRole == null)
+                    throw new KeyNotFoundException($"(TECBANKSERVICE) Role with ID {id} doesn't exist");
+                    
+                tecbank_db.REMOVE<Role>("roles", r => r.id == id);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+        }
+
         // ::. CLIENT METHODS
 
         /// <summary>
@@ -1100,6 +1280,70 @@ namespace tecbank.services{
                 throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
             } catch (KeyNotFoundException e2){
                 throw new ServiceException($"(TECBANKSERVICE){e2.ToString()}");
+            }
+        }
+
+        // ::. REPORTS METHODS
+
+        /// <summary>
+        /// Generates a loan report for a specific client including overdue payments information.
+        /// </summary>
+        /// <param name="clientId">ID of the client to generate the report for</param>
+        /// <returns>List of loan DTOs with client and payment details</returns>
+        /// <exception cref="ServiceException">Thrown when database errors occur</exception>
+        public List<ClientLoanReportDTO> GetClientLoanReport(int clientId)
+        {
+            try
+            {
+                // Get client information (only if not marked as removed)
+                var client = tecbank_db.SELECT<ClientAccount>("clients", c => c.id == clientId && c.removed == 0)
+                                    .FirstOrDefault();
+
+                // Get all active loans for this client
+                var loans = tecbank_db.SELECT<BankLoan>("loans", l => l.client_id == clientId && l.removed == 0);
+
+                // Transform each loan into a report DTO
+                return loans.Select(loan => 
+                {
+                    // Create base DTO with client and loan info
+                    var dto = new ClientLoanReportDTO
+                    {
+                        FullName = $"{client.name} {client.last_name1} {client.last_name2}",
+                        LoanId = loan.id,
+                        RequestDate = loan.request_date,
+                        RemainingBalance = (float)loan.balance,
+                        TotalAmount = (float)loan.total,
+                        InterestRate = loan.interest_rate
+                    };
+
+                    // Get all overdue payments (state=1) for this loan
+                    var overduePayments = tecbank_db.SELECT<LoanPayment>("payments", 
+                        p => p.loan_id == loan.id && p.state == 1);
+                    
+                    // Add each overdue payment to the DTO
+                    foreach (var payment in overduePayments)
+                    {
+                        dto.OverduePayments.Add(new OverduePaymentInfo
+                        {
+                            PaymentId = payment.id,
+                            DueDate = payment.date,
+                            Amount = (float)payment.total
+                        });
+                    }
+                    return dto;
+                }).ToList();
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+            catch (KeyNotFoundException e2)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e2.ToString()}");
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException($"(TECBANKSERVICE) Error generating loan report: {ex}");
             }
         }
         
