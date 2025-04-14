@@ -198,3 +198,14 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2025-04-13 20:34:15][INFO]: Generated loan report for client 302
 [2025-04-13 20:37:12][INFO]: (HTTP)(GET=GetAdviserGoals) Goals for adviser 109 retrieved successfully
 [2025-04-13 20:37:35][INFO]: (HTTP)(GET=GetAdviserGoals) Goals for adviser 101 retrieved successfully
+[2025-04-13 20:42:38][INFO]: ============= Log Console started
+[2025-04-13 20:42:38][INFO]: (HTTP)(DELETE=DeleteRole) Role(ID=7) was deleted successfully
+[2025-04-13 20:43:53][INFO]: (HTTP)(PUT=UpdateRole) Role(ID=7) was updated successfully
+[2025-04-13 20:44:10][INFO]: (HTTP)(GET=GetRoles) Roles retrieved successfully
+[2025-04-13 21:48:08][INFO]: ============= Log Console started
+[2025-04-13 21:48:08][INFO]: (HTTP)(GET=GetMovements) Bank movements retrieved succesfully
+[2025-04-13 22:22:13][INFO]: ============= Log Console started
+[2025-04-13 22:22:13][WARNING]: (HTTP)(PUT=UpdateAdviserGoal) Path IDs don't match body IDs
+[2025-04-13 22:22:33][INFO]: (HTTP)(PUT=UpdateAdviserGoal) Goal for adviser(ID=101) with currency(ID=3) updated successfully
+[2025-04-13 22:32:23][INFO]: ============= Log Console started
+[2025-04-13 22:32:23][INFO]: (HTTP)(DELETE=DeleteAdviserGoal) Goal for adviser(ID=101) with currency(ID=3) deleted successfully

@@ -106,6 +106,72 @@ namespace tecbank.services{
         }
 
 
+        /// <summary>
+        /// Updates an existing adviser goal in the database
+        /// </summary>
+        /// <param name="goal">The goal to update</param>
+        /// <exception cref="ArgumentNullException">Thrown when goal is null</exception>
+        /// <exception cref="KeyNotFoundException">Thrown when goal doesn't exist</exception>
+        /// <exception cref="ServiceException">Thrown for database errors</exception>
+        public void UpdateAdviserGoal(AdviserGoal goal)
+        {
+            if (goal == null)
+                throw new ArgumentNullException($"(TECBANKSERVICE) {nameof(goal)} is null");
+
+            try
+            {
+                // Verify the goal exists
+                var existingGoal = tecbank_db.SELECT<AdviserGoal>("goals", 
+                    g => g.adviser_id == goal.adviser_id && g.currency_id == goal.currency_id)
+                    .FirstOrDefault();
+                    
+                if (existingGoal == null)
+                    throw new KeyNotFoundException($"(TECBANKSERVICE) Goal for adviser(ID={goal.adviser_id}) with currency(ID={goal.currency_id}) not found");
+
+                // Verify the adviser exists
+                var adviser = this.Adviser_GetById(goal.adviser_id);
+                if (adviser == null)
+                    throw new ArgumentException($"(TECBANKSERVICE) Adviser(ID={goal.adviser_id}) doesn't exist");
+
+                tecbank_db.MODIFY<AdviserGoal>("goals", goal, 
+                    (a, b) => a.adviser_id == b.adviser_id && a.currency_id == b.currency_id);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Removes an adviser goal from the database
+        /// </summary>
+        /// <param name="adviserId">ID of the adviser</param>
+        /// <param name="currencyId">Currency ID of the goal</param>
+        /// <exception cref="KeyNotFoundException">Thrown when goal doesn't exist</exception>
+        /// <exception cref="ServiceException">Thrown for database errors</exception>
+        public void RemoveAdviserGoal(int adviserId, int currencyId)
+        {
+            try
+            {
+                // Verify the goal exists
+                var existingGoal = tecbank_db.SELECT<AdviserGoal>("goals", 
+                    g => g.adviser_id == adviserId && g.currency_id == currencyId)
+                    .FirstOrDefault();
+                    
+                if (existingGoal == null)
+                    throw new KeyNotFoundException($"(TECBANKSERVICE) Goal for adviser(ID={adviserId}) with currency(ID={currencyId}) not found");
+
+                tecbank_db.REMOVE<AdviserGoal>("goals", 
+                    g => g.adviser_id == adviserId && g.currency_id == currencyId);
+            }
+            catch (DBMSException e1)
+            {
+                throw new ServiceException($"(TECBANKSERVICE){e1.ToString()}");
+            }
+        }
+
+
+
         // ::. ROLE METHODS
 
         /// <summary>

@@ -31,19 +31,11 @@
     </value>
     <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <adviser_id>101</adviser_id>
-      <target_profit>400</target_profit>
-      <start_date>2025-04-14T00:15:48.994Z</start_date>
-      <limit_date>2025-05-14T00:15:48.994Z</limit_date>
+      <target_profit>600</target_profit>
+      <start_date>2025-04-14T01:45:05.224Z</start_date>
+      <limit_date>2025-05-14T01:45:05.224Z</limit_date>
       <state>0</state>
-      <currency_id>3</currency_id>
+      <currency_id>1</currency_id>
     </value>
-    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <adviser_id>101</adviser_id>
-  <target_profit>600</target_profit>
-  <start_date>2025-04-14T01:45:05.224Z</start_date>
-  <limit_date>2025-05-14T01:45:05.224Z</limit_date>
-  <state>0</state>
-  <currency_id>1</currency_id>
-</value>
   </tuples>
 </table>

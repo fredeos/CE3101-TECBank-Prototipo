@@ -670,6 +670,41 @@ namespace tecbank.controllers{
             }
         }
 
+        [HttpPut("{key}/goals/update/{adviserId}/{currencyId}")]
+        public ActionResult<AdviserGoal> UpdateAdviserGoal(int key, int adviserId, int currencyId, [FromBody] AdviserGoal goal)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            if (goal.adviser_id != adviserId || goal.currency_id != currencyId)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAdviserGoal)}) Path IDs don't match body IDs");
+                return BadRequest("Path IDs don't match body IDs");
+            }
+
+            try
+            {
+                tecbankService.UpdateAdviserGoal(goal);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(PUT={nameof(UpdateAdviserGoal)}) Goal for adviser(ID={adviserId}) with currency(ID={currencyId}) updated successfully");
+                return Ok(goal);
+            }
+            catch (KeyNotFoundException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAdviserGoal)}){e1.ToString()}");
+                return NotFound("Goal not found");
+            }
+            catch (ArgumentNullException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAdviserGoal)}){e2.ToString()}");
+                return BadRequest("Goal object is null");
+            }
+            catch (ServiceException e3)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(PUT={nameof(UpdateAdviserGoal)}){e3.ToString()}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         // ------------------------------------------------- [ DELETE ] -------------------------------------------------
         [HttpDelete("{key}/clients/delete/{id}")]
         public ActionResult DeleteClient(int key, int id){
@@ -771,6 +806,30 @@ namespace tecbank.controllers{
             {
                 logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteRole)}){e2.ToString()}");
                 return NotFound($"Role(ID={id}) not found");
+            }
+        }
+
+        [HttpDelete("{key}/goals/delete/{adviserId}/{currencyId}")]
+        public ActionResult DeleteAdviserGoal(int key, int adviserId, int currencyId)
+        {
+            if (key != password)
+                return StatusCode(500, "Access key for administrator access is invalid");
+            
+            try
+            {
+                tecbankService.RemoveAdviserGoal(adviserId, currencyId);
+                logService.Log_New(LogTypes.INFO, $"(HTTP)(DELETE={nameof(DeleteAdviserGoal)}) Goal for adviser(ID={adviserId}) with currency(ID={currencyId}) deleted successfully");
+                return Ok($"Goal for adviser(ID={adviserId}) with currency(ID={currencyId}) deleted successfully");
+            }
+            catch (KeyNotFoundException e1)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteAdviserGoal)}){e1.ToString()}");
+                return NotFound("Goal not found");
+            }
+            catch (ServiceException e2)
+            {
+                logService.Log_New(LogTypes.ERROR, $"(HTTP)(DELETE={nameof(DeleteAdviserGoal)}){e2.ToString()}");
+                return StatusCode(500, "Internal server error");
             }
         }
     }
