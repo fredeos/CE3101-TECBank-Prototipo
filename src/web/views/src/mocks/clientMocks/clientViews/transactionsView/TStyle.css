@@ -1,0 +1,608 @@
+.transactions-container {
+/* Dimensiones */
+  min-height: 100vh;
+
+  /* Fondos */
+  background-color: #f8fafc;}
+
+.transactions-content {
+/* Dimensiones */
+  max-width: 1280px;
+
+  /* Márgenes */
+  margin: 0 auto;
+
+  /* Relleno */
+  padding: 1.5rem 1rem;}
+
+.back-link-container {
+/* Márgenes */
+  margin-bottom: 1.5rem;}
+
+.back-link-client {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.25rem;
+
+  /* Relleno */
+  padding-left: 0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.back-link-client:hover {
+/* Relleno */
+  padding-left: 0.25rem;}
+
+.back-icon {
+/* Dimensiones */
+  height: 1rem;
+  width: 1rem;}
+
+.page-header {
+/* Posicionamiento */
+  position: relative;
+
+  /* Márgenes */
+  margin-bottom: 2rem;
+
+  /* Relleno */
+  padding-bottom: 1.5rem;}
+
+.page-header::after {
+/* Posicionamiento */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  /* Dimensiones */
+  width: 60px;
+  height: 4px;
+
+  /* Bordes */
+  border-radius: 2px;
+
+  /* Fondos */
+  background-color: #2563eb;
+
+  /* Otras propiedades */
+  content: "";}
+
+.page-title {
+/* Márgenes */
+  margin-bottom: 0.5rem;
+
+  /* Tipografía */
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.page-description {
+/* Colores y efectos */
+  color: #64748b;}
+
+.tabs-container {
+/* Márgenes */
+  margin-top: 1.5rem;}
+
+.tabs-list {
+/* Modelo de caja */
+  display: flex;
+
+  /* Márgenes */
+  margin-bottom: 1.5rem;
+
+  /* Bordes */
+  border-bottom: 1px solid #e2e8f0;}
+
+.tab-button {
+/* Relleno */
+  padding: 0.75rem 1rem;
+
+  /* Bordes */
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  /* Fondos */
+  background: none;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #64748b;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.tab-button.active {
+/* Colores y efectos */
+  color: #2563eb;
+
+  /* Otras propiedades */
+  border-bottom-color: #2563eb;}
+
+.filters-row {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  flex-direction: column;
+  gap: 1rem;
+
+  /* Márgenes */
+  margin-bottom: 1.5rem;}
+
+.filter-group {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.5rem;}
+
+.filter-icon {
+/* Dimensiones */
+  height: 1rem;
+  width: 1rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.filter-select {
+/* Dimensiones */
+  width: 180px;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.filter-select:focus-within {
+/* Bordes */
+  border-color: #2563eb;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);}
+
+.search-group {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  gap: 0.5rem;
+
+  /* Dimensiones */
+  width: 100%;}
+
+.search-input-container {
+/* Posicionamiento */
+  position: relative;
+
+  /* Flexbox y Grid */
+  flex: 1;}
+
+.search-icon {
+/* Posicionamiento */
+  position: absolute;
+  left: 0.625rem;
+  top: 0.625rem;
+
+  /* Dimensiones */
+  height: 1rem;
+  width: 1rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.search-input {
+/* Dimensiones */
+  width: 100%;
+
+  /* Relleno */
+  padding-left: 2rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.search-input:focus {
+/* Bordes */
+  border-color: #2563eb;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);}
+
+.download-button {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  justify-content: center;
+
+  /* Dimensiones */
+  width: 2.5rem;
+  height: 2.5rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Colores y efectos */
+  color: #64748b;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.download-button:hover {
+/* Fondos */
+  background-color: #f8fafc;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.download-icon {
+/* Dimensiones */
+  height: 1rem;
+  width: 1rem;}
+
+.transactions-table-card {
+/* Modelo de caja */
+  overflow: hidden;
+
+  /* Bordes */
+  border-radius: 0.75rem;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Colores y efectos */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);}
+
+.table-container {
+/* Modelo de caja */
+  overflow-x: auto;
+
+  /* Dimensiones */
+  width: 100%;}
+
+.transactions-table {
+/* Dimensiones */
+  width: 100%;
+
+  /* Otras propiedades */
+  border-collapse: collapse;}
+
+.table-header {
+/* Fondos */
+  background-color: #f8fafc;
+
+  /* Tipografía */
+  text-align: left;}
+
+.table-header-cell {
+/* Relleno */
+  padding: 0.75rem 1rem;
+
+  /* Tipografía */
+  font-weight: 600;
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.table-row {
+/* Bordes */
+  border-bottom: 1px solid #f1f5f9;}
+
+.table-row:last-child {
+/* Bordes */
+  border-bottom: none;}
+
+.table-cell {
+/* Relleno */
+  padding: 0.75rem 1rem;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.date-cell {
+/* Tipografía */
+  font-weight: 500;
+  font-size: 0.875rem;}
+
+.description-cell {
+/* Tipografía */
+  font-weight: 400;}
+
+.type-cell {
+/* Tipografía */
+  text-align: center;}
+
+.amount-cell {
+/* Tipografía */
+  text-align: right;
+  font-weight: 600;}
+
+.balance-cell {
+/* Tipografía */
+  text-align: right;
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.deposit-badge {
+/* Modelo de caja */
+  display: inline-flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.25rem;
+
+  /* Relleno */
+  padding: 0.25rem 0.5rem;
+
+  /* Bordes */
+  border-radius: 9999px;
+  border: 1px solid #a7f3d0;
+
+  /* Fondos */
+  background-color: #ecfdf5;
+
+  /* Tipografía */
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #047857;}
+
+.withdrawal-badge {
+/* Modelo de caja */
+  display: inline-flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.25rem;
+
+  /* Relleno */
+  padding: 0.25rem 0.5rem;
+
+  /* Bordes */
+  border-radius: 9999px;
+  border: 1px solid #fecaca;
+
+  /* Fondos */
+  background-color: #fee2e2;
+
+  /* Tipografía */
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #b91c1c;}
+
+.deposit-icon {
+/* Dimensiones */
+  height: 0.75rem;
+  width: 0.75rem;}
+
+.withdrawal-icon {
+/* Dimensiones */
+  height: 0.75rem;
+  width: 0.75rem;}
+
+.deposit-amount {
+/* Colores y efectos */
+  color: #047857;}
+
+.withdrawal-amount {
+/* Colores y efectos */
+  color: #b91c1c;}
+
+.empty-state {
+/* Relleno */
+  padding: 2rem;
+
+  /* Tipografía */
+  text-align: center;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.cards-grid-transactions {
+/* Modelo de caja */
+  display: grid;
+
+  /* Flexbox y Grid */
+  gap: 1.5rem;
+
+  /* Otras propiedades */
+  grid-template-columns: repeat(1, 1fr);}
+
+.debit-card {
+/* Modelo de caja */
+  overflow: hidden;
+
+  /* Bordes */
+  border-radius: 0.75rem;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Colores y efectos */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);}
+
+.card-header {
+/* Relleno */
+  padding: 1.25rem;
+
+  /* Bordes */
+  border-bottom: 1px solid #f1f5f9;}
+
+.card-header-content {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+  align-items: flex-start;}
+
+.card-info {
+/* Flexbox y Grid */
+  flex: 1;}
+
+.card-type {
+/* Márgenes */
+  margin-bottom: 0.25rem;
+
+  /* Tipografía */
+  font-size: 1.125rem;
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.card-number {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.card-icon {
+/* Dimensiones */
+  height: 1.5rem;
+  width: 1.5rem;
+
+  /* Colores y efectos */
+  color: #2563eb;}
+
+.card-details {
+/* Relleno */
+  padding: 1.25rem;}
+
+.card-details-grid {
+/* Modelo de caja */
+  display: grid;
+
+  /* Flexbox y Grid */
+  gap: 1rem;
+
+  /* Márgenes */
+  margin-bottom: 1rem;
+
+  /* Otras propiedades */
+  grid-template-columns: repeat(2, 1fr);}
+
+.card-detail-item {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  flex-direction: column;
+  gap: 0.25rem;}
+
+.detail-label {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.detail-value {
+/* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.card-status {
+/* Modelo de caja */
+  display: inline-flex;
+
+  /* Márgenes */
+  margin-top: 0.25rem;
+
+  /* Relleno */
+  padding: 0.25rem 0.5rem;
+
+  /* Bordes */
+  border-radius: 9999px;
+  border: 1px solid #a7f3d0;
+
+  /* Fondos */
+  background-color: #ecfdf5;
+
+  /* Tipografía */
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #047857;}
+
+.card-actions {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  gap: 0.5rem;
+
+  /* Márgenes */
+  margin-top: 1rem;}
+
+.card-action-button {
+/* Relleno */
+  padding: 0.5rem 0.75rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Tipografía */
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #1e293b;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.card-action-button:hover {
+/* Fondos */
+  background-color: #f8fafc;}
+
+.block-button {
+/* Colores y efectos */
+  color: #ef4444;}
+
+.block-button:hover {
+/* Fondos */
+  background-color: #fee2e2;}

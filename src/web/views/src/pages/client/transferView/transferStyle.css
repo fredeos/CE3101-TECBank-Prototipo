@@ -1,0 +1,530 @@
+.transfer-container {
+/* Dimensiones */
+  min-height: 100vh;
+
+  /* Fondos */
+  background-color: #f8fafc;}
+
+.transfer-content {
+/* Dimensiones */
+  max-width: 48rem;
+
+  /* Márgenes */
+  margin: 0 auto;
+
+  /* Relleno */
+  padding: 1.5rem 1rem;}
+
+.back-button-container {
+/* Márgenes */
+  margin-bottom: 1.5rem;}
+
+.back-button {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.25rem;
+
+  /* Relleno */
+  padding-left: 0;
+
+  /* Bordes */
+  border: none;
+
+  /* Fondos */
+  background: none;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #64748b;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.back-button:hover {
+/* Relleno */
+  padding-left: 0.25rem;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.back-icon {
+/* Dimensiones */
+  height: 1rem;
+  width: 1rem;}
+
+.page-header {
+/* Posicionamiento */
+  position: relative;
+
+  /* Márgenes */
+  margin-bottom: 2rem;
+
+  /* Relleno */
+  padding-bottom: 1.5rem;}
+
+.page-header::after {
+/* Posicionamiento */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  /* Dimensiones */
+  width: 60px;
+  height: 4px;
+
+  /* Bordes */
+  border-radius: 2px;
+
+  /* Fondos */
+  background-color: #2563eb;
+
+  /* Otras propiedades */
+  content: "";}
+
+.page-title {
+/* Márgenes */
+  margin-bottom: 0.5rem;
+
+  /* Tipografía */
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.page-description {
+/* Colores y efectos */
+  color: #64748b;}
+
+.transfer-card {
+/* Modelo de caja */
+  overflow: hidden;
+
+  /* Bordes */
+  border-radius: 0.75rem;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Colores y efectos */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);}
+
+.card-header {
+/* Relleno */
+  padding: 1.5rem 1.5rem 0.75rem;
+
+  /* Bordes */
+  border-bottom: 1px solid #f1f5f9;}
+
+.card-title {
+/* Márgenes */
+  margin-bottom: 0.25rem;
+
+  /* Tipografía */
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.card-description {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.card-content-transfer {
+/* Relleno */
+  padding: 1.5rem;}
+
+.form-container-transfer {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  flex-direction: column;
+  gap: 1.5rem;}
+
+.form-group-client {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  flex-direction: column;
+  gap: 0.5rem;}
+
+.form-label {
+/* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.form-select {
+/* Dimensiones */
+  width: 100%;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.form-select:focus-within {
+/* Bordes */
+  border-color: #2563eb;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);}
+
+.account-option {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+  align-items: center;
+
+  /* Dimensiones */
+  width: 100%;}
+
+.account-balance {
+/* Relleno */
+  padding-left: 2rem;
+
+  /* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.form-input {
+/* Dimensiones */
+  width: 100%;
+
+  /* Relleno */
+  padding: 0.625rem 0.75rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.form-input:focus {
+/* Bordes */
+  border-color: #2563eb;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);}
+
+.amount-input-container {
+/* Posicionamiento */
+  position: relative;
+
+  /* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;}
+
+.currency-symbol {
+/* Posicionamiento */
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  z-index: 10;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #4a5568;
+
+  /* Otras propiedades */
+  transform: translateY(-50%);}
+
+.amount-input {
+/* Relleno */
+  padding-left: 1.75rem;}
+
+.form-textarea {
+/* Dimensiones */
+  width: 100%;
+  min-height: 5rem;
+
+  /* Relleno */
+  padding: 0.625rem 0.75rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Otras propiedades */
+  resize: vertical;}
+
+.form-textarea:focus {
+/* Bordes */
+  border-color: #2563eb;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);}
+
+.confirm-container {
+/* Márgenes */
+  margin-bottom: 1.5rem;
+
+  /* Relleno */
+  padding: 1.5rem;
+
+  /* Bordes */
+  border-radius: 0.5rem;
+
+  /* Fondos */
+  background-color: #f1f5f9;}
+
+.transfer-flow {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+  align-items: center;
+
+  /* Márgenes */
+  margin-bottom: 1.5rem;}
+
+.account-details {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  flex-direction: column;
+  gap: 0.25rem;}
+
+.account-label {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.account-name {
+/* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.account-number {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.arrow-icon {
+/* Dimensiones */
+  height: 1.25rem;
+  width: 1.25rem;
+
+  /* Colores y efectos */
+  color: #94a3b8;}
+
+.transfer-details {
+/* Relleno */
+  padding-top: 1rem;
+
+  /* Bordes */
+  border-top: 1px solid #e2e8f0;}
+
+.detail-row {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+
+  /* Márgenes */
+  margin-bottom: 0.5rem;}
+
+.detail-label {
+/* Colores y efectos */
+  color: #64748b;}
+
+.detail-value {
+/* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.detail-value-small {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.total-row {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+
+  /* Márgenes */
+  margin-top: 0.5rem;
+
+  /* Relleno */
+  padding-top: 0.5rem;
+
+  /* Bordes */
+  border-top: 1px solid #e2e8f0;
+
+  /* Tipografía */
+  font-weight: 600;}
+
+.description-section {
+/* Márgenes */
+  margin-top: 1rem;
+
+  /* Relleno */
+  padding-top: 1rem;
+
+  /* Bordes */
+  border-top: 1px solid #e2e8f0;}
+
+.description-label {
+/* Márgenes */
+  margin-bottom: 0.25rem;
+
+  /* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.info-box {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  /* Relleno */
+  padding: 0.75rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+
+  /* Fondos */
+  background-color: #dbeafe;}
+
+.info-icon {
+/* Dimensiones */
+  height: 1.25rem;
+  width: 1.25rem;
+
+  /* Márgenes */
+  margin-top: 0.125rem;
+
+  /* Colores y efectos */
+  color: #2563eb;}
+
+.info-text {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #1e40af;}
+
+.form-actions {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+
+  /* Márgenes */
+  margin-top: 2rem;}
+
+.back-link-container {
+/* Márgenes */
+  margin-bottom: 1.5rem;}
+
+.back-link-client {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  align-items: center;
+  gap: 0.25rem;
+
+  /* Relleno */
+  padding-left: 0;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.back-link-client:hover {
+/* Relleno */
+  padding-left: 0.25rem;}
+
+.back-icon {
+/* Dimensiones */
+  height: 1rem;
+  width: 1rem;}
+
+.submit-action {
+/* Relleno */
+  padding: 0.625rem 1.25rem;
+
+  /* Bordes */
+  border-radius: 0.375rem;
+  border: none;
+
+  /* Fondos */
+  background-color: #2563eb;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: white;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.submit-action:hover {
+/* Fondos */
+  background-color: #1d4ed8;}
+
+.submit-action:disabled {
+/* Fondos */
+  background-color: #94a3b8;
+
+  /* Interactividad */
+  cursor: not-allowed;}
+
+.full-width {
+/* Dimensiones */
+  width: 100%;}

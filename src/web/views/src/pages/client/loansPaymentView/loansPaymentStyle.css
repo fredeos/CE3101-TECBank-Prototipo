@@ -1,0 +1,319 @@
+.loan-payments-container {
+/* Dimensiones */
+  min-height: 100vh;
+
+  /* Fondos */
+  background-color: #f8fafc;}
+
+.loan-header {
+/* Posicionamiento */
+  position: relative;
+
+  /* Márgenes */
+  margin-bottom: 2rem;
+
+  /* Relleno */
+  padding-bottom: 1.5rem;}
+
+.loan-header::after {
+/* Posicionamiento */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  /* Dimensiones */
+  width: 60px;
+  height: 4px;
+
+  /* Bordes */
+  border-radius: 2px;
+
+  /* Fondos */
+  background-color: #3b82f6;
+
+  /* Otras propiedades */
+  content: "";}
+
+.loan-card {
+/* Modelo de caja */
+  overflow: hidden;
+
+  /* Bordes */
+  border-radius: 12px;
+
+  /* Colores y efectos */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Transiciones y animaciones */
+  transition: all 0.3s ease;}
+
+.loan-card:hover {
+/* Colores y efectos */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);}
+
+.loan-select {
+/* Bordes */
+  border-radius: 8px;
+  border: 1px solid #e2e8f000;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.loan-select:focus-within {
+/* Bordes */
+  border-color: #223d6800;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(59, 131, 246, 0);}
+
+.loan-details-card {
+/* Modelo de caja */
+  overflow: hidden;
+
+  /* Bordes */
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+
+  /* Fondos */
+  background-color: #f1f5f9;}
+
+.loan-details-header {
+/* Relleno */
+  padding: 1rem;
+
+  /* Bordes */
+  border-bottom: 1px solid #c7d2fe;
+
+  /* Fondos */
+  background-color: #e0e7ff;}
+
+.loan-details-content {
+/* Relleno */
+  padding: 1rem;}
+
+.loan-details-row {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+
+  /* Relleno */
+  padding: 0.5rem 0;
+
+  /* Bordes */
+  border-bottom: 1px dashed #e2e8f0;}
+
+.loan-details-row:last-child {
+/* Bordes */
+  border-bottom: none;}
+
+.loan-details-label {
+/* Tipografía */
+  font-size: 0.875rem;
+
+  /* Colores y efectos */
+  color: #64748b;}
+
+.loan-details-value {
+/* Tipografía */
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.payment-type-radio {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  gap: 1rem;
+
+  /* Márgenes */
+  margin: 1rem 0;}
+
+.payment-type-option {
+/* Flexbox y Grid */
+  flex: 1;
+
+  /* Relleno */
+  padding: 1rem;
+
+  /* Bordes */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;
+
+  /* Interactividad */
+  cursor: pointer;}
+
+.payment-type-option.selected {
+/* Bordes */
+  border-color: #3b82f6;
+
+  /* Fondos */
+  background-color: #eff6ff;}
+
+.payment-amount-input {
+/* Relleno */
+  padding: 0.75rem 1rem 0.75rem 1.75rem;
+
+  /* Bordes */
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+
+  /* Tipografía */
+  font-size: 1rem;}
+
+.payment-amount-input:focus {
+/* Bordes */
+  border-color: #3b82f6;
+
+  /* Colores y efectos */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);}
+
+.currency-symbol {
+/* Posicionamiento */
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #64748b;
+
+  /* Otras propiedades */
+  transform: translateY(-50%);}
+
+.payment-date {
+/* Relleno */
+  padding: 0.75rem;
+
+  /* Bordes */
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+
+  /* Fondos */
+  background-color: #f8fafc;
+
+  /* Tipografía */
+  font-size: small;
+  font-weight: 500;}
+
+.confirm-section {
+/* Relleno */
+  padding: 1.5rem;
+
+  /* Bordes */
+  border-radius: 10px;
+
+  /* Fondos */
+  background-color: #f1f5f9;}
+
+.confirm-row {
+/* Modelo de caja */
+  display: flex;
+
+  /* Flexbox y Grid */
+  justify-content: space-between;
+
+  /* Relleno */
+  padding: 0.75rem 0;
+
+  /* Bordes */
+  border-bottom: 1px solid #e2e8f0;}
+
+.confirm-row:last-child {
+/* Bordes */
+  border-bottom: none;}
+
+.confirm-label {
+/* Colores y efectos */
+  color: #64748b;}
+
+.confirm-value {
+/* Tipografía */
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: #1e293b;}
+
+.confirm-amount {
+/* Tipografía */
+  font-size: large;
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: #0f172a;}
+
+.info-box {
+/* Relleno */
+  padding: 1rem;
+
+  /* Bordes */
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
+
+  /* Fondos */
+  background-color: #dbeafe;}
+
+.submit-button {
+/* Relleno */
+  padding: 0.75rem 1.5rem;
+
+  /* Bordes */
+  border-radius: 8px;
+
+  /* Fondos */
+  background-color: #3b82f6;
+
+  /* Tipografía */
+  font-weight: 600;
+
+  /* Colores y efectos */
+  color: white;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.submit-button:hover {
+/* Fondos */
+  background-color: #2563eb;}
+
+.submit-button:disabled {
+/* Fondos */
+  background-color: #94a3b8;
+
+  /* Interactividad */
+  cursor: not-allowed;}
+
+.back-button-x {
+/* Relleno */
+  padding: 0.75rem 1.5rem;
+
+  /* Bordes */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  /* Fondos */
+  background-color: white;
+
+  /* Tipografía */
+  font-weight: 500;
+
+  /* Colores y efectos */
+  color: #64748b;
+
+  /* Transiciones y animaciones */
+  transition: all 0.2s ease;}
+
+.back-button-x:hover {
+/* Fondos */
+  background-color: #f8fafc;
+
+  /* Colores y efectos */
+  color: #334155;}
