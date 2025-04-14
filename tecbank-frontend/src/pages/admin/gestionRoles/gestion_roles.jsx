@@ -1,5 +1,6 @@
 // This file is not directly used but shows how you could separate the role management into its own component
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Plus, Pencil, Trash2, AlignCenter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,13 +12,16 @@ import "./gestion_roles.css"
 
 export default function RoleManagement({ onBack }) {
     
+    // Navegar por direcciones
+    const navigate = useNavigate()
+
     // Ejemplos de datos de los roles
     const [roles, setRoles] = useState([
-        {id: 1, name: "Administrator", description: "Full access to all system functions"},
-        {id: 2, name: "Manager", description: "Access to manage users and view reports"},
-        {id: 3, name: "Teller", description: "Process customer transactions"},
-        {id: 4, name: "Auditor", description: "View-only access to transactions and reports"},
-        {id: 5, name: "Customer Service", description: "Handle customer inquiries and basic account management"}
+        {id: 1, name: "Administrador", description: "Tiene asesor a todas las funciones del sistema"},
+        {id: 2, name: "Asesor de ventas", description: "Brinda préstamos a los clientes y asesoría con respecto a ello"},
+        {id: 3, name: "Contador", description: "Se encarga de temas económicos internos del banco"},
+        {id: 4, name: "Abogado", description: "Se encarga de temas legales del banco, tanto para servicios de clientes como propios del banco"},
+        {id: 5, name: "Guarda", description: "Se encarga de la seguridad del banco, en sus instalaciones"}
     ])
 
     // Control de estados para cuando se edita algun rol o se agrega uno nuevo
@@ -61,7 +65,7 @@ export default function RoleManagement({ onBack }) {
     return (
     <div className="role-management-container">
         <div className="role-header">
-            <Button variant="ghost" className="mr-4" onClick={onBack}>
+            <Button variant="ghost" className="mr-4" onClick={() => navigate("/adminDashboard")}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Volver al panel de control
             </Button>
             <h1 className="role-title">Gestion de Roles</h1>

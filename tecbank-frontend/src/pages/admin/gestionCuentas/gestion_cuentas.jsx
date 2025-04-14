@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Plus, Pencil, Trash2, Search, X, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -12,13 +13,16 @@ import "./gestion_cuentas.css"
 
 export default function AccountManagement({ onBack }) {
     
+    // Navegar por direcciones
+    const navigate = useNavigate()
+
     // Ejemplos de como debería ir la información de las cuentas
     const [accounts, setAccounts] = useState([
     {
         id: "ACC-10001",
         type: 1, // de ahorros
         balance: 5000.75,
-        description: "Primary savings account",
+        description: "Cuenta de ahorros primaria",
         currency_id: 1, // USD
         client_id: "123456789",
         rem_state: 0,
@@ -27,7 +31,7 @@ export default function AccountManagement({ onBack }) {
         id: "ACC-10002",
         type: 2, // corriente
         balance: 2500.5,
-        description: "Business checking account",
+        description: "Cuenta corriente de negocios",
         currency_id: 1, // USD
         client_id: "CORP123456",
         rem_state: 0,
@@ -36,7 +40,7 @@ export default function AccountManagement({ onBack }) {
         id: "ACC-10003",
         type: 1, // de ahorros
         balance: 10000.0,
-        description: "High-interest savings",
+        description: "Cuenta de ahorros de alto interes",
         currency_id: 2, // EUR
         client_id: "987654321",
         rem_state: 0,
@@ -45,7 +49,7 @@ export default function AccountManagement({ onBack }) {
         id: "ACC-10004",
         type: 2, // corriente
         balance: 7500.25,
-        description: "Personal checking account",
+        description: "Cuenta personal corriente",
         currency_id: 3, // CRC
         client_id: "123456789",
         rem_state: 0,
@@ -149,7 +153,7 @@ export default function AccountManagement({ onBack }) {
 
     // Función para obtener el label del tipo de cuenta (texto que se observa en la tabla)
     const getAccountTypeLabel = (type) => {
-        return type === 1 ? "Savings" : "Checking"
+        return type === 1 ? "De ahorros" : "Corriente"
     }
 
     // Función pára obtener el label de la moneda (se observa en la tabla)
@@ -165,7 +169,7 @@ export default function AccountManagement({ onBack }) {
     return (
         <div className="account-management-container">
             <div className="header-container">
-                <Button variant="ghost" className="mr-4" onClick={onBack}>
+                <Button variant="ghost" className="mr-4" onClick={() => navigate("/adminDashboard")}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Volver al panel de control
                 </Button>
                 <h1 className="header-title">Gestión de Cuentas</h1>

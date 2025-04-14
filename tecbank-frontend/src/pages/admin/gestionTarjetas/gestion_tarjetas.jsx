@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Plus, Pencil, Trash2, Search, X, DollarSign } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,9 @@ import "./gestion_tarjetas.css"
 
 export default function CardManagement({ onBack }) {
     
+    // Navegar por direcciones
+    const navigate = useNavigate()
+
     // Ejemplos de cuentas de clientes (info necesaria paara crear una tarjeta)
     const [accounts, setAccounts] = useState([
         {
@@ -199,7 +203,7 @@ export default function CardManagement({ onBack }) {
     return (
         <div className="card-management-container">
             <div className="header-container">
-                <Button variant="ghost" className="mr-4" onClick={onBack}>
+                <Button variant="ghost" className="mr-4" onClick={() => navigate("/adminDashboard")}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Volver al panel de control
                 </Button>
                 <h1 className="header-title">Gestión de Tarjetas</h1>

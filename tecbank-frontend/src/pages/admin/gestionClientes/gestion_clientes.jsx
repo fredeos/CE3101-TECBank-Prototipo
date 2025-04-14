@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,10 @@ import { Textarea } from "@/components/ui/textarea"
 import "./gestion_clientes.css"
 
 export default function ClientManagement({ onBack }) {
+
+    // Navegar por direcciones
+    const navigate = useNavigate()
+
     // Ejemplos de datos de clientes
     const [clients, setClients] = useState([
         {
@@ -131,7 +136,7 @@ export default function ClientManagement({ onBack }) {
     return (
         <div className="client-management-container">
             <div className="header-container">
-                <Button variant="ghost" onClick={onBack}>
+                <Button variant="ghost" onClick={() => navigate("/adminDashboard")}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Volver al panel de control
                 </Button>
                 <h1 className="header-title">Gestion de Clientes</h1>

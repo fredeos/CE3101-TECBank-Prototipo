@@ -9,12 +9,18 @@ import { useNavigate } from "react-router-dom"
 const AdminDashboard = () => {
   // Admin user info
   const adminUser = {
-    name: "Admin User",
-    email: "admin@bankname.com",
+    name: "Admin",
+    email: "admin@gmail.com",
   }
   const navigate = useNavigate()
 
-  const goToPrueba = () => navigate("/gestion-roles")
+  const goToGestionRoles = () => navigate("/gestion-roles")
+  const goToGestionClientes = () => navigate("/gestion-clientes")
+  const goToGestionCuentas = () => navigate("/gestion-cuentas-admin")
+  const goToGestionTarjetas = () => navigate("/gestion-tarjetas-admin")
+  const goToGestionEmpleados = () => navigate("/gestion-empleados-admin")
+  const goToGestionPrestamos = () => navigate("/adminDashboard")
+  const goToGestionMora = () => navigate("/adminDashboard")
   
   // Admin options for the dashboard
   const adminOptions = [
@@ -22,43 +28,43 @@ const AdminDashboard = () => {
       title: "Gestión de roles",
       icon: UserPlus,
       colorClass: "icon-container-blue",
-      NavLink: goToPrueba
+      NavLink: goToGestionRoles
     },
     {
       title: "Gestión de clientes",
       icon: Users,
       colorClass: "icon-container-green",
-      NavLink: goToPrueba
+      NavLink: goToGestionClientes
     },
     {
       title: "Gestión de cuentas",
       icon: CreditCard,
       colorClass: "icon-container-purple",
-      NavLink: goToPrueba
+      NavLink: goToGestionCuentas
     },
     {
       title: "Gestión de tarjetas",
       icon: CreditCard,
       colorClass: "icon-container-amber",
-      NavLink: goToPrueba
+      NavLink: goToGestionTarjetas
     },
     {
-      title: "Gestión de asesores de crédito",
+      title: "Gestión de empleados",
       icon: UserPlus,
       colorClass: "icon-container-rose",
-      NavLink: goToPrueba
+      NavLink: goToGestionEmpleados
     },
     {
       title: "Gestión de préstamos",
       icon: BarChart3,
       colorClass: "icon-container-cyan",
-      NavLink: goToPrueba
+      NavLink: goToGestionPrestamos
     },
     {
       title: "Gestión de mora",
       icon: Settings,
       colorClass: "icon-container-slate",
-      NavLink: goToPrueba
+      NavLink: goToGestionMora
     }
   ]
 
