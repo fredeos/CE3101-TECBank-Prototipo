@@ -340,7 +340,7 @@ function MoneyTransfer() {
 
               <div className="form-actions">
                 {step === 2 && (
-                  <button type="button" className="back-action" onClick={() => setStep(1)}>
+                  <button type="button" className="back-button" onClick={() => setStep(1)}>
                     Atrás
                   </button>
                 )}

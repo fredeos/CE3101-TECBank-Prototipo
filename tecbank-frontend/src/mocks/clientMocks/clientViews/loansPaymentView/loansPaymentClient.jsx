@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import "./loansPaymentStyle.css"
+import "./LPStyle.css"
 
 import { loans } from "@/mocks/clientMocks/clientLoans"
 import { sourceAccounts } from "@/mocks/clientMocks/clientAccounts"

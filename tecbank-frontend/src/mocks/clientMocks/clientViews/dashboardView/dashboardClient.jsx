@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { toast, Toaster } from "sonner"
-import "./dashboardStyle.css"
+import "./DBStyle.css"
 
 import { client } from "@/mocks/clientMocks/clientInf" // Importar el cliente mockeado
 

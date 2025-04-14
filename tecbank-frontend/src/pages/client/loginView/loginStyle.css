@@ -1,7 +1,7 @@
 /* Estilos personalizados para el formulario de inicio de sesión */
 
 .login-container {
-  background-color: #f8fafc;
+  background-color: #1e3c72;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,17 +9,22 @@
   padding: 1.5rem;
 }
 
+.log-background {
+  background-color: #1e3c72;
+}
+
 .login-card {
+  background-color: #ffff;
   width: 100%;
   max-width: 28rem;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.288);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.233);
 }
 
 .login-header-client {

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react" // Importa useEffect
 import { useNavigate } from "react-router-dom"
 import { toast, Toaster } from "sonner"
 import { AlertCircle } from "lucide-react"
-import "./loginStyle.css"
+import "./LIStyle.css"
 
 function LoginClient() {
   const [username, setUsername] = useState("")

@@ -113,7 +113,6 @@ function LoginClient() {
 
   return (
     <div className="login-container">
-
       {/* Encabezado */}
       <div className="login-card">
         <div className="login-header-client ">
@@ -174,7 +173,6 @@ function LoginClient() {
 
         </div>
       </div>
-
       <Toaster position="bottom-right" />
 
     </div>

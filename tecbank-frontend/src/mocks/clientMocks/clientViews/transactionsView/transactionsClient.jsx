@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import "./transactionsStyle.css"
+import "./TStyle.css"
 
 import { cards } from "@/mocks/clientMocks/clientCards"
 import { sourceAccounts } from "@/mocks/clientMocks/clientAccounts"

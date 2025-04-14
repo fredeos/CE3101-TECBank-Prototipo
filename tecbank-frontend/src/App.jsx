@@ -1,4 +1,4 @@
- // CLiente con los valores mockeados (valores prestablecidos)
+/*  // CLiente con los valores mockeados (valores prestablecidos)
 
 import './App.css'
 
@@ -46,12 +46,12 @@ function App() {
   );
 }
 
-export default App
+export default App */
 
 
 
 
-/* // Cliente conectado al backend con los POST
+// Cliente conectado al backend con los POST
 
 import './App.css'
 import { AuthProvider } from './context/AuthContext'
@@ -101,4 +101,4 @@ function App() {
   );
 }
 
-export default App */
+export default App
