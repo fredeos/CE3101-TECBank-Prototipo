@@ -136,8 +136,11 @@ fun LoginScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(16.dp))
         Text("Don't you have an account?")
-        TextButton(onClick = { /* Aún no implementado */ }) {
+        TextButton(onClick = {
+            navController.navigate("signup")
+        }) {
             Text("Sign up", textDecoration = TextDecoration.Underline)
         }
+
     }
 }

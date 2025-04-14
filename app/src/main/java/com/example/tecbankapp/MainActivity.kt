@@ -29,8 +29,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
@@ -78,6 +76,11 @@ fun MyApp() {
                 Text("Error: clientId inválido")
             }
         }
+
+        composable("signup") {
+            SignUpScreen(navController = navController)
+        }
+
 
 
 
