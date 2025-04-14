@@ -1,34 +1,34 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.tecbankapp
-import com.example.tecbankapp.ui.theme.Screen
-import com.example.tecbankapp.network.RetrofitInstance
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.*
+import androidx.compose.ui.text.input.*
+import androidx.compose.ui.unit.*
 import androidx.navigation.NavHostController
-import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.*
+import org.json.JSONObject
+import java.io.*
+import java.net.*
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+
+
+
 
 @Composable
-fun LoginScreen(
-    navController: NavHostController,
-    onLoginSuccess: () -> Unit,
-    onGoToRegister: () -> Unit
-) {
+fun LoginScreen(navController: NavHostController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -42,6 +42,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text("User name:", fontWeight = FontWeight.Bold)
+
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
@@ -55,7 +56,8 @@ fun LoginScreen(
             value = password,
             onValueChange = { password = it },
             modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation()
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -63,34 +65,82 @@ fun LoginScreen(
         Button(onClick = {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val response = RetrofitInstance.api.obtenerClientePorUsuario(username, password)
-                    if (response.isSuccessful) {
-                        val cliente = response.body()
-                        if (cliente != null) {
-                            withContext(Dispatchers.Main) {
-                                navController.navigate("api") {
-                                    popUpTo(Screen.Login.route) { inclusive = true }
-                                }
-                            }
-                        } else {
-                            Log.e("LOGIN", "Usuario o contraseña incorrectos")
+                    val url = URL("http://10.0.2.2:5055/services/client/login?user=$username&pass=$password")
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connectTimeout = 5000
+                    connection.readTimeout = 5000
+                    connection.setRequestProperty("Content-Type", "application/json")
+
+                    val json = JSONObject()
+                    json.put("user", username)
+                    json.put("pass", password)
+
+
+
+                    //Lee la respuesta
+                    val code = connection.responseCode
+                    Log.d("LOGIN", "Código HTTP recibido: $code")
+                    val response: String
+
+                    if (code == 200) {
+                        val input = BufferedReader(InputStreamReader(connection.inputStream))
+                        response = input.readText()
+                        input.close()
+
+                        val jsonResponse = JSONObject(response)
+                        val clientId = jsonResponse.getInt("id")
+                        //val accountId = jsonResponse.getJSONArray("accounts").getJSONObject(0).getString("id")
+
+                        // Extraer los campos del nombre
+                        val name = jsonResponse.getString("name")
+                        val last1 = jsonResponse.getString("last_name1")
+                        val last2 = jsonResponse.getString("last_name2")
+
+                        val fullName = "$name $last1 $last2"
+
+                        // Si todo sale bien, va a otra pantalla
+                        withContext(Dispatchers.Main) {
+                            navController.navigate("home/${URLEncoder.encode(fullName, "UTF-8")}/$clientId")
+
+
+                            Log.d("LOGIN", "Login exitoso. Navegando a Home")
+
+                        }
+                    } else {
+                        val error = BufferedReader(InputStreamReader(connection.errorStream))
+                        response = error.readText()
+                        error.close()
+
+                        withContext(Dispatchers.Main) {
+                            Log.e("LOGIN", "Error HTTP: $code\n$response")
+                            Log.e("LOGIN", errorMessage)
                         }
                     }
+
                 } catch (e: Exception) {
-                    Log.e("LOGIN", "Error: ${e.message}")
+                    withContext(Dispatchers.Main) {
+                        errorMessage = "Network error: ${e.message}"
+                        Log.e("LOGIN", errorMessage)
+                    }
                 }
             }
         }) {
             Text("Login")
         }
 
+        if (errorMessage.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(errorMessage, color = MaterialTheme.colorScheme.error)
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
-
         Text("Don't you have an account?")
-
-        TextButton(onClick = onGoToRegister) {
+        TextButton(onClick = {
+            navController.navigate("signup")
+        }) {
             Text("Sign up", textDecoration = TextDecoration.Underline)
         }
+
     }
 }

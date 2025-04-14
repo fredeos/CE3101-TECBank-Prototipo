@@ -1,7 +1,10 @@
+
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.tecbankapp
 
+package com.example.tecbankapp
+import android.adservices.adid.AdId
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,53 +15,39 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tecbankapp.models.User
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineScope
+
 
 
 @Composable
-fun HomeScreen(navController: NavController, user: User) {
+fun HomeScreen(navController: NavHostController, username:String, clientId: Int) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    // Drawer a la izquierda con menú
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
                 Text(
-                    text = "Menú",
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.titleLarge
+                    "Menu",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(16.dp)
                 )
 
-                NavigationDrawerItem(
-                    label = { Text("Cuentas") },
-                    selected = false,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        navController.navigate("cuentas")
-                    }
-                )
+                // Verificar que clientId y accountId no estén vacíos
+                if (clientId != -1) {
+                    DrawerItem("Accounts", navController, "accounts/$clientId", drawerState, scope)
+                } else {
+                    Log.e("HomeScreen", "clientId no válido")
+                }
 
-                NavigationDrawerItem(
-                    label = { Text("Tarjetas") },
-                    selected = false,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        navController.navigate("tarjetas")
-                    }
-                )
-
-                NavigationDrawerItem(
-                    label = { Text("Préstamos") },
-                    selected = false,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        navController.navigate("prestamos")
-                    }
-                )
+                DrawerItem("Cards", navController, "cards/$clientId", drawerState, scope)
+                DrawerItem("Loans", navController, "loans/$clientId", drawerState, scope)
+                DrawerItem("Movements", navController, "movements/$clientId", drawerState, scope)
+                DrawerItem("Payments", navController, "payments/$clientId", drawerState, scope)
             }
         }
     ) {
@@ -70,27 +59,52 @@ fun HomeScreen(navController: NavController, user: User) {
                         IconButton(onClick = {
                             scope.launch { drawerState.open() }
                         }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menú")
+                            Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     }
                 )
             }
         ) { padding ->
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
-                    .padding(32.dp)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(padding),
+                contentAlignment = Alignment.Center
             ) {
-                Text("Welcome, ${user.username}", style = MaterialTheme.typography.headlineSmall)
-                Spacer(modifier = Modifier.height(45.dp))
-                Text("Address: ${user.address}", style = MaterialTheme.typography.bodyLarge)
-                Spacer(modifier = Modifier.height(45.dp))
-                Text("Phone number: ${user.phone}", style = MaterialTheme.typography.bodyLarge)
+                Text("Bienvenido, $username", style = MaterialTheme.typography.headlineSmall)
             }
         }
     }
 }
+
+
+@Composable
+fun DrawerItem(
+    title: String,
+    navController: NavHostController,
+    route: String,
+    drawerState: DrawerState,
+    scope: CoroutineScope
+) {
+    NavigationDrawerItem(
+        label = { Text(title) },
+        selected = false,
+        onClick = {
+            scope.launch { drawerState.close() }
+            navController.navigate(route)
+        },
+        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+    )
+}
+
+@Composable
+fun SimpleScreen(title: String) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("$title screen coming soon", style = MaterialTheme.typography.titleMedium)
+    }
+}
+
+
